@@ -12,7 +12,7 @@
 
 ### Установка и запуск
 ```bash
-git clone https://github.com/lanovich/carwash-project-frontend.git
+git clone git@github.com:lanovich/carwash-project-frontend.git
 npm install
 npm run dev
 ```
