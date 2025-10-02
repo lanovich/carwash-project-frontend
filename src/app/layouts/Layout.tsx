@@ -1,14 +1,9 @@
 import { Outlet } from "react-router-dom";
-import { cn } from "@/shared/lib";
 import { Header } from "@/widgets/header/ui";
 
-type Props = {
-  className?: string;
-};
-
-export function Layout({ className }: Props) {
+export function Layout() {
   return (
-    <div className={cn(className, "")}>
+    <div>
       <Header />
       <div>
         <Outlet />
