@@ -54,42 +54,40 @@
   --radius-lg: 10px;
   --radius-xl: 12px;
 
-
   /* headings */
 
-  --text-h1: 2rem;
-  --text-h1-line-height: calc(2rem * 1.4);
+  --text-h1: clamp(1.5rem, 5vw, 1.625rem);
+  --text-h1-line-height: calc(var(--text-h1) * 1.4);
   --text-h1-letter-spacing: 0.125rem;
   --text-h1-font-weight: 500;
   --text-h1-font-family: "Manrope";
 
-  --text-h2: 1.5rem;
-  --text-h2-line-height: calc(1.5rem * 1.4);
+  --text-h2: clamp(1rem, 4vw, 1.5rem);
+  --text-h2-line-height: calc(var(--text-h2) * 1.4);
   --text-h2-letter-spacing: 0.125rem;
   --text-h2-font-weight: 400;
   --text-h2-font-family: "Manrope";
 
-  --text-h3: 1.25rem;
-  --text-h3-line-height: calc(1.25rem * 1.2);
+  --text-h3: clamp(0.875rem, 3vw, 1.25rem);
+  --text-h3-line-height: calc(var(--text-h3) * 1.2);
   --text-h3-letter-spacing: 0.125rem;
   --text-h3-font-weight: 400;
   --text-h3-font-family: "Manrope";
 
   /* regular text sizes */
-
-  --text-regular: 1rem;
+  --text-regular: clamp(0.875rem, 2.5vw, 1rem);
   --text-regular-line-height: calc(var(--text-regular) * 1.1);
   --text-regular-letter-spacing: 0.125rem;
   --text-regular-font-weight: 400;
   --text-regular-font-family: "Roboto";
 
-  --text-small: 0.875rem;
+  --text-small: clamp(0.75rem, 2vw, 0.875rem);
   --text-small-line-height: calc(var(--text-small) * 1.1);
   --text-small-letter-spacing: 0.125rem;
   --text-small-font-weight: 400;
   --text-small-font-family: "Roboto";
 
-  --text-caption: 0.75rem;
+  --text-caption: clamp(0.625rem, 1.5vw, 0.75rem);
   --text-caption-line-height: calc(var(--text-caption) * 1.2);
   --text-caption-letter-spacing: 0.125rem;
   --text-caption-font-weight: 400;
@@ -97,7 +95,7 @@
 }
 
 :root {
-  background-color: var(--color-bg-dark);
+  background-color: var(--color-black);
 }
 
 h1 {
