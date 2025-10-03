@@ -25,6 +25,7 @@
   --color-primary: #b22930;
   --color-primary-active: #7a1a1f;
   --color-primary-hover: #8f1f25;
+  --color-primary-light-hover: #F2DADA;
   --color-primary-disabled: #b17578;
 
   --color-secondary: #2e7d77;
@@ -96,6 +97,7 @@
 
 :root {
   background-color: var(--color-black);
+  color: var(--color-black);
 }
 
 h1 {
