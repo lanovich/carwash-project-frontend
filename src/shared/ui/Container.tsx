@@ -5,18 +5,9 @@ interface ContainerProps {
   children?: React.ReactNode;
 }
 
-export const Container = ({
-  className,
-
-  children,
-}: ContainerProps) => {
+export const Container = ({ className, children }: ContainerProps) => {
   return (
-    <div
-      className={cn(
-        "flex flex-col justify-end items-center w-full mx-auto gap-6 p-6",
-        className
-      )}
-    >
+    <div className={cn("w-full mx-auto max-w-[1320px] p-6", className)}>
       {children}
     </div>
   );
