@@ -22,9 +22,15 @@ const buttonVariants = cva(
           disabled:bg-secondary-disabled
         `,
         ghost: `
-          bg-transparent border border-primary text-text-subtle
+          bg-transparent border border-primary text-black
           hover:bg-text-subtle/10
           active:bg-text-subtle/20
+          disabled:opacity-50
+        `,
+        primaryGhost: `
+          bg-transparent border border-primary text-primary
+          hover:bg-primary-light-hover
+          active:bg-primary-light-hover/70
           disabled:opacity-50
         `,
       },
