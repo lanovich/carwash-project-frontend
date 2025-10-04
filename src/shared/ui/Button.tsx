@@ -36,6 +36,7 @@ const buttonVariants = cva(
       },
       size: {
         default: "px-5 py-3 text-regular",
+        xs: "px-5 py-2 text-sm",
         sm: "px-5 py-2 text-small",
         lg: "px-6 py-5 text-lg",
       },
@@ -63,7 +64,7 @@ interface ButtonProps
 export const Button = ({
   className,
   variant,
-  size,
+  size = "sm",
   icon,
   iconPosition = "left",
   asChild = false,
