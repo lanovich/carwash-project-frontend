@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import { TimeCard } from ".";
-import "keen-slider/keen-slider.min.css";
 
 const weekDays = [
   "Воскресенье",
@@ -45,7 +44,7 @@ const baseTimeSlots = [
   "20:00",
 ];
 
-export const ChooseTimeBlock = ({ className }: { className?: string }) => {
+export const ChooseTimeBlock = () => {
   const dates = useMemo(() => generateDates(4), []);
   const timeSlots = useMemo(
     () => baseTimeSlots.map((time, i) => ({ id: `t-${i}`, time })).slice(0,6),
@@ -53,7 +52,7 @@ export const ChooseTimeBlock = ({ className }: { className?: string }) => {
   );
 
   return (
-    <div className={className}>
+    <div>
       <div className={"flex gap-2 text-nowrap overflow-x-auto"}>
         {dates.map(({ id, weekDay, date }) => (
           <TimeCard key={id} mainText={date} caption={weekDay} />

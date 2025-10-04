@@ -2,10 +2,6 @@ import { Button } from "@/shared/ui";
 import { CarTypeCard } from ".";
 import { Blocks, Bus, Car, CarFront } from "lucide-react";
 
-interface Props {
-  className?: string;
-}
-
 export const OBJECT_TYPES = {
   sedan: {
     caption: "Легковой / Мотоцикл",
@@ -25,9 +21,9 @@ export const OBJECT_TYPES = {
   },
 } as const;
 
-export const ChooseCarTypeBlock = ({ className }: Props) => {
+export const ChooseCarTypeBlock = () => {
   return (
-    <div className={className}>
+    <div>
       <div className="flex gap-2 items-stretch flex-wrap">
         {Object.entries(OBJECT_TYPES).map(([type, { caption, icon }]) => (
           <CarTypeCard key={type} caption={caption} icon={icon} />
