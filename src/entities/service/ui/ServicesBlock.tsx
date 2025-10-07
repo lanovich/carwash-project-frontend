@@ -1,19 +1,32 @@
 import { Tabs } from "@/shared/ui";
 import { useState } from "react";
 import { ServiceCard } from "./ServiceCard";
-import { mockServices } from "@/shared/lib";
+import { cn, mockServices } from "@/shared/lib";
+import { LayoutGrid, StretchHorizontal } from "lucide-react";
+import type { ReactElement } from "react";
+import { HorizontalServiceCard } from "./HorizontalServiceCard";
 
-const tabItems = [
+const categories = [
   { name: "Салон", value: "salon" },
   { name: "Кузов", value: "body" },
   { name: "Химчистка", value: "dryclean" },
-];
+] as const;
+
+type CategoryValue = (typeof categories)[number]["value"];
+
+const viewVariants = [
+  { icon: <StretchHorizontal size={16} />, value: "row" },
+  { icon: <LayoutGrid size={16} />, value: "card" },
+] as const;
+
+type ViewVariant = (typeof viewVariants)[number]["value"];
 
 export const ServicesBlock = () => {
   const selectedCarType = "crossover";
-  const [selectedCategory, setSelectedCategory] = useState<string>(
-    tabItems[0].value
-  );
+
+  const [selectedCategory, setSelectedCategory] =
+    useState<CategoryValue>("body");
+  const [selectedView, setSelectedView] = useState<ViewVariant>("card");
 
   const filteredServices = mockServices.filter(
     (service) => service.category === selectedCategory
@@ -21,21 +34,48 @@ export const ServicesBlock = () => {
 
   return (
     <div className="flex flex-col gap-3 w-full">
-      <Tabs
-        tabs={tabItems}
-        selectedTab={selectedCategory}
-        onChange={setSelectedCategory}
-      />
+      <div className="flex flex-col sm:flex-row gap-1 sm:justify-between">
+        <Tabs
+          tabs={categories}
+          selectedTab={selectedCategory}
+          onChange={(val: CategoryValue) => setSelectedCategory(val)}
+        />
+        <Tabs
+          tabs={viewVariants.map(({ icon, value }) => ({
+            icon: icon as ReactElement,
+            value,
+          }))}
+          selectedTab={selectedView}
+          onChange={(val: ViewVariant) => setSelectedView(val)}
+        />
+      </div>
 
-      <div className="flex flex-col gap-2">
-        {filteredServices.map((service) => (
-          <ServiceCard
-            service={service}
-            selectedCarType={selectedCarType}
-            size="sm"
-            canOrder
-          />
-        ))}
+      <div
+        className={cn(
+          "gap-1",
+          selectedView === "card"
+            ? "grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4"
+            : "flex flex-col"
+        )}
+      >
+        {filteredServices.map((service) =>
+          selectedView === "card" ? (
+            <ServiceCard
+              key={service.id}
+              service={service}
+              selectedCarType={selectedCarType}
+              canOrder
+            />
+          ) : (
+            <HorizontalServiceCard
+              key={service.id}
+              service={service}
+              selectedCarType={selectedCarType}
+              size="sm"
+              canOrder
+            />
+          )
+        )}
       </div>
     </div>
   );
