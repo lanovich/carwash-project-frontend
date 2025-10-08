@@ -1,5 +1,12 @@
 import { useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { TimeCard } from ".";
+import {
+  setDate,
+  setTime,
+  selectDate,
+  selectTime,
+} from "@/entities/booking/model";
 
 const weekDays = [
   "Воскресенье",
@@ -45,23 +52,38 @@ const baseTimeSlots = [
 ];
 
 export const ChooseTimeBlock = () => {
+  const dispatch = useDispatch();
+  const selectedDate = useSelector(selectDate);
+  const selectedTime = useSelector(selectTime);
+
   const dates = useMemo(() => generateDates(4), []);
   const timeSlots = useMemo(
-    () => baseTimeSlots.map((time, i) => ({ id: `t-${i}`, time })).slice(0,6),
+    () => baseTimeSlots.map((time, i) => ({ id: `t-${i}`, time })).slice(0, 6),
     []
   );
 
   return (
     <div>
-      <div className={"flex gap-2 text-nowrap overflow-x-auto"}>
+      <div className="flex gap-2 text-nowrap overflow-x-auto pb-1">
         {dates.map(({ id, weekDay, date }) => (
-          <TimeCard key={id} mainText={date} caption={weekDay} />
+          <TimeCard
+            key={id}
+            mainText={date}
+            caption={weekDay}
+            active={selectedDate === date}
+            onClick={() => dispatch(setDate(date))}
+          />
         ))}
       </div>
 
-      <div className="flex gap-2 text-nowrap mt-2 overflow-x-auto">
+      <div className="flex gap-2 text-nowrap mt-2 overflow-x-auto pb-1">
         {timeSlots.map(({ id, time }) => (
-          <TimeCard key={id} mainText={time} />
+          <TimeCard
+            key={id}
+            mainText={time}
+            active={selectedTime === time}
+            onClick={() => dispatch(setTime(time))}
+          />
         ))}
       </div>
     </div>

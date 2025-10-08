@@ -1,39 +1,28 @@
 import { BookingRow, InfoBlock } from "@/entities/booking/ui";
 import { Button } from "@/shared/ui";
+import { useSelector } from "react-redux";
+import {
+  selectDate,
+  selectSelectedServices,
+  selectSummary,
+  selectTime,
+} from "../model";
+import { useMemo } from "react";
 
 const bookingData = {
   address: {
     full: "Анапский район, станица Гостагаевская, ул Комсомольская 15а",
   },
-  date: {
-    label: "22 сентября 2025",
-    time: "9:00",
-  },
-  car: {
-    type: "КРОССОВЕР",
-    color: "белый",
-    model: "Kia rio",
-    number: "A205BG | 193",
-  },
-  contact: {
-    phone: "+7 (918) 152 50 41",
-    name: "Роман Николаевич",
-    email: "romangege32@gmail.com",
-  },
-  services: [
-    { title: "Отбивка (с пеной без протирки)", price: 600, duration: 30 },
-    { title: "чистка багажника", price: 200, duration: 10 },
-    { title: "чистка багажника", price: 200, duration: 10 },
-    { title: "чистка багажника", price: 200, duration: 10 },
-  ],
-  total: {
-    duration: 60,
-    price: 1200,
-  },
 };
 
 export const BookingSummary = () => {
-  const { address, date, car, contact, services, total } = bookingData;
+  const { address } = bookingData;
+  const services = useSelector(selectSelectedServices);
+  const { totalPrice, totalDuration } = useSelector(selectSummary);
+  const date = useSelector(selectDate);
+  const time = useSelector(selectTime);
+
+  const iterableServices = useMemo(() => Object.entries(services), [services]);
 
   return (
     <div className="flex flex-col gap-4 w-full">
@@ -42,41 +31,25 @@ export const BookingSummary = () => {
       </InfoBlock>
 
       <InfoBlock heading="Дата и время">
-        <BookingRow name="Дата" value={date.label} />
-        <BookingRow name="Время" value={date.time} />
+        <BookingRow name="Дата" value={date || ""} />
+        <BookingRow name="Время" value={time || ""} />
       </InfoBlock>
-      {/* 
-      <InfoBlock heading="Автомобиль">
-        <BookingRow name="Тип" value={car.type} />
-        <BookingRow name="Модель и цвет" value={`${car.model} (${car.color})`} />
-        <BookingRow name="Номер" value={car.number} />
-      </InfoBlock>
-
-      <InfoBlock heading="Контактные данные">
-        <BookingRow name="Имя" value={contact.name} />
-        <BookingRow name="Телефон" value={contact.phone} />
-        <BookingRow name="Email" value={contact.email} />
-      </InfoBlock> */}
 
       <InfoBlock heading="Услуги">
-        {services.map((service, index) => (
+        {iterableServices.map(([_, service], index) => (
           <BookingRow
             key={index}
             name={service.title}
-            value={`${service.price} ₽ | ${service.duration} мин`}
+            value={`${service.price} ₽ ${
+              service.duration ? `| ${service.duration} мин` : ""
+            }`}
           />
         ))}
       </InfoBlock>
 
       <InfoBlock heading="Итого">
-        <BookingRow size="lg" name="≈Время" value={`${total.duration} мин`} />
-        <BookingRow
-          size="lg"
-          name="Цена"
-          value={`${services.map((service) => service.price).join(" + ")} = ${
-            total.price
-          } ₽`}
-        />
+        <BookingRow size="lg" name="≈Время" value={`${totalDuration} мин`} />
+        <BookingRow size="lg" name="Цена" value={`${totalPrice} ₽`} />
       </InfoBlock>
 
       <Button className="text-white">Подтвердить и записаться</Button>

@@ -1,19 +1,22 @@
+import { ObjectType } from "@/entities/booking/model";
+
 export interface Service {
   id: string;
   title: string;
-  short_description: string;
-  long_description?: string;
-  category: "salon" | "body" | "dryclean";
-  duration_minutes?: number;
+  shortDescription: string;
+  longDescription?: string;
+  category: "salon" | "body" | "dryclean" | "special";
   popular?: boolean;
-  result_descriptions?: string[];
+  resultDescriptions?: string[];
   tags?: string[];
-  prices: {
-    sedan: number;
-    crossover: number;
-    minivan: number;
-    carpet: number;
-  };
-  main_image?: string;
-  additional_images?: string[];
+
+  prices: Partial<Record<ObjectType, number>>;
+  duration: Partial<Record<ObjectType, number>>;
+
+  objectTypes: ObjectType[];
+  mainImage?: string;
+  additionalImages?: string[];
+
+  subServiceIds?: string[];
+  parentServiceId?: string | null;
 }
