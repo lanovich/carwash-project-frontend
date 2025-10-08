@@ -1,17 +1,28 @@
 import { CardWrapper } from "@/shared/ui";
+import { cn } from "@/shared/lib";
 
 interface Props {
   caption: string;
   icon?: React.ReactNode;
+  active?: boolean;
+  onClick?: () => void;
 }
 
-export const CarTypeCard = ({ icon, caption }: Props) => {
+export const CarTypeCard = ({
+  icon,
+  caption,
+  active = false,
+  onClick,
+}: Props) => {
   return (
-    <CardWrapper align={"center"} className="min-w-[140px] flex-1 w-full">
+    <CardWrapper
+      align="center"
+      active={active}
+      onClick={onClick}
+      className="cursor-pointer flex-1"
+    >
       {icon}
-      <p className="text-center text-nowrap text-small text-text-subtle select-none">
-        {caption}
-      </p>
+      <p className="text-sm text-center mt-1">{caption}</p>
     </CardWrapper>
   );
 };

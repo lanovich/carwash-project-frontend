@@ -1,31 +1,44 @@
 import { Service } from "@/entities/service/model";
 import { cn } from "@/shared/lib";
 import { Checkbox } from "@/shared/ui";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  ObjectType,
+  selectSelectedServiceIds,
+  toggleService,
+} from "@/entities/booking/model";
 
 interface Props {
   service: Service;
-  selectedCarType: "sedan" | "crossover" | "minivan" | "carpet";
+  selectedObjectType: ObjectType;
   size: "sm" | "md";
   canOrder?: boolean;
 }
 
 export const HorizontalServiceCard = ({
   service,
-  selectedCarType,
+  selectedObjectType,
   size = "sm",
   canOrder = false,
 }: Props) => {
+  const dispatch = useDispatch();
+  const selectedServices = useSelector(selectSelectedServiceIds);
+  const checked = selectedServices.includes(service.id);
+
+  const handleToggle = () => {
+    dispatch(toggleService(service.id));
+  };
+
   const isSM = size === "sm";
-  const [checked, setChecked] = useState(false);
 
   return (
     <div
       id={service.id}
       className={cn(
-        "flex items-center w-full bg-white rounded-lg shadow-lg border-primary",
+        "flex items-center w-full bg-white rounded-lg shadow-lg border-primary hover:bg-primary-light-hover cursor-pointer",
         isSM ? "p-1.5 gap-1 border" : "p-2 gap-2 min-h-[110px] border-2"
       )}
+      onClick={canOrder ? handleToggle : undefined}
     >
       <div
         className={cn(
@@ -36,7 +49,7 @@ export const HorizontalServiceCard = ({
         )}
       >
         <img
-          src={service.main_image || "/logo.svg"}
+          src={service.mainImage || "/logo.svg"}
           alt={service.title}
           loading="lazy"
           className="absolute inset-0 w-full h-full object-cover object-center"
@@ -54,7 +67,7 @@ export const HorizontalServiceCard = ({
         </p>
 
         <p className="text-caption text-text-subtle">
-          {service.short_description}
+          {service.shortDescription}
         </p>
 
         <div className="flex flex-wrap items-center gap-1 mt-1">
@@ -76,8 +89,8 @@ export const HorizontalServiceCard = ({
       </div>
 
       <div className="flex flex-col items-end justify-between min-h-[64px] sm:min-h-[72px]">
-        <div className="text-h3">{service.prices[selectedCarType]} ₽</div>
-        {canOrder && <Checkbox checked={checked} onChange={setChecked} />}
+        <div className="text-h3">{service.prices[selectedObjectType]} ₽</div>
+        {canOrder && <Checkbox checked={checked} onChange={handleToggle} />}
       </div>
     </div>
   );

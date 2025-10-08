@@ -1,18 +1,13 @@
 import { Tabs } from "@/shared/ui";
-import { useState } from "react";
+import { useState, useEffect, type ReactElement } from "react";
 import { ServiceCard } from "./ServiceCard";
-import { cn, mockServices } from "@/shared/lib";
-import { LayoutGrid, StretchHorizontal } from "lucide-react";
-import type { ReactElement } from "react";
 import { HorizontalServiceCard } from "./HorizontalServiceCard";
-
-const categories = [
-  { name: "Салон", value: "salon" },
-  { name: "Кузов", value: "body" },
-  { name: "Химчистка", value: "dryclean" },
-] as const;
-
-type CategoryValue = (typeof categories)[number]["value"];
+import { cn } from "@/shared/lib";
+import { LayoutGrid, StretchHorizontal } from "lucide-react";
+import { useSelector } from "react-redux";
+import { CATEGORY_GROUPS, mockServices } from "../model";
+import { selectObjectType } from "@/entities/booking/model";
+import type { Service } from "@/entities/service/model";
 
 const viewVariants = [
   { icon: <StretchHorizontal size={16} />, value: "row" },
@@ -22,23 +17,53 @@ const viewVariants = [
 type ViewVariant = (typeof viewVariants)[number]["value"];
 
 export const ServicesBlock = () => {
-  const selectedCarType = "crossover";
+  const selectedObjectType = useSelector(selectObjectType);
 
   const [selectedCategory, setSelectedCategory] =
-    useState<CategoryValue>("body");
-  const [selectedView, setSelectedView] = useState<ViewVariant>("card");
+    useState<Service["category"]>("body");
+  const [selectedView, setSelectedView] = useState<ViewVariant>("row");
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (selectedObjectType) {
+      requestAnimationFrame(() => setVisible(true));
+    } else {
+      setVisible(false);
+    }
+  }, [selectedObjectType]);
+
+  const categories = selectedObjectType
+    ? CATEGORY_GROUPS[selectedObjectType]
+    : [];
+
+  useEffect(() => {
+    if (
+      selectedObjectType &&
+      !categories.find((c) => c.value === selectedCategory)
+    ) {
+      setSelectedCategory(categories[0]?.value || "body");
+    }
+  }, [selectedObjectType]);
+
+  if (!selectedObjectType) {
+    return (
+      <div className="flex items-center justify-center h-[180px] text-center text-text-subtle">
+        <p>Выберите тип объекта, чтобы увидеть доступные услуги</p>
+      </div>
+    );
+  }
 
   const filteredServices = mockServices.filter(
     (service) => service.category === selectedCategory
   );
 
   return (
-    <div className="flex flex-col gap-3 w-full">
+    <div className={cn("flex flex-col gap-3 w-full", visible && "fade-in")}>
       <div className="flex flex-col sm:flex-row gap-1 sm:justify-between">
         <Tabs
           tabs={categories}
           selectedTab={selectedCategory}
-          onChange={(val: CategoryValue) => setSelectedCategory(val)}
+          onChange={(val: Service["category"]) => setSelectedCategory(val)}
         />
         <Tabs
           tabs={viewVariants.map(({ icon, value }) => ({
@@ -63,14 +88,14 @@ export const ServicesBlock = () => {
             <ServiceCard
               key={service.id}
               service={service}
-              selectedCarType={selectedCarType}
+              selectedObjectType={selectedObjectType}
               canOrder
             />
           ) : (
             <HorizontalServiceCard
               key={service.id}
               service={service}
-              selectedCarType={selectedCarType}
+              selectedObjectType={selectedObjectType}
               size="sm"
               canOrder
             />
