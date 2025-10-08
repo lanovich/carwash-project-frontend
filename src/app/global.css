@@ -25,7 +25,7 @@
   --color-primary: #b22930;
   --color-primary-active: #7a1a1f;
   --color-primary-hover: #8f1f25;
-  --color-primary-light-hover: #F2DADA;
+  --color-primary-light-hover: #f2dada;
   --color-primary-disabled: #b17578;
 
   --color-secondary: #2e7d77;
@@ -122,4 +122,17 @@ h3 {
   line-height: var(--text-h3-line-height);
   letter-spacing: var(--text-h3-letter-spacing);
   font-weight: var(--text-h3-font-weight);
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(-8px);
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
