@@ -1,5 +1,4 @@
 import { CardWrapper } from "@/shared/ui";
-import { cn } from "@/shared/lib";
 
 interface Props {
   caption: string;

@@ -39,13 +39,12 @@ export const mockServices: Service[] = [
       "Повышенная защита от загрязнений",
     ],
     tags: ["~30 мин"],
-    prices: { sedan: 450, crossover: 550, minivan: 650},
+    prices: { sedan: 450, crossover: 550, minivan: 650 },
     duration: { sedan: 30, crossover: 30, minivan: 30 },
     objectTypes: ["sedan", "crossover", "minivan"],
     mainImage: "",
     additionalImages: [],
     subServiceIds: ["salon_2", "salon_3"],
-    parentServiceId: null,
   },
   {
     id: "salon_2",
@@ -66,7 +65,6 @@ export const mockServices: Service[] = [
     mainImage: "",
     additionalImages: [],
     subServiceIds: [],
-    parentServiceId: null,
   },
   {
     id: "salon_3",
@@ -88,7 +86,6 @@ export const mockServices: Service[] = [
     mainImage: "",
     additionalImages: [],
     subServiceIds: [],
-    parentServiceId: null,
   },
   {
     id: "salon_4",
@@ -108,7 +105,6 @@ export const mockServices: Service[] = [
     mainImage: "",
     additionalImages: [],
     subServiceIds: [],
-    parentServiceId: null,
   },
   {
     id: "salon_5",
@@ -129,7 +125,6 @@ export const mockServices: Service[] = [
     mainImage: "",
     additionalImages: [],
     subServiceIds: [],
-    parentServiceId: null,
   },
   {
     id: "salon_6",
@@ -150,7 +145,6 @@ export const mockServices: Service[] = [
     mainImage: "",
     additionalImages: [],
     subServiceIds: [],
-    parentServiceId: null,
   },
   {
     id: "salon_7",
@@ -167,7 +161,6 @@ export const mockServices: Service[] = [
     mainImage: "",
     additionalImages: [],
     subServiceIds: [],
-    parentServiceId: null,
   },
 
   // ====== Кузов ======
@@ -191,7 +184,6 @@ export const mockServices: Service[] = [
     mainImage: "",
     additionalImages: [],
     subServiceIds: [],
-    parentServiceId: null,
   },
   {
     id: "body_2",
@@ -208,7 +200,6 @@ export const mockServices: Service[] = [
     mainImage: "",
     additionalImages: [],
     subServiceIds: [],
-    parentServiceId: null,
   },
   {
     id: "body_3",
@@ -228,7 +219,6 @@ export const mockServices: Service[] = [
     mainImage: "",
     additionalImages: [],
     subServiceIds: [],
-    parentServiceId: null,
   },
   {
     id: "body_4",
@@ -245,7 +235,6 @@ export const mockServices: Service[] = [
     mainImage: "",
     additionalImages: [],
     subServiceIds: [],
-    parentServiceId: null,
   },
   {
     id: "body_5",
@@ -265,7 +254,6 @@ export const mockServices: Service[] = [
     mainImage: "",
     additionalImages: [],
     subServiceIds: [],
-    parentServiceId: null,
   },
   {
     id: "body_6",
@@ -282,7 +270,6 @@ export const mockServices: Service[] = [
     mainImage: "",
     additionalImages: [],
     subServiceIds: [],
-    parentServiceId: null,
   },
   {
     id: "body_7",
@@ -299,7 +286,6 @@ export const mockServices: Service[] = [
     mainImage: "",
     additionalImages: [],
     subServiceIds: [],
-    parentServiceId: null,
   },
   {
     id: "body_8",
@@ -316,7 +302,6 @@ export const mockServices: Service[] = [
     mainImage: "",
     additionalImages: [],
     subServiceIds: [],
-    parentServiceId: null,
   },
   {
     id: "body_9",
@@ -336,7 +321,6 @@ export const mockServices: Service[] = [
     mainImage: "",
     additionalImages: [],
     subServiceIds: [],
-    parentServiceId: null,
   },
   {
     id: "body_10",
@@ -356,7 +340,6 @@ export const mockServices: Service[] = [
     mainImage: "",
     additionalImages: [],
     subServiceIds: [],
-    parentServiceId: null,
   },
   {
     id: "body_11",
@@ -373,7 +356,6 @@ export const mockServices: Service[] = [
     mainImage: "",
     additionalImages: [],
     subServiceIds: [],
-    parentServiceId: null,
   },
 
   // ====== Химчистка ======
@@ -395,7 +377,6 @@ export const mockServices: Service[] = [
     mainImage: "",
     additionalImages: [],
     subServiceIds: [],
-    parentServiceId: null,
   },
   {
     id: "dryclean_2",
@@ -412,7 +393,6 @@ export const mockServices: Service[] = [
     mainImage: "",
     additionalImages: [],
     subServiceIds: [],
-    parentServiceId: null,
   },
   {
     id: "dryclean_3",
@@ -429,7 +409,6 @@ export const mockServices: Service[] = [
     mainImage: "",
     additionalImages: [],
     subServiceIds: [],
-    parentServiceId: null,
   },
   {
     id: "dryclean_4",
@@ -446,7 +425,6 @@ export const mockServices: Service[] = [
     mainImage: "",
     additionalImages: [],
     subServiceIds: [],
-    parentServiceId: null,
   },
   {
     id: "dryclean_5",
@@ -463,7 +441,6 @@ export const mockServices: Service[] = [
     mainImage: "",
     additionalImages: [],
     subServiceIds: [],
-    parentServiceId: null,
   },
   {
     id: "dryclean_6",
@@ -480,7 +457,6 @@ export const mockServices: Service[] = [
     mainImage: "",
     additionalImages: [],
     subServiceIds: [],
-    parentServiceId: null,
   },
   {
     id: "dryclean_7",
@@ -497,7 +473,6 @@ export const mockServices: Service[] = [
     mainImage: "",
     additionalImages: [],
     subServiceIds: [],
-    parentServiceId: null,
   },
   {
     id: "dryclean_8",
@@ -517,7 +492,6 @@ export const mockServices: Service[] = [
     mainImage: "",
     additionalImages: [],
     subServiceIds: [],
-    parentServiceId: null,
   },
 
   // ====== Специальные ======
@@ -536,6 +510,5 @@ export const mockServices: Service[] = [
     mainImage: "",
     additionalImages: [],
     subServiceIds: [],
-    parentServiceId: null,
   },
 ];

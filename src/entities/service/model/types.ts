@@ -18,5 +18,4 @@ export interface Service {
   additionalImages?: string[];
 
   subServiceIds?: string[];
-  parentServiceId?: string | null;
 }

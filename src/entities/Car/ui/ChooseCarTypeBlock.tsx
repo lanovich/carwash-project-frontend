@@ -4,9 +4,11 @@ import { Blocks, Bus, Car, CarFront } from "lucide-react";
 import {
   ObjectType,
   selectObjectType,
-  selectSelectedServiceIds,
+  selectSelectedServices,
   setObjectType,
 } from "@/entities/booking/model";
+import { ConfirmModal } from "@/features/modals/ui";
+import { useConfirmSwitch } from "@/features/modals/lib";
 
 export const OBJECT_TYPES: Record<
   ObjectType,
@@ -33,19 +35,24 @@ export const OBJECT_TYPES: Record<
 export const ChooseCarTypeBlock = () => {
   const dispatch = useDispatch();
   const selectedObjectType = useSelector(selectObjectType);
-  const selectedServices = useSelector(selectSelectedServiceIds);
+  const selectedServices = useSelector(selectSelectedServices);
 
-  const handleSelect = (type: ObjectType) => {
-    if (selectedObjectType === type) {
-      dispatch(setObjectType(null));
-      return;
-    }
-
-    dispatch(setObjectType(type));
-  };
+  const { isOpen, trigger, close } = useConfirmSwitch<ObjectType>({
+    shouldAsk: selectedServices.length > 0,
+    storageKey: "switch-confirm",
+    onConfirm: (type) => dispatch(setObjectType(type)),
+  });
 
   return (
     <div>
+      <ConfirmModal
+        isOpen={isOpen}
+        title="Изменение типа транспорта"
+        message="Выбранные услуги могут сброситься для нового вида транспорта."
+        dontAskAgainKey="switch-confirm"
+        onClose={close}
+      />
+
       <div className="flex gap-2 items-stretch flex-wrap">
         {Object.entries(OBJECT_TYPES).map(([type, { caption, icon }]) => {
           const isActive = selectedObjectType === type;
@@ -55,7 +62,7 @@ export const ChooseCarTypeBlock = () => {
               caption={caption}
               icon={icon}
               active={isActive}
-              onClick={() => handleSelect(type as ObjectType)}
+              onClick={() => trigger(type as ObjectType)}
             />
           );
         })}

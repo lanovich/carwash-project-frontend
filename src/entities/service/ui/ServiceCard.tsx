@@ -1,6 +1,7 @@
 import {
   ObjectType,
-  selectSelectedServiceIds,
+  selectIsServiceBlocked,
+  selectIsServiceSelected,
   toggleService,
 } from "@/entities/booking/model";
 import { Service } from "@/entities/service/model";
@@ -20,21 +21,28 @@ export const ServiceCard = ({
   canOrder = false,
 }: Props) => {
   const dispatch = useDispatch();
-  const selectedServiceIds = useSelector(selectSelectedServiceIds);
-  const checked = selectedServiceIds.includes(service.id);
+
+  const selected = useSelector(selectIsServiceSelected(service.id));
+  const blocked = useSelector(selectIsServiceBlocked(service.id));
 
   const handleToggle = () => {
-    selectedObjectType
-      ? dispatch(toggleService(service.id))
-      : alert("Выберите тип вашего авто");
+    if (blocked) return;
+    if (selectedObjectType) {
+      dispatch(toggleService(service));
+    } else {
+      alert("Выберите тип вашего авто");
+    }
   };
 
   return (
     <CardWrapper
       align="center"
-      onClick={canOrder ? handleToggle : undefined}
+      onClick={canOrder && !blocked ? handleToggle : undefined}
       className={cn(
-        "flex flex-col w-full min-w-[130px] h-[240px] p-2 gap-2 border-1 cursor-pointer"
+        "flex flex-col w-full min-w-[130px] h-[240px] p-2 gap-2 border-1 transition-opacity",
+        blocked
+          ? "opacity-50 cursor-not-allowed"
+          : "cursor-pointer hover:shadow-md"
       )}
     >
       <div className="relative w-full flex-1 rounded-md overflow-hidden">
@@ -44,6 +52,11 @@ export const ServiceCard = ({
           loading="lazy"
           className="absolute inset-0 w-full h-full object-cover object-center"
         />
+        {blocked && (
+          <div className="absolute inset-0 bg-black bg-opacity-25 flex items-center justify-center">
+            <span className="text-white text-sm font-medium">Включено</span>
+          </div>
+        )}
       </div>
 
       <div className="flex flex-col w-full">
@@ -56,9 +69,18 @@ export const ServiceCard = ({
       </div>
 
       <div className="flex items-end justify-between w-full">
-        <div className="text-h3">{service.prices[selectedObjectType]} ₽</div>
-        {canOrder && <Checkbox checked={checked} onChange={handleToggle} />}
+        <div className="text-h3">
+          {selectedObjectType ? service.prices[selectedObjectType] : "-"} ₽
+        </div>
+        {canOrder && (
+          <Checkbox
+            checked={selected}
+            onChange={handleToggle}
+            disabled={blocked}
+          />
+        )}
       </div>
     </CardWrapper>
   );
 };
+
