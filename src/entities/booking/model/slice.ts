@@ -1,12 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { BookingState, ObjectType } from "./types";
+import { Service } from "@/entities/service/model";
 
 const initialState: BookingState = {
   carwashId: null,
   date: null,
   time: null,
   objectType: null,
-  selectedServiceIds: [],
+  selectedServices: {},
+  blockedServices: {},
   user: {
     name: "",
     phone: "",
@@ -33,17 +35,54 @@ export const bookingSlice = createSlice({
     },
     setObjectType: (state, action: PayloadAction<ObjectType | null>) => {
       state.objectType = action.payload;
+
+      if (!action.payload) {
+        state.selectedServices = {};
+        return;
+      }
+
+      const toDelete: string[] = [];
+
+      for (const [id, service] of Object.entries(state.selectedServices)) {
+        if (
+          !Array.isArray(service.objectTypes) ||
+          !service.objectTypes.includes(action.payload)
+        ) {
+          toDelete.push(id);
+        }
+      }
+
+      for (const id of toDelete) {
+        delete state.selectedServices[id];
+      }
     },
-    toggleService: (state, action: PayloadAction<string>) => {
-      const id = action.payload;
-      const isSelected = state.selectedServiceIds.includes(id);
+
+    toggleService: (state, action: PayloadAction<Service>) => {
+      const service = action.payload;
+      const id = service.id;
+      const isSelected = !!state.selectedServices[id];
 
       if (isSelected) {
-        state.selectedServiceIds = state.selectedServiceIds.filter(
-          (s) => s !== id
-        );
-      } else {
-        state.selectedServiceIds.push(id);
+        if (state.selectedServices[id]) {
+          delete state.selectedServices[id];
+        }
+
+        if (service.subServiceIds) {
+          for (const subId of service.subServiceIds) {
+            delete state.blockedServices[subId];
+          }
+        }
+
+        return;
+      }
+
+      state.selectedServices[id] = service;
+
+      if (service.subServiceIds) {
+        for (const subId of service.subServiceIds) {
+          delete state.selectedServices[subId];
+          state.blockedServices[subId] = true;
+        }
       }
     },
 

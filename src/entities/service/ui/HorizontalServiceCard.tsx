@@ -4,7 +4,8 @@ import { Checkbox } from "@/shared/ui";
 import { useDispatch, useSelector } from "react-redux";
 import {
   ObjectType,
-  selectSelectedServiceIds,
+  selectIsServiceBlocked,
+  selectIsServiceSelected,
   toggleService,
 } from "@/entities/booking/model";
 
@@ -22,11 +23,16 @@ export const HorizontalServiceCard = ({
   canOrder = false,
 }: Props) => {
   const dispatch = useDispatch();
-  const selectedServices = useSelector(selectSelectedServiceIds);
-  const checked = selectedServices.includes(service.id);
+  const selected = useSelector(selectIsServiceSelected(service.id));
+  const blocked = useSelector(selectIsServiceBlocked(service.id));
 
   const handleToggle = () => {
-    dispatch(toggleService(service.id));
+    if (blocked) return;
+    if (selectedObjectType) {
+      dispatch(toggleService(service));
+    } else {
+      alert("Выберите тип вашего авто");
+    }
   };
 
   const isSM = size === "sm";
@@ -34,11 +40,14 @@ export const HorizontalServiceCard = ({
   return (
     <div
       id={service.id}
+      onClick={canOrder && !blocked ? handleToggle : undefined}
       className={cn(
-        "flex items-center w-full bg-white rounded-lg shadow-lg border-primary hover:bg-primary-light-hover cursor-pointer",
-        isSM ? "p-1.5 gap-1 border" : "p-2 gap-2 min-h-[110px] border-2"
+        "flex items-center w-full bg-white rounded-lg shadow-lg border-primary transition-opacity duration-200",
+        isSM ? "p-1.5 gap-1 border" : "p-2 gap-2 min-h-[110px] border-2",
+        blocked
+          ? "opacity-50 cursor-not-allowed hover:bg-white"
+          : "cursor-pointer hover:bg-primary-light-hover"
       )}
-      onClick={canOrder ? handleToggle : undefined}
     >
       <div
         className={cn(
@@ -54,6 +63,11 @@ export const HorizontalServiceCard = ({
           loading="lazy"
           className="absolute inset-0 w-full h-full object-cover object-center"
         />
+        {blocked && (
+          <div className="absolute inset-0 bg-black bg-opacity-25 flex items-center justify-center rounded-md">
+            <span className="text-white text-sm font-medium">Включено</span>
+          </div>
+        )}
       </div>
 
       <div
@@ -89,8 +103,16 @@ export const HorizontalServiceCard = ({
       </div>
 
       <div className="flex flex-col items-end justify-between min-h-[64px] sm:min-h-[72px]">
-        <div className="text-h3">{service.prices[selectedObjectType]} ₽</div>
-        {canOrder && <Checkbox checked={checked} onChange={handleToggle} />}
+        <div className="text-h3">
+          {selectedObjectType ? service.prices[selectedObjectType] : "-"} ₽
+        </div>
+        {canOrder && (
+          <Checkbox
+            checked={selected}
+            onChange={handleToggle}
+            disabled={blocked}
+          />
+        )}
       </div>
     </div>
   );

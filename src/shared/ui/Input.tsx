@@ -84,6 +84,7 @@ type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> &
   VariantProps<typeof inputContainerVariants> & {
     icon?: React.ReactNode;
     withLeftArea?: boolean;
+    mask?: string;
   };
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -93,6 +94,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       size,
       variant,
       fullWidth,
+      mask,
       withLeftArea = false,
       icon,
       readOnly,

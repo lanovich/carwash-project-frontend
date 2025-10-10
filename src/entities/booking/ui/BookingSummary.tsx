@@ -7,7 +7,6 @@ import {
   selectSummary,
   selectTime,
 } from "../model";
-import { useMemo } from "react";
 
 const bookingData = {
   address: {
@@ -22,7 +21,7 @@ export const BookingSummary = () => {
   const date = useSelector(selectDate);
   const time = useSelector(selectTime);
 
-  const iterableServices = useMemo(() => Object.entries(services), [services]);
+  console.log(services);
 
   return (
     <div className="flex flex-col gap-4 w-full">
@@ -36,9 +35,9 @@ export const BookingSummary = () => {
       </InfoBlock>
 
       <InfoBlock heading="Услуги">
-        {iterableServices.map(([_, service], index) => (
+        {services.map((service) => (
           <BookingRow
-            key={index}
+            key={service.id}
             name={service.title}
             value={`${service.price} ₽ ${
               service.duration ? `| ${service.duration} мин` : ""
