@@ -6,3 +6,4 @@ export * from "./Tabs";
 export * from "./Checkbox";
 export * from "./Input";
 export * from "./FormField";
+export * from "./Modal";
