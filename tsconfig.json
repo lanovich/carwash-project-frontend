@@ -15,9 +15,14 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
+    "typeRoots": [
+      "./node_modules/@types",
+      "./node_modules/@yandex/ymaps3-types"
+    ],
     "paths": {
       "@/*": ["./src/*"],
-      "@X/entities/*": ["./src/entities/*"]
+      "@X/entities/*": ["./src/entities/*"],
+      "ymaps3": ["./node_modules/@yandex/ymaps3-types"]
     }
   },
   "include": ["src", "vite.config.ts"],
