@@ -24,7 +24,7 @@ export const Tabs = <Value extends string>({
   return (
     <div
       className={cn(
-        "flex gap-1 justify-between xs:justify-start lg:gap-2 h-10 overflow-x-auto",
+        "flex gap-1 lg:gap-2 h-10 overflow-x-auto",
         className
       )}
     >

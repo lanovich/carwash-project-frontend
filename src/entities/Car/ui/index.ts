@@ -1,2 +1,2 @@
 export * from "./CarTypeCard";
-export * from "./ChooseCarTypeBlock";
+export * from "./ChooseObjectTypeBlock";
