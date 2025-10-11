@@ -1,3 +1,4 @@
+import { CARWASH_INFO } from "@/entities/carwash/model";
 import { Button } from "@/shared/ui";
 import { Menu, Phone, User } from "lucide-react";
 
@@ -5,7 +6,7 @@ export const HeaderButtons = () => (
   <div className="flex items-center gap-2 sm:gap-3">
     <div className="flex 2xl:hidden gap-2 items-center">
       <div className="hidden sm:block md:hidden 2xl:hidden text-regular">
-        +7 (918) 152 50 41
+        {CARWASH_INFO.phone}
       </div>
       <Button
         variant="ghost"

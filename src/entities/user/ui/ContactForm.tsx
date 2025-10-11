@@ -3,7 +3,7 @@ import { Phone, User, Mail, Car, Palette, BadgeInfo, Hash } from "lucide-react";
 import { useSelector } from "react-redux";
 import { FormField } from "@/shared/ui";
 import { selectObjectType } from "@/entities/booking/model";
-import { OBJECT_TYPES } from "@/entities/car/ui";
+import { OBJECT_TYPES } from "@/entities/car/model";
 
 export const ContactForm = () => {
   const objectType = useSelector(selectObjectType);
@@ -33,7 +33,7 @@ export const ContactForm = () => {
           />
         </div>
       </div>
-      
+
       {objectType !== "special" && (
         <div className="flex flex-col gap-2 flex-1">
           <h3>Ваш автомобиль</h3>
@@ -45,7 +45,6 @@ export const ContactForm = () => {
               value={
                 objectType ? OBJECT_TYPES[objectType].caption.toUpperCase() : ""
               }
-              
             />
             <FormField
               name="carColor"

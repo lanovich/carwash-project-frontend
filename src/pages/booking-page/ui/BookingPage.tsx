@@ -1,5 +1,5 @@
 import { BookingSummary } from "@/entities/booking/ui";
-import { ChooseCarTypeBlock } from "@/entities/car/ui";
+import { ChooseObjectTypeBlock } from "@/entities/car/ui";
 import { BookingCarWashInfo } from "@/entities/carwash/ui";
 import { ServicesBlock } from "@/entities/service/ui";
 import { ChooseTimeBlock } from "@/entities/time/ui";
@@ -21,7 +21,7 @@ export const BookingPage = () => {
           </BookingSection>
 
           <BookingSection title="Что планируете у нас мыть?">
-            <ChooseCarTypeBlock />
+            <ChooseObjectTypeBlock />
           </BookingSection>
 
           <BookingSection title="Доступные услуги">
