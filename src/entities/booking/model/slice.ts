@@ -26,11 +26,11 @@ export const bookingSlice = createSlice({
     setCarwashId: (state, action: PayloadAction<string>) => {
       state.carwashId = action.payload;
     },
-    setDate: (state, action: PayloadAction<string>) => {
+    setDate: (state, action: PayloadAction<string | null>) => {
       state.date = action.payload;
       state.time = null;
     },
-    setTime: (state, action: PayloadAction<string>) => {
+    setTime: (state, action: PayloadAction<string | null>) => {
       state.time = action.payload;
     },
     setObjectType: (state, action: PayloadAction<ObjectType | null>) => {
@@ -38,6 +38,7 @@ export const bookingSlice = createSlice({
 
       if (!action.payload) {
         state.selectedServices = {};
+        state.blockedServices = {};
         return;
       }
 
@@ -54,6 +55,16 @@ export const bookingSlice = createSlice({
 
       for (const id of toDelete) {
         delete state.selectedServices[id];
+      }
+
+      for (const blockedId of Object.keys(state.blockedServices)) {
+        const isValid = Object.values(state.selectedServices).some((service) =>
+          service.subServiceIds?.includes(blockedId)
+        );
+
+        if (!isValid) {
+          delete state.blockedServices[blockedId];
+        }
       }
     },
 

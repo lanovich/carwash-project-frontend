@@ -65,6 +65,7 @@ export const mockServices: Service[] = [
     mainImage: "",
     additionalImages: [],
     subServiceIds: [],
+    parentServiceId: "salon_1"
   },
   {
     id: "salon_3",
@@ -86,6 +87,7 @@ export const mockServices: Service[] = [
     mainImage: "",
     additionalImages: [],
     subServiceIds: [],
+    parentServiceId: "salon_1"
   },
   {
     id: "salon_4",
@@ -376,7 +378,7 @@ export const mockServices: Service[] = [
     objectTypes: ["sedan", "crossover", "minivan"],
     mainImage: "",
     additionalImages: [],
-    subServiceIds: [],
+    subServiceIds: ["salon_1", "salon_2", "salon_3"],
   },
   {
     id: "dryclean_2",

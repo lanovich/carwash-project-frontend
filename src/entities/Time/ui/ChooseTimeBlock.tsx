@@ -16,10 +16,23 @@ const weekDays = [
   "Четверг",
   "Пятница",
   "Суббота",
-];
+] as const;
+
+type DateType = {
+  id: string;
+  weekDay:
+    | "Воскресенье"
+    | "Понедельник"
+    | "Вторник"
+    | "Среда"
+    | "Четверг"
+    | "Пятница"
+    | "Суббота";
+  date: string;
+};
 
 const generateDates = (count: number) => {
-  const result = [];
+  const result: DateType[] = [];
   const today = new Date();
 
   for (let i = 0; i < count; i++) {
@@ -49,7 +62,7 @@ const baseTimeSlots = [
   "18:00",
   "19:00",
   "20:00",
-];
+] as const;
 
 export const ChooseTimeBlock = () => {
   const dispatch = useDispatch();
@@ -58,7 +71,11 @@ export const ChooseTimeBlock = () => {
 
   const dates = useMemo(() => generateDates(4), []);
   const timeSlots = useMemo(
-    () => baseTimeSlots.map((time, i) => ({ id: `t-${i}`, time })).slice(0, 6),
+    () =>
+      baseTimeSlots.map((time, i) => ({
+        id: `t-${i}`,
+        time,
+      })),
     []
   );
 

@@ -7,15 +7,9 @@ import {
   selectSummary,
   selectTime,
 } from "../model";
-
-const bookingData = {
-  address: {
-    full: "Анапский район, станица Гостагаевская, ул Комсомольская 15а",
-  },
-};
+import { CARWASH_INFO } from "@/entities/carwash/model";
 
 export const BookingSummary = () => {
-  const { address } = bookingData;
   const services = useSelector(selectSelectedServices);
   const { totalPrice, totalDuration } = useSelector(selectSummary);
   const date = useSelector(selectDate);
@@ -26,7 +20,7 @@ export const BookingSummary = () => {
   return (
     <div className="flex flex-col gap-4 w-full">
       <InfoBlock heading="Адрес">
-        <BookingRow value={address.full} />
+        <BookingRow size="md" value={CARWASH_INFO.address.fullAddress} />
       </InfoBlock>
 
       <InfoBlock heading="Дата и время">

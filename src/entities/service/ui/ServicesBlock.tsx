@@ -61,11 +61,13 @@ export const ServicesBlock = () => {
     <div className={cn("flex flex-col gap-3 w-full", visible && "fade-in")}>
       <div className="flex flex-col sm:flex-row gap-1 sm:justify-between">
         <Tabs
+          className="justify-between xs:justify-start"
           tabs={categories}
           selectedTab={selectedCategory}
           onChange={(val: Service["category"]) => setSelectedCategory(val)}
         />
         <Tabs
+          className="justify-start "
           tabs={viewVariants.map(({ icon, value }) => ({
             icon: icon as ReactElement,
             value,
