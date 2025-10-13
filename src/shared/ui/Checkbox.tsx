@@ -2,7 +2,7 @@ import { cn } from "@/shared/lib";
 import { cva, type VariantProps } from "class-variance-authority";
 
 const checkboxVariants = cva(
-  "relative flex items-center justify-center border-2 rounded transition-colors duration-200 ease-in-out",
+  "relative flex items-center justify-center border-[1.5px] rounded transition-colors duration-200 ease-in-out",
   {
     variants: {
       size: {

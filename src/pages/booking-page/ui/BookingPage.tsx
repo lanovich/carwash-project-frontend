@@ -12,7 +12,7 @@ export const BookingPage = () => {
     <Container>
       <div className="flex flex-col xl:flex-row items-start gap-6 justify-center">
         <div className="flex flex-col gap-6 flex-1 w-full xl:w-3/5">
-          <BookingSection title="Мы на картах" className="h-[400px]">
+          <BookingSection title="Мы на картах" collapsible>
             <BookingCarWashInfo />
           </BookingSection>
 
@@ -24,7 +24,7 @@ export const BookingPage = () => {
             <ChooseObjectTypeBlock />
           </BookingSection>
 
-          <BookingSection title="Доступные услуги">
+          <BookingSection title="Доступные услуги" collapsible>
             <ServicesBlock />
           </BookingSection>
         </div>

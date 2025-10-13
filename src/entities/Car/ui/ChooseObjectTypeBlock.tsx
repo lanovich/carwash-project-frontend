@@ -17,7 +17,7 @@ export const ChooseObjectTypeBlock = () => {
   console.count("renderObjectTypeBlock");
 
   const { isOpen, trigger, close } = useConfirmSwitch<ObjectType>({
-    shouldAsk: true,
+    shouldAsk: !!currentObjectType,
     storageKey: "switch-confirm",
     onConfirm: (type) => dispatch(setObjectType(type)),
   });

@@ -7,3 +7,6 @@ export * from "./Checkbox";
 export * from "./Input";
 export * from "./FormField";
 export * from "./Modal";
+export * from "./Carousel";
+export * from "./Tag";
+export * from "./InfoBlock";

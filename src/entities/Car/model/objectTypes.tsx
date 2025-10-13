@@ -1,5 +1,8 @@
 import { ObjectType } from "@/entities/booking/model";
-import { Blocks, Bus, Car, CarFront } from "lucide-react";
+import { MinivanIcon } from "@/shared/icons";
+import { CrossoverIcon } from "@/shared/icons/CrossoverIcon";
+import { SedanIcon } from "@/shared/icons/SedanIcon";
+import { Blocks } from "lucide-react";
 
 export const OBJECT_TYPES: Record<
   ObjectType,
@@ -7,18 +10,18 @@ export const OBJECT_TYPES: Record<
 > = {
   sedan: {
     caption: "Легковой / Мотоцикл",
-    icon: <Car size={40} strokeWidth={1} />,
+    icon: <SedanIcon size={62} />,
   },
   crossover: {
     caption: "Кроссовер",
-    icon: <CarFront size={40} strokeWidth={1} />,
+    icon: <CrossoverIcon size={62} />,
   },
   minivan: {
     caption: "Минивен",
-    icon: <Bus size={40} strokeWidth={1} />,
+    icon: <MinivanIcon size={44} />,
   },
   special: {
-    caption: "Другое",
-    icon: <Blocks size={40} strokeWidth={1} />,
+    caption: "Специальные",
+    icon: <Blocks size={28} strokeWidth={1.5} />,
   },
 };
