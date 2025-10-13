@@ -7,6 +7,8 @@ import {
   selectDate,
   selectTime,
 } from "@/entities/booking/model";
+import { Carousel } from "@/shared/ui/Carousel";
+import { useItemsPerSlide } from "../lib";
 
 const weekDays = [
   "Воскресенье",
@@ -50,6 +52,7 @@ const generateDates = (count: number) => {
 };
 
 const baseTimeSlots = [
+  "8:00",
   "9:00",
   "10:00",
   "11:00",
@@ -61,7 +64,6 @@ const baseTimeSlots = [
   "17:00",
   "18:00",
   "19:00",
-  "20:00",
 ] as const;
 
 export const ChooseTimeBlock = () => {
@@ -69,7 +71,11 @@ export const ChooseTimeBlock = () => {
   const selectedDate = useSelector(selectDate);
   const selectedTime = useSelector(selectTime);
 
-  const dates = useMemo(() => generateDates(4), []);
+  const itemsPerSlide = useItemsPerSlide({
+    throttleInterval: 150,
+  });
+
+  const dates = useMemo(() => generateDates(28), []);
   const timeSlots = useMemo(
     () =>
       baseTimeSlots.map((time, i) => ({
@@ -81,28 +87,34 @@ export const ChooseTimeBlock = () => {
 
   return (
     <div>
-      <div className="flex gap-2 text-nowrap overflow-x-auto pb-1">
+      <Carousel className="text-nowrap pb-2" itemsPerSlide={itemsPerSlide}>
         {dates.map(({ id, weekDay, date }) => (
           <TimeCard
             key={id}
+            align="start"
             mainText={date}
             caption={weekDay}
             active={selectedDate === date}
             onClick={() => dispatch(setDate(date))}
           />
         ))}
-      </div>
+      </Carousel>
 
-      <div className="flex gap-2 text-nowrap mt-2 overflow-x-auto pb-1">
+      <Carousel
+        className="text-nowrap"
+        itemsPerSlide={itemsPerSlide > 2 ? itemsPerSlide + 2 : itemsPerSlide}
+      >
         {timeSlots.map(({ id, time }) => (
           <TimeCard
             key={id}
+            align="start"
+            caption="Время"
             mainText={time}
             active={selectedTime === time}
             onClick={() => dispatch(setTime(time))}
           />
         ))}
-      </div>
+      </Carousel>
     </div>
   );
 };

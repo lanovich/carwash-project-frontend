@@ -5,7 +5,7 @@ import { cn } from "@/shared/lib";
 const wrapperVariants = cva("flex items-center", {
   variants: {
     size: {
-      sm: "h-10",
+      sm: "h-8",
       md: "h-[40px]",
       lg: "h-14",
     },
@@ -20,12 +20,12 @@ const wrapperVariants = cva("flex items-center", {
   },
 });
 
-const leftAreaVariants = cva("flex items-center justify-center shrink-0", {
+const areaVariants = cva("flex items-center justify-center shrink-0", {
   variants: {
     size: {
-      sm: "w-9 h-10 rounded-l-sm",
-      md: "w-10 h-[40px] rounded-l-md",
-      lg: "w-12 h-14 rounded-l-lg",
+      sm: "w-8 h-8 text-small",
+      md: "w-10 h-[40px]",
+      lg: "w-12 h-14",
     },
     variant: {
       primary: "bg-primary text-white",
@@ -39,11 +39,11 @@ const leftAreaVariants = cva("flex items-center justify-center shrink-0", {
 });
 
 const inputContainerVariants = cva(
-  "flex items-center flex-1 border rounded-r-md transition-colors",
+  "flex items-center flex-1 border transition-colors",
   {
     variants: {
       size: {
-        sm: "h-10 px-3",
+        sm: "h-8 px-3",
         md: "h-[40px] px-3",
         lg: "h-14 px-4",
       },
@@ -82,8 +82,9 @@ const inputVariants = cva(
 type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> &
   VariantProps<typeof wrapperVariants> &
   VariantProps<typeof inputContainerVariants> & {
-    icon?: React.ReactNode;
     withLeftArea?: boolean;
+    withRightArea?: boolean;
+    areaContent?: React.ReactNode;
     mask?: string;
   };
 
@@ -94,9 +95,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       size,
       variant,
       fullWidth,
-      mask,
       withLeftArea = false,
-      icon,
+      withRightArea = false,
+      areaContent,
       readOnly,
       ...props
     },
@@ -106,28 +107,36 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       <div
         className={cn(
           wrapperVariants({ size, fullWidth }),
-          className
+          "rounded-sm overflow-hidden"
         )}
       >
-        {withLeftArea && (
-          <div className={leftAreaVariants({ size, variant })}>{icon}</div>
+        {withLeftArea && areaContent && (
+          <div className={cn(areaVariants({ size, variant }), "rounded-none")}>
+            {areaContent}
+          </div>
         )}
 
         <div
-          className={inputContainerVariants({
-            size,
-            variant,
-            readOnly,
-          })}
+          className={cn(
+            inputContainerVariants({ size, variant, readOnly }),
+            withLeftArea && "rounded-r-sm",
+            withRightArea && "rounded-l-sm",
+            !withLeftArea && !withRightArea && "rounded-sm"
+          )}
         >
-          {!withLeftArea && icon && <span className="mr-2">{icon}</span>}
           <input
             ref={ref}
             readOnly={readOnly}
-            className={inputVariants({ size })}
+            className={cn(inputVariants({ size }))}
             {...props}
           />
         </div>
+
+        {withRightArea && areaContent && (
+          <div className={cn(areaVariants({ size, variant }), "rounded-none")}>
+            {areaContent}
+          </div>
+        )}
       </div>
     );
   }

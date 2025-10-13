@@ -4,3 +4,5 @@ export * from "./useLocalStorage";
 export * from "./useSyncSearchParamsWithStore";
 export * from "./useGeolocation";
 export * from "./formatAddress";
+export * from "./useThrottle";
+export * from "./formatServicePrice";

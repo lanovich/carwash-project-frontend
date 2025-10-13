@@ -21,13 +21,17 @@ export const ContactForm = () => {
         <div className="flex flex-col gap-2">
           <FormField
             name="phone"
-            icon={<Phone size={20} />}
+            areaContent={<Phone size={20} />}
             placeholder="+7 (999) 999-99-99"
           />
-          <FormField name="name" icon={<User size={20} />} placeholder="Имя" />
+          <FormField
+            name="name"
+            areaContent={<User size={20} />}
+            placeholder="Имя"
+          />
           <FormField
             name="email"
-            icon={<Mail size={20} />}
+            areaContent={<Mail size={20} />}
             placeholder="Почта (опционально)"
             variant="secondary"
           />
@@ -39,7 +43,7 @@ export const ContactForm = () => {
           <h3>Ваш автомобиль</h3>
           <div className="flex flex-col gap-2">
             <FormField
-              icon={<Car size={20} />}
+              areaContent={<Car size={20} />}
               placeholder="Тип автомобиля"
               readOnly
               value={
@@ -48,17 +52,17 @@ export const ContactForm = () => {
             />
             <FormField
               name="carColor"
-              icon={<Palette size={20} />}
+              areaContent={<Palette size={20} />}
               placeholder="Цвет автомобиля"
             />
             <FormField
               name="carModel"
-              icon={<BadgeInfo size={20} />}
+              areaContent={<BadgeInfo size={20} />}
               placeholder="Модель / марка"
             />
             <FormField
               name="licensePlate"
-              icon={<Hash size={20} />}
+              areaContent={<Hash size={20} />}
               placeholder="Гос. номер (опционально)"
               variant="secondary"
             />

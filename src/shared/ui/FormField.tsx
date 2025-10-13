@@ -5,7 +5,7 @@ import React from "react";
 import { BookingState } from "@/entities/booking/model";
 interface FormFieldProps {
   name?: keyof BookingState["user"];
-  icon: React.ReactNode;
+  areaContent: React.ReactNode;
   placeholder: string;
   variant?: "primary" | "secondary";
   readOnly?: boolean;
@@ -17,7 +17,7 @@ interface FormFieldProps {
 export const FormField = React.memo(
   ({
     name,
-    icon,
+    areaContent,
     placeholder,
     variant,
     value,
@@ -40,7 +40,7 @@ export const FormField = React.memo(
       <Input
         className={cn("w-full", className)}
         withLeftArea
-        icon={icon}
+        areaContent={areaContent}
         placeholder={placeholder}
         variant={variant}
         readOnly={readOnly}

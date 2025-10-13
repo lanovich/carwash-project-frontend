@@ -40,7 +40,7 @@ export const TimeCard: React.FC<Props> = ({
       )}
       <p
         className={cn(
-          "text-base font-medium select-none text-center",
+          "text-regular select-none text-center",
           active ? "text-white" : "text-black"
         )}
       >

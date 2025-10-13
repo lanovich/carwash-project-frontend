@@ -19,4 +19,7 @@ export interface Service {
 
   subServiceIds?: string[];
   parentServiceId?: string;
+
+  from?: boolean;
+  measure?: "шт" | "кв.м" | "деталь";
 }

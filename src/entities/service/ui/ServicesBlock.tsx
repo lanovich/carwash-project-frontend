@@ -20,8 +20,8 @@ export const ServicesBlock = () => {
   const selectedObjectType = useSelector(selectObjectType);
 
   const [selectedCategory, setSelectedCategory] =
-    useState<Service["category"]>("body");
-  const [selectedView, setSelectedView] = useState<ViewVariant>("row");
+    useState<Service["category"]>("salon");
+  const [selectedView, setSelectedView] = useState<ViewVariant>("card");
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -81,7 +81,7 @@ export const ServicesBlock = () => {
         className={cn(
           "gap-1",
           selectedView === "card"
-            ? "grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4"
+            ? "grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3 2xl:grid-cols-4"
             : "flex flex-col"
         )}
       >

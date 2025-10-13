@@ -35,7 +35,7 @@ export function YandexMap() {
   }, [userCoords]);
 
   return (
-    <div className="flex-1 bg-bg-light flex border-1 border-primary rounded-md max-h-[270px] overflow-hidden">
+    <div className="flex-1 bg-bg-light flex border-1 border-primary rounded-md h-[270px] overflow-hidden">
       <YMap location={reactify.useDefault(LOCATION)} className="rounded-md">
         <YMapDefaultSchemeLayer />
         <YMapDefaultFeaturesLayer />
