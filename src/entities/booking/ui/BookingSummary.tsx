@@ -6,6 +6,8 @@ import {
   selectSelectedServices,
   selectSummary,
   selectTime,
+  selectObjectType,
+  selectUser,
 } from "../model";
 import { CARWASH_INFO } from "@/entities/carwash/model";
 import { AlertCircle } from "lucide-react";
@@ -15,8 +17,22 @@ export const BookingSummary = () => {
   const { totalPrice, totalDuration } = useSelector(selectSummary);
   const date = useSelector(selectDate);
   const time = useSelector(selectTime);
+  const objectType = useSelector(selectObjectType);
+  const user = useSelector(selectUser);
 
-  console.log(services);
+  const handleConfirm = () => {
+    const payload = {
+      user,
+      objectType,
+      serviceIds: services.map(({ id }) => id),
+      date,
+      time,
+      totalPrice,
+      totalDuration,
+    };
+
+    console.log("Booking payload:", payload);
+  };
 
   return (
     <div className="flex flex-col gap-4 w-full">
@@ -46,6 +62,14 @@ export const BookingSummary = () => {
         <BookingRow size="lg" name="Цена" value={`${totalPrice} ₽`} />
       </InfoBlock>
 
+      <Button
+        form={"contact-form"}
+        className="text-white"
+        onClick={handleConfirm}
+      >
+        Подтвердить и записаться
+      </Button>
+
       <div className="p-2 bg-yellow-50 border border-yellow-300 rounded-md flex flex-col gap-2">
         <div className="flex items-center gap-2">
           <AlertCircle className="w-5 h-5 text-yellow-600 flex-shrink-0" />
@@ -68,7 +92,6 @@ export const BookingSummary = () => {
           </li>
         </ul>
       </div>
-      <Button className="text-white">Подтвердить и записаться</Button>
     </div>
   );
 };
