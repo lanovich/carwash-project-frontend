@@ -23,6 +23,13 @@ export const CATEGORY_GROUPS: Record<
   special: [{ name: "Специальные", value: "special" }],
 };
 
+export const ALL_CATEGORIES = [
+  { name: "Салон", value: "salon" },
+  { name: "Кузов", value: "body" },
+  { name: "Химчистка", value: "dryclean" },
+  { name: "Специальные", value: "special" },
+];
+
 export const mockServices: Service[] = [
   // ====== Салон ======
   {
@@ -252,7 +259,7 @@ export const mockServices: Service[] = [
     mainImage: "",
     additionalImages: [],
     subServiceIds: [],
-    measure: 'деталь',
+    measure: "деталь",
   },
   {
     id: "body_5",

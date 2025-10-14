@@ -38,7 +38,7 @@ const buttonVariants = cva(
         default: "px-5 py-3 text-regular",
         xs: "px-3 py-2 text-sm",
         sm: "px-5 py-2 text-small",
-        lg: "px-6 py-5 text-lg",
+        lg: "px-5 py-2 text-lg",
       },
       iconOnly: {
         true: "p-2 aspect-square",

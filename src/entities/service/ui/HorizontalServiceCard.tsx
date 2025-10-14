@@ -31,7 +31,7 @@ export const HorizontalServiceCard = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleToggle = () => {
-    if (blocked) return;
+    if (blocked || !canOrder) return;
     if (!selectedObjectType) {
       alert("Выберите тип вашего авто");
       return;
@@ -126,7 +126,7 @@ export const HorizontalServiceCard = ({
         </div>
       </div>
 
-      {isModalOpen && (
+      {canOrder &&isModalOpen && (
         <ServiceModal
           isSelected={selected}
           isBlocked={blocked}

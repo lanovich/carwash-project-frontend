@@ -1,3 +1,4 @@
+import { cn } from "@/shared/lib";
 import { CardWrapper } from "@/shared/ui";
 
 interface Props {
@@ -5,11 +6,13 @@ interface Props {
   icon?: React.ReactNode;
   active?: boolean;
   onClick?: () => void;
+  className?: string;
 }
 
 export const CarTypeCard = ({
   icon,
   caption,
+  className,
   active = false,
   onClick,
 }: Props) => {
@@ -18,7 +21,7 @@ export const CarTypeCard = ({
       align="center"
       active={active}
       onClick={onClick}
-      className="cursor-pointer flex-1"
+      className={cn("cursor-pointer flex-1", className)}
     >
       {icon}
       <p className="text-sm text-center mt-1">{caption}</p>
