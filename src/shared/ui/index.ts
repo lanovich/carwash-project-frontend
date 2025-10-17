@@ -10,3 +10,5 @@ export * from "./Modal";
 export * from "./Carousel";
 export * from "./Tag";
 export * from "./InfoBlock";
+export * from "./ContactItem";
+export * from "./LinkButton";

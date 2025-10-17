@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/shared/lib";
 import React from "react";
 
-const buttonVariants = cva(
+export const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md transition-all disabled:cursor-not-allowed disabled:opacity-50",
 
   {
@@ -53,7 +53,7 @@ const buttonVariants = cva(
   }
 );
 
-interface ButtonProps
+export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
@@ -74,16 +74,29 @@ export const Button = ({
 }: ButtonProps) => {
   const Comp = asChild ? Slot : "button";
 
+  const isIconOnly = !children && icon;
+
+  const content = (
+    <span className="inline-flex items-center justify-center gap-2">
+      {icon && iconPosition === "left" && icon}
+      {children}
+      {icon && iconPosition === "right" && icon}
+    </span>
+  );
+
   return (
     <Comp
-      className={cn(buttonVariants({ variant, size, iconOnly, className }))}
+      className={cn(
+        buttonVariants({
+          variant,
+          size: isIconOnly ? "sm" : size,
+          iconOnly,
+          className,
+        })
+      )}
       {...props}
     >
-      {icon && iconPosition === "left" && icon}
-
-      {children}
-
-      {icon && iconPosition === "right" && icon}
+      {content}
     </Comp>
   );
 };

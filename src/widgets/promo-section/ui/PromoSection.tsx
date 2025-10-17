@@ -1,4 +1,5 @@
-import { Button } from "@/shared/ui";
+import { ROUTES } from "@/shared/lib";
+import { LinkButton } from "@/shared/ui";
 
 export const PromoSection = () => {
   return (
@@ -26,9 +27,9 @@ export const PromoSection = () => {
       </div>
 
       <div className="flex flex-1">
-        <Button size="lg" className="m-auto">
+        <LinkButton to={ROUTES.booking} size="lg" className="m-auto">
           Перейти к бронированию
-        </Button>
+        </LinkButton>
       </div>
 
       <div className="flex flex-wrap gap-4 flex-1">

@@ -8,8 +8,6 @@ import { OBJECT_TYPES } from "@/entities/car/model";
 export const ContactForm = () => {
   const objectType = useSelector(selectObjectType);
 
-  console.count("ContactForm render");
-
   return (
     <form
       id="contact-form"

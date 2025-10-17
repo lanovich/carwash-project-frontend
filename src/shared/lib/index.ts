@@ -6,3 +6,4 @@ export * from "./useGeolocation";
 export * from "./formatAddress";
 export * from "./useThrottle";
 export * from "./formatServicePrice";
+export * from "./routes";

@@ -10,7 +10,7 @@ type CardProps = {
   collapsible?: boolean;
 };
 
-export const BookingSection = ({
+export const Article = ({
   title,
   children,
   className,
@@ -22,7 +22,7 @@ export const BookingSection = ({
   const toggle = () => collapsible && setIsOpen((v) => !v);
 
   return (
-    <div
+    <article
       className={cn(
         "flex flex-col p-3 gap-3 xl:p-5 h-fit bg-white rounded-xl w-full",
         className
@@ -47,6 +47,6 @@ export const BookingSection = ({
       {isOpen && <div className="flex flex-col h-full gap-3">{children}</div>}
 
       {isOpen && footer && <div>{footer}</div>}
-    </div>
+    </article>
   );
 };

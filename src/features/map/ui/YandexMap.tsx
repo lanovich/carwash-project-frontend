@@ -8,7 +8,7 @@ import {
   YMapMarker,
   reactify,
 } from "../lib";
-import { formatAddress, useGeolocation } from "@/shared/lib";
+import { cn, formatAddress, useGeolocation } from "@/shared/lib";
 import { MarkerIcon, MarkerPopup } from ".";
 
 const LOCATION: YMapLocationRequest = {
@@ -16,7 +16,7 @@ const LOCATION: YMapLocationRequest = {
   zoom: 14.5,
 };
 
-export function YandexMap() {
+export function YandexMap({ className }: { className?: string }) {
   const [isMarkerActive, setMarkerActive] = useState(false);
   const userCoords = useGeolocation();
 
@@ -35,7 +35,12 @@ export function YandexMap() {
   }, [userCoords]);
 
   return (
-    <div className="flex-1 bg-bg-light flex border-1 border-primary rounded-md h-[270px] overflow-hidden">
+    <div
+      className={cn(
+        "w-full h-full bg-bg-light flex border-1 border-primary rounded-md overflow-hidden",
+        className
+      )}
+    >
       <YMap location={reactify.useDefault(LOCATION)} className="rounded-md">
         <YMapDefaultSchemeLayer />
         <YMapDefaultFeaturesLayer />

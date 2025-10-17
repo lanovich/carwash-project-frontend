@@ -1,16 +1,18 @@
-import { ObjectType, selectObjectType } from "@/entities/booking/model";
+import { ObjectType } from "@/entities/booking/model";
 import { OBJECT_TYPES } from "@/entities/car/model";
 import { cn } from "@/shared/lib";
-import { useSelector } from "react-redux";
 
 interface Props {
   prices: Partial<Record<ObjectType, number>>;
   duration: Partial<Record<ObjectType, number>>;
+  selectedObjectType: ObjectType;
 }
 
-export const ServicePrices = ({ prices, duration }: Props) => {
-  const selectedObjectType = useSelector(selectObjectType);
-
+export const ServicePrices = ({
+  prices,
+  duration,
+  selectedObjectType,
+}: Props) => {
   if (!Object.keys(prices).length) return null;
 
   return (
