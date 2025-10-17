@@ -5,40 +5,40 @@ import { ServicesBlock } from "@/entities/service/ui";
 import { ChooseTimeBlock } from "@/entities/time/ui";
 import { ContactForm } from "@/entities/user/ui";
 import { Container } from "@/shared/ui";
-import { BookingSection } from "@/widgets/section-block/ui";
+import { Article } from "@/widgets/section-block/ui";
 
 export const BookingPage = () => {
   return (
     <Container>
-      <div className="flex flex-col xl:flex-row items-start gap-6 justify-center">
-        <div className="flex flex-col gap-6 flex-1 w-full xl:w-3/5">
-          <BookingSection title="Мы на картах" collapsible>
+      <main className="flex flex-col xl:flex-row items-start gap-6 justify-center">
+        <section className="flex flex-col gap-6 flex-1 w-full xl:w-3/5">
+          <Article title="Мы на картах" collapsible>
             <BookingCarWashInfo />
-          </BookingSection>
+          </Article>
 
-          <BookingSection title="Дата и время записи">
+          <Article title="Дата и время записи">
             <ChooseTimeBlock />
-          </BookingSection>
+          </Article>
 
-          <BookingSection title="Что планируете у нас мыть?">
+          <Article title="Что планируете у нас мыть?">
             <ChooseObjectTypeBlock />
-          </BookingSection>
+          </Article>
 
-          <BookingSection title="Доступные услуги" collapsible>
+          <Article title="Доступные услуги" collapsible>
             <ServicesBlock />
-          </BookingSection>
-        </div>
+          </Article>
+        </section>
 
-        <div className="flex flex-col gap-6 w-full xl:w-2/5 sticky top-4">
-          <BookingSection title="Информация о вас">
+        <section className="flex flex-col gap-6 w-full xl:w-2/5 sticky top-4">
+          <Article title="Информация о вас">
             <ContactForm />
-          </BookingSection>
+          </Article>
 
-          <BookingSection title="Детали записи">
+          <Article title="Детали записи">
             <BookingSummary />
-          </BookingSection>
-        </div>
-      </div>
+          </Article>
+        </section>
+      </main>
     </Container>
   );
 };

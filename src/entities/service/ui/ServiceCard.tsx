@@ -106,6 +106,7 @@ export const ServiceCard = ({
           isSelected={selected}
           isBlocked={blocked}
           service={service}
+          selectedObjectType={selectedObjectType}
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           onConfirm={handleToggle}

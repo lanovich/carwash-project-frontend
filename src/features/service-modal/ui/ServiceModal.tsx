@@ -7,12 +7,15 @@ import {
   ServiceResults,
   ServiceTags,
 } from ".";
+import { ObjectType } from "@/entities/booking/model";
 
 interface ServiceModalProps {
   service: Service;
   isOpen: boolean;
   isBlocked?: boolean;
+  canOrder?: boolean;
   isSelected?: boolean;
+  selectedObjectType: ObjectType;
   onClose: () => void;
   onConfirm: () => void;
 }
@@ -21,7 +24,9 @@ export const ServiceModal = ({
   service,
   isOpen,
   isSelected,
+  selectedObjectType,
   isBlocked,
+  canOrder,
   onClose,
   onConfirm,
 }: ServiceModalProps) => {
@@ -45,19 +50,25 @@ export const ServiceModal = ({
       <ServiceDescription description={service.longDescription} />
       <ServiceResults results={service.resultDescriptions} />
       <ServiceTags tags={service.tags} popular={service.popular} />
-      <ServicePrices prices={service.prices} duration={service.duration} />
+      <ServicePrices
+        prices={service.prices}
+        duration={service.duration}
+        selectedObjectType={selectedObjectType}
+      />
 
       <div className="flex justify-end gap-3 mt-6">
         <Button variant="primaryGhost" onClick={onClose}>
           Закрыть
         </Button>
-        <Button onClick={onConfirm} disabled={isBlocked}>
-          {isBlocked
-            ? "Услуга уже включена"
-            : isSelected
-            ? "Убрать услугу"
-            : "Добавить услугу"}
-        </Button>
+        {canOrder && (
+          <Button onClick={onConfirm} disabled={isBlocked}>
+            {isBlocked
+              ? "Услуга уже включена"
+              : isSelected
+              ? "Убрать услугу"
+              : "Добавить услугу"}
+          </Button>
+        )}
       </div>
     </Modal>
   );

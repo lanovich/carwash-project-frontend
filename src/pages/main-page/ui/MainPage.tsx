@@ -1,13 +1,15 @@
 import { AboutCarwash } from "@/widgets/about-carwash/ui";
+import { Footer } from "@/widgets/footer/ui";
 import { OurServices } from "@/widgets/our-services/ui";
 import { PromoSection } from "@/widgets/promo-section/ui";
 
 export const MainPage = () => {
   return (
-    <div className="max-w-none">
+    <main className="max-w-none">
       <PromoSection />
       <OurServices />
       <AboutCarwash />
-    </div>
+      <Footer />
+    </main>
   );
 };

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, MouseEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ServiceModal } from "@/features/service-modal/ui";
 import { Checkbox, Button, Tag } from "@/shared/ui";
@@ -15,7 +15,7 @@ import {
 interface Props {
   service: Service;
   selectedObjectType: ObjectType;
-  size: "sm" | "md";
+  size?: "sm" | "md";
   canOrder?: boolean;
 }
 
@@ -29,17 +29,23 @@ export const HorizontalServiceCard = ({
   const selected = useSelector(selectIsServiceSelected(service.id));
   const blocked = useSelector(selectIsServiceBlocked(service.id));
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const isSM = size === "sm";
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   const handleToggle = () => {
-    if (blocked || !canOrder) return;
-    if (!selectedObjectType) {
-      alert("Выберите тип вашего авто");
-      return;
-    }
+    if (blocked) return;
+    if (!canOrder) return openModal();
+    if (!selectedObjectType) return alert("Выберите тип вашего авто");
     dispatch(toggleService(service));
   };
 
-  const isSM = size === "sm";
+  const handleInfoClick = (e: MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    openModal();
+  };
 
   return (
     <>
@@ -93,12 +99,12 @@ export const HorizontalServiceCard = ({
                 {tag}
               </Tag>
             ))}
-            {service?.popular && <Tag variant="primary">популярное</Tag>}
+            {service.popular && <Tag variant="primary">популярное</Tag>}
           </div>
         </div>
 
         <div className="flex flex-col items-end justify-between min-h-[64px] sm:min-h-[72px] gap-1">
-          <div className="text-h3">
+          <div className="text-h3 text-nowrap">
             {selectedObjectType &&
               formatServicePrice(service, selectedObjectType)}
           </div>
@@ -106,14 +112,10 @@ export const HorizontalServiceCard = ({
           <div className="flex items-center gap-1">
             <Button
               variant="primary"
-              icon={<CircleQuestionMark />}
-              iconOnly
-              className=" text-white border-none w-6 h-6 p-1"
-              onClick={(e) => {
-                e.stopPropagation();
-                e.preventDefault();
-                setIsModalOpen(true);
-              }}
+              icon={<CircleQuestionMark size={16} />}
+              
+              className="text-white border-none w-6 h-6 p-1"
+              onClick={handleInfoClick}
             />
             {canOrder && (
               <Checkbox
@@ -126,13 +128,15 @@ export const HorizontalServiceCard = ({
         </div>
       </div>
 
-      {canOrder &&isModalOpen && (
+      {isModalOpen && (
         <ServiceModal
+          canOrder={canOrder}
           isSelected={selected}
           isBlocked={blocked}
           service={service}
           isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
+          selectedObjectType={selectedObjectType}
+          onClose={closeModal}
           onConfirm={handleToggle}
         />
       )}

@@ -1,4 +1,4 @@
-import { Address, Contacts, HeaderButtons, HeaderNavigation, Logo } from ".";
+import { Address, Contacts, HeaderButtons, Logo } from ".";
 
 export const Header = () => (
   <header
@@ -9,7 +9,6 @@ export const Header = () => (
     <Logo />
     <Address />
     <Contacts />
-    <HeaderNavigation />
     <HeaderButtons />
   </header>
 );
