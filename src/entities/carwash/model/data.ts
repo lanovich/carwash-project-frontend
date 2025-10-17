@@ -12,10 +12,10 @@ export const CARWASH_INFO: CarwashInfo = {
   workTime: "8:00 - 20:00",
   coordinates: [45.018494, 37.509739],
   url: "https://yandex.ru/maps/?rtext=~45.018494,37.509739&rtt=mt",
-  phone: "+7 (123) 456-78-90",
+  phone: "+7 (918) 055-02-04",
   socials: {
-    whatsapp: "https://wa.me/79181525041",
-    telegram: "https://t.me/yourusername",
-    vk: "https://vk.com/yourprofile",
+    whatsapp: "https://wa.me/79180550204",
+    telegram: "https://t.me/@Automou",
+    vk: "https://vk.com/id1044341595",
   },
 };
