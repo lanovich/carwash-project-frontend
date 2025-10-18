@@ -8,7 +8,9 @@ import {
   selectTime,
 } from "@/entities/booking/model";
 import { Carousel } from "@/shared/ui/Carousel";
-import { useItemsPerSlide } from "../lib";
+import { formatCountSlots, useItemsPerSlide } from "../lib";
+import { useGetTimeSlotsQuery } from "@/entities/time/api";
+import { Loading } from "@/shared/ui";
 
 const weekDays = [
   "Воскресенье",
@@ -22,14 +24,7 @@ const weekDays = [
 
 type DateType = {
   id: string;
-  weekDay:
-    | "Воскресенье"
-    | "Понедельник"
-    | "Вторник"
-    | "Среда"
-    | "Четверг"
-    | "Пятница"
-    | "Суббота";
+  weekDay: (typeof weekDays)[number];
   date: string;
 };
 
@@ -51,38 +46,27 @@ const generateDates = (count: number) => {
   return result;
 };
 
-const baseTimeSlots = [
-  "8:00",
-  "9:00",
-  "10:00",
-  "11:00",
-  "12:00",
-  "13:00",
-  "14:00",
-  "15:00",
-  "16:00",
-  "17:00",
-  "18:00",
-  "19:00",
-] as const;
-
 export const ChooseTimeBlock = () => {
   const dispatch = useDispatch();
   const selectedDate = useSelector(selectDate);
   const selectedTime = useSelector(selectTime);
 
-  const itemsPerSlide = useItemsPerSlide({
-    throttleInterval: 150,
-  });
-
+  const itemsPerSlide = useItemsPerSlide({ throttleInterval: 150 });
   const dates = useMemo(() => generateDates(28), []);
+
+  const { data: timeSlotsData, isLoading } = useGetTimeSlotsQuery(
+    selectedDate || "",
+    { skip: !selectedDate }
+  );
+
   const timeSlots = useMemo(
     () =>
-      baseTimeSlots.map((time, i) => ({
-        id: `t-${i}`,
-        time,
-      })),
-    []
+      timeSlotsData?.slots?.map((slot) => ({
+        id: `t-${slot.time}`,
+        time: slot.time,
+        available: slot.available,
+      })) || [],
+    [timeSlotsData]
   );
 
   return (
@@ -100,21 +84,32 @@ export const ChooseTimeBlock = () => {
         ))}
       </Carousel>
 
-      <Carousel
-        className="text-nowrap"
-        itemsPerSlide={itemsPerSlide > 2 ? itemsPerSlide + 2 : itemsPerSlide}
-      >
-        {timeSlots.map(({ id, time }) => (
-          <TimeCard
-            key={id}
-            align="start"
-            caption="Время"
-            mainText={time}
-            active={selectedTime === time}
-            onClick={() => dispatch(setTime(time))}
-          />
-        ))}
-      </Carousel>
+      {!selectedDate ? (
+        <div className="flex items-center justify-center h-[74px] text-center text-text-subtle">
+          <p>Выберите дату, чтобы показать свободное время</p>
+        </div>
+      ) : isLoading ? (
+        <div className="flex items-center justify-center h-[74px] text-center text-text-subtle">
+          <Loading size={28} />
+        </div>
+      ) : (
+        <Carousel
+          className="text-nowrap"
+          itemsPerSlide={itemsPerSlide > 2 ? itemsPerSlide + 2 : itemsPerSlide}
+        >
+          {timeSlots.map(({ id, time, available }) => (
+            <TimeCard
+              key={id}
+              align="start"
+              caption={formatCountSlots(available)}
+              mainText={time}
+              active={selectedTime === time}
+              disabled={available === 0}
+              onClick={() => available > 0 && dispatch(setTime(time))}
+            />
+          ))}
+        </Carousel>
+      )}
     </div>
   );
 };

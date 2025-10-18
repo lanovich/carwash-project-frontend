@@ -19,6 +19,13 @@ export const OurServices = () => {
     ([type]) => type !== "special"
   );
 
+  const handleSelectType = (type: string) =>
+    setSelectedType(type as ObjectType);
+
+  const filteredTypes = Object.entries(OBJECT_TYPES).filter(
+    ([type]) => type !== "special"
+  );
+
   return (
     <div className="mt-8 bg-bg-dark-100 border-b border-primary border-dashed">
       <div className="flex gap-2 items-stretch py-4 justify-center shadow-lg px-6 flex-wrap">
