@@ -68,7 +68,7 @@ export const ServiceCard = ({
 
       <div className="relative w-full flex-1 rounded-md overflow-hidden">
         <img
-          src={service.mainImage || "/logo.svg"}
+          src={service.mainImage || "/placeholder.jpg"}
           alt={service.title}
           loading="lazy"
           className="absolute inset-0 w-full h-full object-cover object-center"

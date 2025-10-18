@@ -13,7 +13,7 @@ export const ServiceGallery = ({
   additionalImages,
 }: Props) => {
   const [selectedImage, setSelectedImage] = useState<string | undefined>(
-    mainImage || additionalImages?.[0] || "/logo.svg"
+    mainImage || additionalImages?.[0] || "/placeholder.jpg"
   );
 
   const allImages = [mainImage, ...(additionalImages ?? [])].filter(
@@ -22,7 +22,7 @@ export const ServiceGallery = ({
 
   const images = [mainImage, ...(additionalImages ?? [])].filter(Boolean);
 
-  const imagesToShow = images.length ? images : ["/logo.svg"];
+  const imagesToShow = images.length ? images : ["/placeholder.jpg"];
   const hasImages = images.length > 0;
 
   return (
