@@ -5,9 +5,11 @@ import { HorizontalServiceCard } from "./HorizontalServiceCard";
 import { cn } from "@/shared/lib";
 import { LayoutGrid, StretchHorizontal } from "lucide-react";
 import { useSelector } from "react-redux";
-import { CATEGORY_GROUPS, mockServices } from "../model";
+import { CATEGORY_GROUPS } from "../model";
 import { selectObjectType } from "@/entities/booking/model";
 import type { Service } from "@/entities/service/model";
+import { useGetAllServicesQuery } from "@/entities/service/api";
+import { Loading } from "@/shared/ui/Loading";
 
 const viewVariants = [
   { icon: <StretchHorizontal size={16} />, value: "row" },
@@ -23,6 +25,8 @@ export const ServicesBlock = () => {
     useState<Service["category"]>("salon");
   const [selectedView, setSelectedView] = useState<ViewVariant>("card");
   const [visible, setVisible] = useState(false);
+
+  const { data: servicesData, isLoading } = useGetAllServicesQuery();
 
   useEffect(() => {
     if (selectedObjectType) {
@@ -53,9 +57,13 @@ export const ServicesBlock = () => {
     );
   }
 
-  const filteredServices = mockServices.filter(
-    (service) => service.category === selectedCategory
-  );
+  if (isLoading) {
+    return <Loading size={48} />;
+  }
+
+  const filteredServices =
+    servicesData?.filter((service) => service.category === selectedCategory) ||
+    [];
 
   return (
     <div className={cn("flex flex-col gap-3 w-full", visible && "fade-in")}>
