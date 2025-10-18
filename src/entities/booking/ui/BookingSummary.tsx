@@ -1,18 +1,24 @@
 import { BookingRow } from "@/entities/booking/ui";
 import { Button, InfoBlock } from "@/shared/ui";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   selectDate,
   selectSelectedServices,
   selectSummary,
   selectTime,
   selectObjectType,
+  resetBooking,
   selectUser,
 } from "../model";
 import { CARWASH_INFO } from "@/entities/carwash/model";
 import { AlertCircle } from "lucide-react";
+import { useCreateBookingMutation } from "@/entities/booking/api";
+import type { BookingRequest, BookingResponse } from "@/entities/booking/model";
+import { BookingModal } from "@/features/booking-modal/ui";
+import { useState } from "react";
 
 export const BookingSummary = () => {
+  const dispatch = useDispatch();
   const services = useSelector(selectSelectedServices);
   const { totalPrice, totalDuration } = useSelector(selectSummary);
   const date = useSelector(selectDate);
@@ -20,18 +26,34 @@ export const BookingSummary = () => {
   const objectType = useSelector(selectObjectType);
   const user = useSelector(selectUser);
 
-  const handleConfirm = () => {
-    const payload = {
+  const [createBooking, { isLoading }] = useCreateBookingMutation();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [bookingData, setBookingData] = useState<BookingResponse | undefined>(
+    undefined
+  );
+
+  const canConfirm = !!date && !!time && services.length > 0 && !!objectType;
+
+  const handleConfirm = async () => {
+    if (!canConfirm) return;
+
+    const payload: BookingRequest = {
       user,
       objectType,
       serviceIds: services.map(({ id }) => id),
       date,
       time,
-      totalPrice,
-      totalDuration,
     };
 
-    console.log("Booking payload:", payload);
+    try {
+      const response = await createBooking(payload).unwrap();
+      setBookingData(response);
+      setModalOpen(true);
+      dispatch(resetBooking());
+    } catch (err: any) {
+      console.error("Booking error:", err);
+      alert(err?.data?.message || "Ошибка при создании бронирования");
+    }
   };
 
   return (
@@ -63,11 +85,12 @@ export const BookingSummary = () => {
       </InfoBlock>
 
       <Button
-        form={"contact-form"}
+        type="submit"
         className="text-white"
         onClick={handleConfirm}
+        disabled={isLoading || !canConfirm}
       >
-        Подтвердить и записаться
+        {isLoading ? "Сохраняем..." : "Подтвердить и записаться"}
       </Button>
 
       <div className="p-2 bg-yellow-50 border border-yellow-300 rounded-md flex flex-col gap-2">
@@ -92,6 +115,12 @@ export const BookingSummary = () => {
           </li>
         </ul>
       </div>
+
+      <BookingModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        booking={bookingData}
+      />
     </div>
   );
 };
