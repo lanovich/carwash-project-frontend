@@ -8,6 +8,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   mainText: string;
   align?: "start" | "center" | "end";
   active?: boolean;
+  disabled?: boolean;
   onClick?: () => void;
 }
 
@@ -15,6 +16,7 @@ export const TimeCard: React.FC<Props> = ({
   className,
   caption,
   mainText,
+  disabled,
   align = "center",
   active = false,
   onClick,
@@ -24,8 +26,12 @@ export const TimeCard: React.FC<Props> = ({
     <CardWrapper
       align={align}
       active={active}
-      onClick={onClick}
-      className={cn("min-w-[100px] flex-1 cursor-pointer", className)}
+      onClick={!disabled ? onClick : undefined}
+      className={cn(
+        "min-w-[100px] flex-1 cursor-pointer",
+        disabled && "cursor-not-allowed opacity-30 bg-bg-light-100",
+        className
+      )}
       {...rest}
     >
       {caption && (

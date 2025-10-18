@@ -7,21 +7,7 @@ import { ContactForm } from "@/entities/user/ui";
 import { Container } from "@/shared/ui";
 import { Article } from "@/widgets/section-block/ui";
 
-import { useForm, FormProvider } from "react-hook-form";
-
 export const BookingPage = () => {
-  const methods = useForm({
-    mode: "onChange",
-    defaultValues: {
-      phone: "",
-      name: "",
-      email: "",
-      carColor: "",
-      carModel: "",
-      licensePlate: "",
-    },
-  });
-
   return (
     <Container>
       <main className="flex flex-col xl:flex-row items-start gap-6 justify-center">
@@ -43,17 +29,15 @@ export const BookingPage = () => {
           </Article>
         </section>
 
-        <FormProvider {...methods}>
-          <section className="flex flex-col gap-6 w-full xl:w-2/5 sticky top-4">
-            <Article title="Информация о вас">
-              <ContactForm />
-            </Article>
+        <section className="flex flex-col gap-6 w-full xl:w-2/5 sticky top-4">
+          <Article title="Информация о вас">
+            <ContactForm />
+          </Article>
 
-            <Article title="Детали записи">
-              <BookingSummary />
-            </Article>
-          </section>
-        </FormProvider>
+          <Article title="Детали записи">
+            <BookingSummary />
+          </Article>
+        </section>
       </main>
     </Container>
   );

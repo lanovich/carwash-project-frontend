@@ -19,6 +19,7 @@ export const ContactForm = () => {
         <div className="flex flex-col gap-2">
           <FormField
             name="phone"
+            type="tel"
             areaContent={<Phone size={20} />}
             placeholder="+7 (999) 999-99-99"
           />
@@ -29,6 +30,7 @@ export const ContactForm = () => {
           />
           <FormField
             name="email"
+            type="email"
             areaContent={<Mail size={20} />}
             placeholder="Почта (опционально)"
             variant="secondary"

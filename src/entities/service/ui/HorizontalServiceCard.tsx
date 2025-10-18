@@ -69,7 +69,7 @@ export const HorizontalServiceCard = ({
           )}
         >
           <img
-            src={service.mainImage || "/logo.svg"}
+            src={service.mainImage || "/placeholder.jpg"}
             alt={service.title}
             loading="lazy"
             className="absolute inset-0 w-full h-full object-cover object-center"
@@ -113,7 +113,6 @@ export const HorizontalServiceCard = ({
             <Button
               variant="primary"
               icon={<CircleQuestionMark size={16} />}
-              
               className="text-white border-none w-6 h-6 p-1"
               onClick={handleInfoClick}
             />

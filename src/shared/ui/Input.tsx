@@ -79,14 +79,14 @@ const inputVariants = cva(
   }
 );
 
-type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> &
-  VariantProps<typeof wrapperVariants> &
-  VariantProps<typeof inputContainerVariants> & {
-    withLeftArea?: boolean;
-    withRightArea?: boolean;
-    areaContent?: React.ReactNode;
-    mask?: string;
-  };
+export type InputProps = {
+  withLeftArea?: boolean;
+  withRightArea?: boolean;
+  areaContent?: React.ReactNode;
+  mask?: string;
+} & VariantProps<typeof wrapperVariants>
+  & VariantProps<typeof inputContainerVariants>
+  & React.InputHTMLAttributes<HTMLInputElement>;
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
   (

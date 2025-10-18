@@ -2,13 +2,36 @@ import { useState } from "react";
 import { ObjectType } from "@/entities/booking/model";
 import { OBJECT_TYPES } from "@/entities/car/model";
 import { CarTypeCard } from "@/entities/car/ui";
-import { ALL_CATEGORIES, selectAllServices } from "@/entities/service/model";
+import { ALL_CATEGORIES } from "@/entities/service/model";
 import { HorizontalServiceCard } from "@/entities/service/ui";
 import { Container } from "@/shared/ui";
+import { useGetAllServicesQuery } from "@/entities/service/api";
+import { Loading } from "@/shared/ui/Loading";
 
 export const OurServices = () => {
   const [selectedType, setSelectedType] = useState<ObjectType>("sedan");
-  const services = selectAllServices();
+  const { data: services, isLoading} = useGetAllServicesQuery();
+
+  const handleSelectType = (type: string) =>
+    setSelectedType(type as ObjectType);
+
+  const filteredTypes = Object.entries(OBJECT_TYPES).filter(
+    ([type]) => type !== "special"
+  );
+
+  const handleSelectType = (type: string) =>
+    setSelectedType(type as ObjectType);
+
+  const filteredTypes = Object.entries(OBJECT_TYPES).filter(
+    ([type]) => type !== "special"
+  );
+
+  const handleSelectType = (type: string) =>
+    setSelectedType(type as ObjectType);
+
+  const filteredTypes = Object.entries(OBJECT_TYPES).filter(
+    ([type]) => type !== "special"
+  );
 
   const handleSelectType = (type: string) =>
     setSelectedType(type as ObjectType);
@@ -33,40 +56,46 @@ export const OurServices = () => {
       </div>
 
       <div className="bg-bg-dark">
-        <Container className="flex gap-4 py-4 max-w-[1660px] flex-wrap">
-          {ALL_CATEGORIES.map(({ name, value }) => {
-            const categoryServices = services.filter(
-              (service) => service.category === value
-            );
+        {isLoading ? (
+          <div className="flex justify-center py-10 min-h-[500px]">
+            <Loading
+              size={48}
+              color="white"
+              description="Старательно ищем услуги, подождите немного"
+            />
+          </div>
+        ) : (
+          <Container className="flex gap-4 py-4 max-w-[1660px] flex-wrap">
+            {ALL_CATEGORIES.map(({ name, value }) => {
+              const categoryServices =
+                services?.filter((service) => service.category === value) || [];
 
-            return (
-              <div
-                key={value}
-                className="flex flex-col flex-1 gap-1.5"
-              >
-                <div className="flex bg-primary px-4 py-2 rounded-md text-white text-super-caption text-center">
-                  {name}
-                </div>
+              return (
+                <div key={value} className="flex flex-col flex-1 gap-1.5">
+                  <div className="flex bg-primary px-4 py-2 rounded-md text-white text-super-caption text-center">
+                    {name}
+                  </div>
 
-                <div className="flex flex-col gap-2">
-                  {categoryServices.map((service) => (
-                    <HorizontalServiceCard
-                      key={service.id}
-                      service={service}
-                      canOrder={false}
-                      size="sm"
-                      selectedObjectType={
-                        service.category === "special"
-                          ? "special"
-                          : selectedType
-                      }
-                    />
-                  ))}
+                  <div className="flex flex-col gap-2">
+                    {categoryServices.map((service) => (
+                      <HorizontalServiceCard
+                        key={service.id}
+                        service={service}
+                        canOrder={false}
+                        size="sm"
+                        selectedObjectType={
+                          service.category === "special"
+                            ? "special"
+                            : selectedType
+                        }
+                      />
+                    ))}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-        </Container>
+              );
+            })}
+          </Container>
+        )}
       </div>
     </div>
   );

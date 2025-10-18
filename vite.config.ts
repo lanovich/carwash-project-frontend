@@ -2,10 +2,15 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import tailwindcss from "@tailwindcss/vite";
+import { config } from "./src/shared/api";
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  server: {
+    proxy: {
+      "/api": config.API_ENDPOINT,
+    },
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
