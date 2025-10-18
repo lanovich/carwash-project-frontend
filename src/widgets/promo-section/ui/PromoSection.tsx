@@ -34,12 +34,12 @@ export const PromoSection = () => {
 
       <div className="flex flex-wrap gap-4 flex-1">
         <img
-          src="logo.svg"
+          src="inside.webp"
           alt="Пример 1"
           className="flex-grow flex-shrink basis-[31%] min-w-[200px] object-cover rounded-xl shadow-2xl lg:aspect-[16/7] aspect-[4/3]"
         />
         <img
-          src="logo.svg"
+          src="outside.jpeg"
           alt="Пример 2"
           className="flex-grow flex-shrink basis-[31%] min-w-[200px] object-cover rounded-xl shadow-2xl lg:aspect-[16/7] aspect-[4/3]"
         />

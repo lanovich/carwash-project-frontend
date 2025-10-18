@@ -12,3 +12,4 @@ export * from "./Tag";
 export * from "./InfoBlock";
 export * from "./ContactItem";
 export * from "./LinkButton";
+export * from "./Loading";
