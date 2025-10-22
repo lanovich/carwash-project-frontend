@@ -8,22 +8,18 @@ import { ContactForm } from "@/entities/user/ui";
 import { BookingSummary } from "@/entities/booking/ui";
 import { selectObjectType } from "@/entities/booking/model";
 import { OBJECT_TYPES } from "@/entities/car/model";
-import { ContactFormSchema, contactFormSchema } from "@/entities/user/model";
+import {
+  ContactFormSchema,
+  contactFormSchema,
+  DEFAULT_CONTACT_FORM_VALUES,
+} from "@/entities/user/model";
 
 export const BookingSidebar = () => {
   const objectType = useSelector(selectObjectType);
 
   const methods = useForm<ContactFormSchema>({
     resolver: zodResolver(contactFormSchema),
-    defaultValues: {
-      phone: "+7",
-      name: "",
-      email: "",
-      carType: objectType || "",
-      carColor: "",
-      carModel: "",
-      licensePlate: "",
-    },
+    defaultValues: DEFAULT_CONTACT_FORM_VALUES,
   });
 
   useEffect(() => {

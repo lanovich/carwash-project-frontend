@@ -16,11 +16,14 @@ import type { BookingRequest, BookingResponse } from "@/entities/booking/model";
 import { BookingModal } from "@/features/booking-modal/ui";
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
-import { ContactFormSchema } from "@/entities/user/model";
+import {
+  ContactFormSchema,
+  DEFAULT_CONTACT_FORM_VALUES,
+} from "@/entities/user/model";
 
 export const BookingSummary = () => {
   const dispatch = useDispatch();
-  const { handleSubmit } = useFormContext<ContactFormSchema>();
+  const { reset, handleSubmit } = useFormContext<ContactFormSchema>();
   const services = useSelector(selectSelectedServices);
   const { totalPrice, totalDuration } = useSelector(selectSummary);
   const date = useSelector(selectDate);
@@ -35,7 +38,7 @@ export const BookingSummary = () => {
 
   const canConfirm = !!date && !!time && services.length > 0 && !!objectType;
 
-  const handleConfirm = handleSubmit(async (user) => {
+  const handleConfirm = handleSubmit(async ({ carType, ...user }) => {
     if (!canConfirm) return;
 
     const payload: BookingRequest = {
@@ -51,6 +54,7 @@ export const BookingSummary = () => {
       setBookingData(response);
       setModalOpen(true);
       dispatch(resetBooking());
+      reset(DEFAULT_CONTACT_FORM_VALUES);
     } catch (err: any) {
       alert(err?.data?.message || "Ошибка при создании бронирования");
     }

@@ -6,3 +6,13 @@ export interface User {
   carColor?: string;
   licensePlate?: string;
 }
+
+export const DEFAULT_CONTACT_FORM_VALUES = {
+  phone: "+7",
+  name: "",
+  email: "",
+  carType: "",
+  carColor: "",
+  carModel: "",
+  licensePlate: "",
+};
