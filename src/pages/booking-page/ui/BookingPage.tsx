@@ -1,10 +1,9 @@
-import { BookingSummary } from "@/entities/booking/ui";
 import { ChooseObjectTypeBlock } from "@/entities/car/ui";
 import { BookingCarWashInfo } from "@/entities/carwash/ui";
 import { ServicesBlock } from "@/entities/service/ui";
 import { ChooseTimeBlock } from "@/entities/time/ui";
-import { ContactForm } from "@/entities/user/ui";
 import { Container } from "@/shared/ui";
+import { BookingSidebar } from "@/widgets/booking-sidebar/ui";
 import { Article } from "@/widgets/section-block/ui";
 
 export const BookingPage = () => {
@@ -29,15 +28,7 @@ export const BookingPage = () => {
           </Article>
         </section>
 
-        <section className="flex flex-col gap-6 w-full xl:w-2/5 sticky top-4">
-          <Article title="Информация о вас">
-            <ContactForm />
-          </Article>
-
-          <Article title="Детали записи">
-            <BookingSummary />
-          </Article>
-        </section>
+        <BookingSidebar />
       </main>
     </Container>
   );
