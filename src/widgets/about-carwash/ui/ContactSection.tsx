@@ -4,7 +4,7 @@ import { LinkButton } from "@/shared/ui";
 import { ContactItem } from "@/shared/ui";
 import { Article } from "@/widgets/section-block/ui";
 import { Phone, MapPin, Clock } from "lucide-react";
-import { FaTelegramPlane, FaVk, FaWhatsapp } from "react-icons/fa";
+import { FaVk, FaWhatsapp } from "react-icons/fa";
 
 interface ContactData {
   icon: React.ReactNode;
@@ -20,11 +20,11 @@ export const ContactSection = () => {
       value: phone,
       href: `tel:${phone.replace(/\D/g, "")}`,
     },
-    {
-      icon: <FaTelegramPlane size={18} color="var(--color-primary)" />,
-      value: socials.telegram,
-      href: `https://t.me/${socials.telegram}`,
-    },
+    // {
+    //   icon: <FaTelegramPlane size={18} color="var(--color-primary)" />,
+    //   value: socials.telegram,
+    //   href: `https://t.me/${socials.telegram}`,
+    // },
     {
       icon: <FaVk size={18} color="var(--color-primary)" />,
       value: socials.vk,

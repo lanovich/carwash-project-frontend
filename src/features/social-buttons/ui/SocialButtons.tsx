@@ -1,6 +1,6 @@
 import { CARWASH_INFO } from "@/entities/carwash/model";
 import { Button } from "@/shared/ui";
-import { FaWhatsapp, FaTelegramPlane, FaVk } from "react-icons/fa";
+import { FaWhatsapp, FaVk } from "react-icons/fa";
 
 export const SocialButtons = () => {
   return (
@@ -18,7 +18,7 @@ export const SocialButtons = () => {
       </Button>
 
       {/* Telegram */}
-      <Button iconOnly variant={"ghost"} className="border-none p-0">
+      {/* <Button iconOnly variant={"ghost"} className="border-none p-0">
         <a
           href={CARWASH_INFO.socials.telegram}
           target="_blank"
@@ -27,7 +27,7 @@ export const SocialButtons = () => {
         >
           <FaTelegramPlane size={16} color="#0088CC" />
         </a>
-      </Button>
+      </Button> */}
 
       {/* VK */}
       <Button iconOnly variant={"ghost"} className="border-none p-0">
