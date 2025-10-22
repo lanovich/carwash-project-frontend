@@ -4,7 +4,7 @@ import { cn } from "@/shared/lib";
 import React from "react";
 
 export const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md transition-all disabled:cursor-not-allowed disabled:opacity-50",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md transition-all disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer",
 
   {
     variants: {
