@@ -1,5 +1,6 @@
 import { CarType } from "@/entities/car/model";
 import { Service } from "@/entities/service/model";
+import { User } from "@/entities/user/model";
 
 export type ObjectType = CarType | "special";
 
@@ -12,14 +13,7 @@ export interface BookingState {
   selectedServices: Record<string, Service>;
   blockedServices: Record<string, true>;
 
-  user: {
-    name: string;
-    phone: string;
-    email: string;
-    carModel?: string;
-    carColor?: string;
-    licensePlate?: string;
-  };
+  user: User;
 }
 
 export interface BookingRequest {
@@ -29,14 +23,7 @@ export interface BookingRequest {
   objectType: ObjectType;
   serviceIds: string[];
 
-  user: {
-    name: string;
-    phone: string;
-    email: string;
-    carModel?: string;
-    carColor?: string;
-    licensePlate?: string;
-  };
+  user: User;
 }
 
 export interface BookingResponse {

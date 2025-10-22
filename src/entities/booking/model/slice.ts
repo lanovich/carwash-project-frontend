@@ -59,7 +59,7 @@ export const bookingSlice = createSlice({
 
       for (const blockedId of Object.keys(state.blockedServices)) {
         const isValid = Object.values(state.selectedServices).some((service) =>
-          service.subServiceIds?.includes(blockedId)
+          service.childIds?.includes(blockedId)
         );
 
         if (!isValid) {
@@ -78,8 +78,8 @@ export const bookingSlice = createSlice({
           delete state.selectedServices[id];
         }
 
-        if (service.subServiceIds) {
-          for (const subId of service.subServiceIds) {
+        if (service.childIds) {
+          for (const subId of service.childIds) {
             delete state.blockedServices[subId];
           }
         }
@@ -89,8 +89,8 @@ export const bookingSlice = createSlice({
 
       state.selectedServices[id] = service;
 
-      if (service.subServiceIds) {
-        for (const subId of service.subServiceIds) {
+      if (service.childIds) {
+        for (const subId of service.childIds) {
           delete state.selectedServices[subId];
           state.blockedServices[subId] = true;
         }

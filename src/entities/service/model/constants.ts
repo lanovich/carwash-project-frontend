@@ -51,8 +51,7 @@ export const mockServices: Service[] = [
     objectTypes: ["sedan", "crossover", "minivan"],
     mainImage: "",
     additionalImages: [],
-    subServiceIds: ["salon_2", "salon_4", "glasses_1"],
-    parentServiceId: "dryclean_1",
+    childIds: ["salon_2", "salon_4", "glasses_1"],
   },
   {
     id: "glasses_1",
@@ -68,7 +67,6 @@ export const mockServices: Service[] = [
     objectTypes: ["sedan", "crossover", "minivan"],
     mainImage: "",
     additionalImages: [],
-    parentServiceId: "dryclean_1",
   },
   {
     id: "salon_2",
@@ -88,8 +86,7 @@ export const mockServices: Service[] = [
     objectTypes: ["sedan", "crossover", "minivan"],
     mainImage: "",
     additionalImages: [],
-    subServiceIds: [],
-    parentServiceId: "salon_1",
+    childIds: [],
   },
   {
     id: "salon_3",
@@ -128,7 +125,6 @@ export const mockServices: Service[] = [
     objectTypes: ["sedan", "crossover", "minivan"],
     mainImage: "",
     additionalImages: [],
-    parentServiceId: "salon_1",
   },
   {
     id: "salon_5",
@@ -167,7 +163,7 @@ export const mockServices: Service[] = [
     objectTypes: ["sedan", "crossover", "minivan"],
     mainImage: "",
     additionalImages: [],
-    subServiceIds: [],
+    childIds: [],
   },
   {
     id: "salon_7",
@@ -183,8 +179,7 @@ export const mockServices: Service[] = [
     objectTypes: ["sedan", "crossover", "minivan"],
     mainImage: "",
     additionalImages: [],
-    subServiceIds: [],
-    parentServiceId: "dryclean_6",
+    childIds: [],
   },
 
   // ====== Кузов ======
@@ -207,7 +202,7 @@ export const mockServices: Service[] = [
     objectTypes: ["sedan", "crossover", "minivan"],
     mainImage: "",
     additionalImages: [],
-    subServiceIds: ["body_2"],
+    childIds: ["body_2"],
   },
   {
     id: "body_2",
@@ -223,7 +218,7 @@ export const mockServices: Service[] = [
     objectTypes: ["sedan", "crossover", "minivan"],
     mainImage: "",
     additionalImages: [],
-    subServiceIds: [],
+    childIds: [],
   },
   {
     id: "body_3",
@@ -242,7 +237,7 @@ export const mockServices: Service[] = [
     objectTypes: ["sedan", "crossover", "minivan"],
     mainImage: "",
     additionalImages: [],
-    subServiceIds: [],
+    childIds: [],
   },
   {
     id: "body_4",
@@ -258,7 +253,7 @@ export const mockServices: Service[] = [
     objectTypes: ["sedan", "crossover", "minivan"],
     mainImage: "",
     additionalImages: [],
-    subServiceIds: [],
+    childIds: [],
     measure: "деталь",
   },
   {
@@ -278,7 +273,7 @@ export const mockServices: Service[] = [
     objectTypes: ["sedan", "crossover", "minivan"],
     mainImage: "",
     additionalImages: [],
-    subServiceIds: [],
+    childIds: [],
   },
   {
     id: "body_6",
@@ -294,7 +289,7 @@ export const mockServices: Service[] = [
     objectTypes: ["sedan", "crossover", "minivan"],
     mainImage: "",
     additionalImages: [],
-    subServiceIds: [],
+    childIds: [],
   },
   {
     id: "body_7",
@@ -310,7 +305,7 @@ export const mockServices: Service[] = [
     objectTypes: ["sedan", "crossover", "minivan"],
     mainImage: "",
     additionalImages: [],
-    subServiceIds: [],
+    childIds: [],
   },
   {
     id: "body_8",
@@ -326,7 +321,7 @@ export const mockServices: Service[] = [
     objectTypes: ["sedan", "crossover", "minivan"],
     mainImage: "",
     additionalImages: [],
-    subServiceIds: ["body_9", "body_10", "body_11"],
+    childIds: ["body_9", "body_10", "body_11"],
   },
   {
     id: "body_9",
@@ -345,7 +340,7 @@ export const mockServices: Service[] = [
     objectTypes: ["sedan", "crossover", "minivan"],
     mainImage: "",
     additionalImages: [],
-    subServiceIds: ["body_8", "body_10", "body_11"],
+    childIds: ["body_8", "body_10", "body_11"],
   },
   {
     id: "body_10",
@@ -364,7 +359,7 @@ export const mockServices: Service[] = [
     objectTypes: ["sedan", "crossover", "minivan"],
     mainImage: "",
     additionalImages: [],
-    subServiceIds: ["body_8", "body_9", "body_11"],
+    childIds: ["body_8", "body_9", "body_11"],
   },
   {
     id: "body_11",
@@ -380,7 +375,7 @@ export const mockServices: Service[] = [
     objectTypes: ["sedan", "crossover", "minivan"],
     mainImage: "",
     additionalImages: [],
-    subServiceIds: ["body_8", "body_9", "body_10"],
+    childIds: ["body_8", "body_9", "body_10"],
   },
   {
     id: "body_12",
@@ -416,7 +411,7 @@ export const mockServices: Service[] = [
     objectTypes: ["sedan", "crossover", "minivan"],
     mainImage: "",
     additionalImages: [],
-    subServiceIds: [
+    childIds: [
       "salon_1",
       "salon_2",
       "salon_4",
@@ -442,7 +437,7 @@ export const mockServices: Service[] = [
     objectTypes: ["sedan", "crossover", "minivan"],
     mainImage: "",
     additionalImages: [],
-    subServiceIds: [],
+    childIds: [],
     parentServiceId: "dryclean_1",
   },
   {
@@ -459,7 +454,7 @@ export const mockServices: Service[] = [
     objectTypes: ["sedan", "crossover", "minivan"],
     mainImage: "",
     additionalImages: [],
-    subServiceIds: [],
+    childIds: [],
     measure: "шт",
 
     parentServiceId: "dryclean_1",
@@ -478,7 +473,7 @@ export const mockServices: Service[] = [
     objectTypes: ["sedan", "crossover", "minivan"],
     mainImage: "",
     additionalImages: [],
-    subServiceIds: [],
+    childIds: [],
     measure: "шт",
     parentServiceId: "dryclean_1",
   },
@@ -496,7 +491,7 @@ export const mockServices: Service[] = [
     objectTypes: ["sedan", "crossover", "minivan"],
     mainImage: "",
     additionalImages: [],
-    subServiceIds: ["salon_2"],
+    childIds: ["salon_2"],
     parentServiceId: "dryclean_1",
   },
   {
@@ -513,7 +508,7 @@ export const mockServices: Service[] = [
     objectTypes: ["sedan", "crossover", "minivan"],
     mainImage: "",
     additionalImages: [],
-    subServiceIds: ["salon_7"],
+    childIds: ["salon_7"],
   },
   {
     id: "dryclean_7",
@@ -547,7 +542,7 @@ export const mockServices: Service[] = [
     objectTypes: ["special"],
     mainImage: "",
     additionalImages: [],
-    subServiceIds: [],
+    childIds: [],
     measure: "кв.м",
     from: true,
   },
@@ -569,6 +564,6 @@ export const mockServices: Service[] = [
     objectTypes: ["special"],
     mainImage: "",
     additionalImages: [],
-    subServiceIds: [],
+    childIds: [],
   },
 ];

@@ -10,7 +10,7 @@ import {
 import { Carousel } from "@/shared/ui/Carousel";
 import { formatCountSlots, useItemsPerSlide } from "../lib";
 import { useGetTimeSlotsQuery } from "@/entities/time/api";
-import { Loading } from "@/shared/ui";
+import { Button, Loading } from "@/shared/ui";
 
 const weekDays = [
   "Воскресенье",
@@ -54,10 +54,12 @@ export const ChooseTimeBlock = () => {
   const itemsPerSlide = useItemsPerSlide({ throttleInterval: 150 });
   const dates = useMemo(() => generateDates(28), []);
 
-  const { data: timeSlotsData, isLoading } = useGetTimeSlotsQuery(
-    selectedDate || "",
-    { skip: !selectedDate }
-  );
+  const {
+    data: timeSlotsData,
+    isLoading,
+    refetch,
+    isError,
+  } = useGetTimeSlotsQuery(selectedDate || "", { skip: !selectedDate });
 
   const timeSlots = useMemo(
     () =>
@@ -68,6 +70,8 @@ export const ChooseTimeBlock = () => {
       })) || [],
     [timeSlotsData]
   );
+
+  const isTimeSlotsExist = timeSlots.length > 0;
 
   return (
     <div>
@@ -91,6 +95,15 @@ export const ChooseTimeBlock = () => {
       ) : isLoading ? (
         <div className="flex items-center justify-center h-[74px] text-center text-text-subtle">
           <Loading size={28} />
+        </div>
+      ) : isError ? (
+        <div className="flex items-center gap-10 justify-center h-[74px] text-center text-text-subtle">
+          <p>Произошла ошибка при загрузке слотов. Попробуйте позже.</p>
+          <Button onClick={() => refetch()}>Повторить</Button>
+        </div>
+      ) : !isTimeSlotsExist ? (
+        <div className="flex items-center justify-center h-[74px] text-center text-text-subtle">
+          <p>К сожалению, на эту дату больше нельзя оформить бронь :(</p>
         </div>
       ) : (
         <Carousel

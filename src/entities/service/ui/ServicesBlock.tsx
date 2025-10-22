@@ -1,4 +1,4 @@
-import { Tabs } from "@/shared/ui";
+import { Button, Tabs } from "@/shared/ui";
 import { useState, useEffect, type ReactElement } from "react";
 import { ServiceCard } from "./ServiceCard";
 import { HorizontalServiceCard } from "./HorizontalServiceCard";
@@ -26,7 +26,12 @@ export const ServicesBlock = () => {
   const [selectedView, setSelectedView] = useState<ViewVariant>("card");
   const [visible, setVisible] = useState(false);
 
-  const { data: servicesData, isLoading } = useGetAllServicesQuery();
+  const {
+    data: servicesData,
+    isLoading,
+    isError,
+    refetch,
+  } = useGetAllServicesQuery();
 
   useEffect(() => {
     if (selectedObjectType) {
@@ -61,10 +66,23 @@ export const ServicesBlock = () => {
     return <Loading size={48} />;
   }
 
-  const filteredServices =
-    servicesData?.filter((service) => service.category === selectedCategory) ||
-    [];
+  if (isError) {
+    return (
+      <div className="flex items-center gap-10 justify-center h-[74px] text-center text-text-subtle">
+        <p>Произошла ошибка при загрузке услуг. Попробуйте позже.</p>
+        <Button onClick={() => refetch()}>Повторить</Button>
+      </div>
+    );
+  }
 
+  const filteredServices =
+    servicesData
+      ?.filter((s) => s.category === selectedCategory)
+      .sort(
+        (a, b) =>
+          (b.prices[selectedObjectType] ?? 0) -
+          (a.prices[selectedObjectType] ?? 0)
+      ) || [];
   return (
     <div className={cn("flex flex-col gap-3 w-full", visible && "fade-in")}>
       <div className="flex flex-col sm:flex-row gap-1 sm:justify-between">
