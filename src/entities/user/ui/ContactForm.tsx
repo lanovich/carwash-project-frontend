@@ -1,11 +1,14 @@
 import { cn } from "@/shared/lib";
 import { Phone, User, Mail, Car, Palette, BadgeInfo, Hash } from "lucide-react";
-import { useSelector } from "react-redux";
-import { FormField } from "@/shared/ui";
-import { selectObjectType } from "@/entities/booking/model";
+import { FormField, Input } from "@/shared/ui";
 import { OBJECT_TYPES } from "@/entities/car/model";
+import { useFormContext } from "react-hook-form";
+import { ContactFormSchema } from "../model";
+import { useSelector } from "react-redux";
+import { selectObjectType } from "@/entities/booking/model";
 
 export const ContactForm = () => {
+  const { control } = useFormContext<ContactFormSchema>();
   const objectType = useSelector(selectObjectType);
 
   return (
@@ -17,24 +20,32 @@ export const ContactForm = () => {
       <div className="flex flex-col gap-2 flex-1">
         <h3>Контактные данные</h3>
         <div className="flex flex-col gap-2">
-          <FormField
-            name="phone"
-            type="tel"
-            areaContent={<Phone size={20} />}
-            placeholder="+7 (999) 999-99-99"
-          />
-          <FormField
-            name="name"
-            areaContent={<User size={20} />}
-            placeholder="Имя"
-          />
-          <FormField
-            name="email"
-            type="email"
-            areaContent={<Mail size={20} />}
-            placeholder="Почта (опционально)"
-            variant="secondary"
-          />
+          <FormField name="phone" control={control} type="tel">
+            <Input
+              placeholder="+7 (999) 999-99-99"
+              className="w-full"
+              withLeftArea
+              areaContent={<Phone size={20} />}
+            />
+          </FormField>
+
+          <FormField name="name" control={control}>
+            <Input
+              placeholder="Имя"
+              className="w-full"
+              withLeftArea
+              areaContent={<User size={20} />}
+            />
+          </FormField>
+
+          <FormField name="email" control={control} type="email">
+            <Input
+              placeholder="Почта (опционально)"
+              className="w-full"
+              withLeftArea
+              areaContent={<Mail size={20} />}
+            />
+          </FormField>
         </div>
       </div>
 
@@ -42,30 +53,47 @@ export const ContactForm = () => {
         <div className="flex flex-col gap-2 flex-1">
           <h3>Ваш автомобиль</h3>
           <div className="flex flex-col gap-2">
-            <FormField
-              areaContent={<Car size={20} />}
-              placeholder="Тип автомобиля"
-              readOnly
-              value={
-                objectType ? OBJECT_TYPES[objectType].caption.toUpperCase() : ""
-              }
-            />
-            <FormField
-              name="carColor"
-              areaContent={<Palette size={20} />}
-              placeholder="Цвет автомобиля"
-            />
-            <FormField
-              name="carModel"
-              areaContent={<BadgeInfo size={20} />}
-              placeholder="Модель / марка"
-            />
-            <FormField
-              name="licensePlate"
-              areaContent={<Hash size={20} />}
-              placeholder="Гос. номер (опционально)"
-              variant="secondary"
-            />
+            <FormField name="carType" control={control}>
+              <Input
+                placeholder="Тип автомобиля"
+                readOnly
+                value={
+                  objectType
+                    ? OBJECT_TYPES[objectType].caption.toUpperCase()
+                    : ""
+                }
+                className="w-full"
+                withLeftArea
+                areaContent={<Car size={20} />}
+              />
+            </FormField>
+
+            <FormField name="carColor" control={control}>
+              <Input
+                placeholder="Цвет автомобиля"
+                className="w-full"
+                withLeftArea
+                areaContent={<Palette size={20} />}
+              />
+            </FormField>
+
+            <FormField name="carModel" control={control}>
+              <Input
+                placeholder="Модель / марка"
+                className="w-full"
+                withLeftArea
+                areaContent={<BadgeInfo size={20} />}
+              />
+            </FormField>
+
+            <FormField name="licensePlate" control={control}>
+              <Input
+                placeholder="Гос. номер (опционально)"
+                className="w-full"
+                withLeftArea
+                areaContent={<Hash size={20} />}
+              />
+            </FormField>
           </div>
         </div>
       )}

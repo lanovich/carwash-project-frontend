@@ -8,7 +8,6 @@ import {
   selectTime,
   selectObjectType,
   resetBooking,
-  selectUser,
 } from "../model";
 import { CARWASH_INFO } from "@/entities/carwash/model";
 import { AlertCircle } from "lucide-react";
@@ -16,15 +15,17 @@ import { useCreateBookingMutation } from "@/entities/booking/api";
 import type { BookingRequest, BookingResponse } from "@/entities/booking/model";
 import { BookingModal } from "@/features/booking-modal/ui";
 import { useState } from "react";
+import { useFormContext } from "react-hook-form";
+import { ContactFormSchema } from "@/entities/user/model";
 
 export const BookingSummary = () => {
   const dispatch = useDispatch();
+  const { handleSubmit } = useFormContext<ContactFormSchema>();
   const services = useSelector(selectSelectedServices);
   const { totalPrice, totalDuration } = useSelector(selectSummary);
   const date = useSelector(selectDate);
   const time = useSelector(selectTime);
   const objectType = useSelector(selectObjectType);
-  const user = useSelector(selectUser);
 
   const [createBooking, { isLoading }] = useCreateBookingMutation();
   const [modalOpen, setModalOpen] = useState(false);
@@ -34,13 +35,13 @@ export const BookingSummary = () => {
 
   const canConfirm = !!date && !!time && services.length > 0 && !!objectType;
 
-  const handleConfirm = async () => {
+  const handleConfirm = handleSubmit(async (user) => {
     if (!canConfirm) return;
 
     const payload: BookingRequest = {
       user,
       objectType,
-      serviceIds: services.map(({ id }) => id),
+      serviceIds: services.map((s) => s.id),
       date,
       time,
     };
@@ -51,10 +52,9 @@ export const BookingSummary = () => {
       setModalOpen(true);
       dispatch(resetBooking());
     } catch (err: any) {
-      console.error("Booking error:", err);
       alert(err?.data?.message || "Ошибка при создании бронирования");
     }
-  };
+  });
 
   return (
     <div className="flex flex-col gap-4 w-full">
