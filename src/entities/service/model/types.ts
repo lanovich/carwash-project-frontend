@@ -17,7 +17,7 @@ export interface Service {
   mainImage?: string;
   additionalImages?: string[];
 
-  subServiceIds?: string[];
+  childIds?: string[];
   parentServiceId?: string;
 
   from?: boolean;
