@@ -1,3 +1,3 @@
 export const config = {
-  API_ENDPOINT: "http://localhost:4203",
+  API_ENDPOINT: import.meta.env.VITE_API_ENDPOINT,
 };

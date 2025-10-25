@@ -3,7 +3,7 @@ import { Footer } from "@/widgets/footer/ui";
 import { OurServices } from "@/widgets/our-services/ui";
 import { PromoSection } from "@/widgets/promo-section/ui";
 
-export const MainPage = () => {
+const MainPage = () => {
   return (
     <main className="max-w-none">
       <PromoSection />
@@ -13,3 +13,5 @@ export const MainPage = () => {
     </main>
   );
 };
+
+export default MainPage;
