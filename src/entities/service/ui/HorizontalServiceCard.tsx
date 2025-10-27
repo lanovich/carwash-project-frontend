@@ -36,9 +36,14 @@ export const HorizontalServiceCard = ({
 
   const handleToggle = () => {
     if (blocked) return;
-    if (!canOrder) return openModal();
-    if (!selectedObjectType) return alert("Выберите тип вашего авто");
-    dispatch(toggleService(service));
+    if (selectedObjectType) {
+      dispatch(toggleService(service));
+    } else {
+      alert("Выберите тип вашего авто");
+    }
+    if (isModalOpen) {
+      setIsModalOpen(false);
+    }
   };
 
   const handleInfoClick = (e: MouseEvent) => {

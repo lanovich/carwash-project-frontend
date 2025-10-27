@@ -1,8 +1,24 @@
 @import "tailwindcss";
 @font-face {
   font-family: "Manrope";
-  src: url("./fonts/Manrope-VariableFont_wght.ttf") format("truetype");
-  font-weight: 100 900;
+  src: url("./fonts/subset-Manrope-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("./fonts/subset-Manrope-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("./fonts/subset-Manrope-SemiBold.woff2") format("woff2");
+  font-weight: 600;
   font-style: normal;
   font-display: swap;
 }

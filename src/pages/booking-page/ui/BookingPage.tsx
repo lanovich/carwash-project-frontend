@@ -6,7 +6,7 @@ import { Container } from "@/shared/ui";
 import { BookingSidebar } from "@/widgets/booking-sidebar/ui";
 import { Article } from "@/widgets/section-block/ui";
 
-export const BookingPage = () => {
+const BookingPage = () => {
   return (
     <Container>
       <main className="flex flex-col xl:flex-row items-start gap-6 justify-center">
@@ -33,3 +33,5 @@ export const BookingPage = () => {
     </Container>
   );
 };
+
+export default BookingPage;

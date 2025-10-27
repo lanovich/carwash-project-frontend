@@ -1,13 +1,20 @@
 import { Outlet } from "react-router-dom";
 import { Header } from "@/widgets/header/ui";
+import { Suspense } from "react";
+import { LoadingPage } from "@/pages/loading-page/ui";
 
 export function Layout() {
   return (
     <div>
       <Header />
-      <div>
+
+      <Suspense
+        fallback={
+          <LoadingPage description="Загружаем страницу, подождите немного" />
+        }
+      >
         <Outlet />
-      </div>
+      </Suspense>
     </div>
   );
 }

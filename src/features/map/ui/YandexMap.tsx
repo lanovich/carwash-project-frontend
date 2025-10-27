@@ -1,15 +1,10 @@
-import { useCallback, useMemo, useState } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
+import ReactDom from "react-dom";
 import { type YMapLocationRequest } from "ymaps3";
 import { CARWASH_INFO } from "@/entities/carwash/model";
-import {
-  YMap,
-  YMapDefaultFeaturesLayer,
-  YMapDefaultSchemeLayer,
-  YMapMarker,
-  reactify,
-} from "../lib";
 import { cn, formatAddress, useGeolocation } from "@/shared/lib";
 import { MarkerIcon, MarkerPopup } from ".";
+import { Loading } from "@/shared/ui";
 
 const LOCATION: YMapLocationRequest = {
   center: [37.507739, 45.018993],
@@ -18,6 +13,9 @@ const LOCATION: YMapLocationRequest = {
 
 export function YandexMap({ className }: { className?: string }) {
   const [isMarkerActive, setMarkerActive] = useState(false);
+  const [ymapsModules, setYmapsModules] = useState<any>(null);
+  const [loadError, setLoadError] = useState(false);
+
   const userCoords = useGeolocation();
 
   const handleTogglePopup = useCallback(
@@ -34,6 +32,59 @@ export function YandexMap({ className }: { className?: string }) {
       : `https://yandex.ru/maps/?rtext=~${destLat},${destLon}&rtt=mt`;
   }, [userCoords]);
 
+  useEffect(() => {
+    async function loadYmaps() {
+      try {
+        const [ymaps3React] = await Promise.all([
+          ymaps3.import("@yandex/ymaps3-reactify"),
+          ymaps3.ready,
+        ]);
+
+        const reactify = ymaps3React.reactify.bindTo(React, ReactDom);
+        const modules = reactify.module(ymaps3);
+
+        setYmapsModules({
+          reactify,
+          ...modules,
+        });
+      } catch (e) {
+        console.error("Yandex Maps failed to load:", e);
+        setLoadError(true);
+      }
+    }
+
+    loadYmaps();
+  }, []);
+
+  if (loadError) {
+    return (
+      <div
+        className={cn(
+          "w-full h-full flex items-center justify-center",
+          className
+        )}
+      >
+        <p className="text-text-subtle">Карта временно недоступна</p>
+      </div>
+    );
+  }
+
+  if (!ymapsModules) {
+    return (
+      <div
+        className={cn(
+          "w-full h-full flex items-center justify-center",
+          className
+        )}
+      >
+        <Loading />
+      </div>
+    );
+  }
+
+  const { YMap, YMapDefaultSchemeLayer, YMapDefaultFeaturesLayer, YMapMarker } =
+    ymapsModules;
+
   return (
     <div
       className={cn(
@@ -41,7 +92,10 @@ export function YandexMap({ className }: { className?: string }) {
         className
       )}
     >
-      <YMap location={reactify.useDefault(LOCATION)} className="rounded-md">
+      <YMap
+        location={ymapsModules.reactify.useDefault(LOCATION)}
+        className="rounded-md"
+      >
         <YMapDefaultSchemeLayer />
         <YMapDefaultFeaturesLayer />
 
