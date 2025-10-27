@@ -1,5 +1,8 @@
 import { ObjectType } from "@/entities/booking/model";
 
+// Человекочитаемый тип
+export type MeasureLabel = "кв.м" | "деталь" | "шт";
+
 export interface Service {
   id: string;
   title: string;
@@ -21,5 +24,10 @@ export interface Service {
   parentServiceId?: string;
 
   from?: boolean;
-  measure?: "шт" | "кв.м" | "деталь";
+  measure: MeasureLabel;
+}
+
+// Тип API-ответа
+export interface ServiceResponse extends Omit<Service, "measure"> {
+  measure: "SQM" | "DETAIL" | "SHT";
 }
