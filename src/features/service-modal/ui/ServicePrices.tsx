@@ -1,5 +1,5 @@
 import { ObjectType } from "@/entities/booking/model";
-import { OBJECT_TYPES } from "@/entities/car/model";
+import { objectTypesMap } from "@/entities/car/model";
 import { cn } from "@/shared/lib";
 
 interface Props {
@@ -32,7 +32,7 @@ export const ServicePrices = ({
             )}
           >
             <span className="capitalize text-black font-medium">
-              {OBJECT_TYPES[type as ObjectType].caption}
+              {objectTypesMap[type as ObjectType].caption}
             </span>
             {price ? (
               <span className="text-primary font-semibold">
