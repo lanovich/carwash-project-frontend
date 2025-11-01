@@ -28,9 +28,7 @@ export const Footer = () => {
   return (
     <footer className="bg-black text-text-subtle">
       <div className="max-w-[1660px] mx-auto px-4 py-6 sm:py-8">
-        {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-6">
-          {/* Brand Section */}
           <div>
             <div className="flex items-center gap-2 mb-2">
               <img src="logo.svg" alt="Автомойка" className="h-8 w-8" />
@@ -42,7 +40,6 @@ export const Footer = () => {
             </p>
           </div>
 
-          {/* Contacts Section */}
           <div>
             <h3 className="text-caption font-semibold mb-2 sm:mb-4 ">
               Подробнее
@@ -61,7 +58,6 @@ export const Footer = () => {
             </div>
           </div>
 
-          {/* CTA Section */}
           <div>
             <h3 className="text-caption font-semibold mb-2 sm:mb-4">
               Быстрая запись
@@ -80,7 +76,6 @@ export const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom Bar */}
         <div className="pt-4 border-t border-bg-light-200">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-0">
             <p className="text-caption text-text-muted text-center sm:text-start">

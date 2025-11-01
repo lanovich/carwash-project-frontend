@@ -104,6 +104,7 @@ export const HorizontalServiceCard = ({
                 {tag}
               </Tag>
             ))}
+            {service.duration && <Tag variant="secondary">{service.duration[selectedObjectType]} мин</Tag>}
             {service.popular && <Tag variant="primary">популярное</Tag>}
           </div>
         </div>

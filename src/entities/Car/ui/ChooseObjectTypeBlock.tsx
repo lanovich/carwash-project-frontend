@@ -8,7 +8,7 @@ import {
 import { ConfirmModal } from "@/features/modals/ui";
 import { useConfirmSwitch } from "@/features/modals/lib";
 
-import { OBJECT_TYPES } from "../model";
+import { objectTypesMap } from "../model";
 
 export const ChooseObjectTypeBlock = () => {
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ export const ChooseObjectTypeBlock = () => {
       />
 
       <div className="flex gap-2 items-stretch flex-wrap">
-        {Object.entries(OBJECT_TYPES).map(([type, { caption, icon }]) => {
+        {Object.entries(objectTypesMap).map(([type, { caption, icon }]) => {
           const isActive = currentObjectType === type;
           return (
             <CarTypeCard

@@ -7,7 +7,7 @@ import { Article } from "@/widgets/section-block/ui";
 import { ContactForm } from "@/entities/user/ui";
 import { BookingSummary } from "@/entities/booking/ui";
 import { selectObjectType } from "@/entities/booking/model";
-import { OBJECT_TYPES } from "@/entities/car/model";
+import { objectTypesMap } from "@/entities/car/model";
 import {
   ContactFormSchema,
   contactFormSchema,
@@ -26,7 +26,7 @@ export const BookingSidebar = () => {
     if (objectType) {
       methods.reset({
         ...methods.getValues(),
-        carType: OBJECT_TYPES[objectType].caption.toUpperCase(),
+        carType: objectTypesMap[objectType].caption.toUpperCase(),
       });
     }
   }, [objectType]);

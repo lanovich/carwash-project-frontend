@@ -23,7 +23,10 @@ export const CATEGORY_GROUPS: Record<
   special: [{ name: "Специальные", value: "special" }],
 };
 
-export const measureMap: Record<ServiceResponse["measure"], Service["measure"]> = {
+export const measureMap: Record<
+  ServiceResponse["measure"],
+  Service["measure"]
+> = {
   SQM: "кв.м",
   DETAIL: "деталь",
   SHT: "шт",

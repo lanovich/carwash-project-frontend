@@ -1,14 +1,15 @@
 import { ObjectType } from "@/entities/booking/model";
 
-// Человекочитаемый тип
 export type MeasureLabel = "кв.м" | "деталь" | "шт";
+export type DatabaseMeasure = "SQM" | "DETAIL" | "SHT";
+export type Category = "salon" | "body" | "dryclean" | "special";
 
 export interface Service {
   id: string;
   title: string;
   shortDescription: string;
   longDescription?: string;
-  category: "salon" | "body" | "dryclean" | "special";
+  category: Category;
   popular?: boolean;
   resultDescriptions?: string[];
   tags?: string[];
@@ -27,7 +28,6 @@ export interface Service {
   measure: MeasureLabel;
 }
 
-// Тип API-ответа
 export interface ServiceResponse extends Omit<Service, "measure"> {
-  measure: "SQM" | "DETAIL" | "SHT";
+  measure: DatabaseMeasure;
 }

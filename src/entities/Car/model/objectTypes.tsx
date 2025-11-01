@@ -4,7 +4,14 @@ import { CrossoverIcon } from "@/shared/icons/CrossoverIcon";
 import { SedanIcon } from "@/shared/icons/SedanIcon";
 import { Blocks } from "lucide-react";
 
-export const OBJECT_TYPES: Record<
+export const OBJECT_TYPES: ObjectType[] = [
+  "sedan",
+  "crossover",
+  "minivan",
+  "special",
+];
+
+export const objectTypesMap: Record<
   ObjectType,
   { caption: string; icon: React.ReactNode }
 > = {
