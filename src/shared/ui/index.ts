@@ -13,3 +13,5 @@ export * from "./InfoBlock";
 export * from "./ContactItem";
 export * from "./LinkButton";
 export * from "./Loading";
+export * from "./Textarea";
+export * from "./ImagePreview";
