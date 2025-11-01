@@ -5,7 +5,6 @@ import { FaWhatsapp, FaVk } from "react-icons/fa";
 export const SocialButtons = () => {
   return (
     <div className="flex gap-1">
-      {/* WhatsApp */}
       <Button iconOnly variant={"ghost"} className="border-none p-0">
         <a
           href={CARWASH_INFO.socials.whatsapp}
@@ -17,19 +16,6 @@ export const SocialButtons = () => {
         </a>
       </Button>
 
-      {/* Telegram */}
-      {/* <Button iconOnly variant={"ghost"} className="border-none p-0">
-        <a
-          href={CARWASH_INFO.socials.telegram}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="p-2"
-        >
-          <FaTelegramPlane size={16} color="#0088CC" />
-        </a>
-      </Button> */}
-
-      {/* VK */}
       <Button iconOnly variant={"ghost"} className="border-none p-0">
         <a
           href={CARWASH_INFO.socials.vk}

@@ -37,7 +37,6 @@ export const ServiceModal = ({
       onClose={onClose}
       className="border-2 border-primary/50 flex flex-col md:max-w-[75vw] lg:max-w-[60vw] xl:max-w-[40vw] transform transition-all duration-300 ease-out opacity-0 animate-modal-open max-h-[90vh]"
     >
-      {/* Прокручиваемая часть */}
       <div className="overflow-y-auto pr-1 flex-1 space-y-4">
         <h2 className="text-xl font-semibold">{service.title}</h2>
         <p className="text-sm text-text-secondary">

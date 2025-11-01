@@ -1,35 +1,32 @@
 import React from "react";
-import { Controller, Control } from "react-hook-form";
+import { Controller, Control, FieldValues, Path } from "react-hook-form";
 import { cn, formatPhone } from "@/shared/lib";
-import { ContactFormSchema } from "@/entities/user/model";
 
-interface FormFieldProps<T> {
-  name: keyof T;
-  control: Control<ContactFormSchema>;
+interface FormFieldProps<TFieldValues extends FieldValues> {
+  name: Path<TFieldValues>;
+  control: Control<TFieldValues>;
   type?: React.HTMLInputTypeAttribute;
   children: React.ReactElement<any>;
   className?: string;
 }
 
-export const FormField = <T,>({
+export const FormField = <TFieldValues extends FieldValues>({
   name,
   control,
   children,
   type,
   className,
-}: FormFieldProps<T>) => {
+}: FormFieldProps<TFieldValues>) => {
   return (
     <Controller
-      name={name as any}
+      name={name}
       control={control}
       render={({ field, fieldState }) => {
         const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
           let value = e.target.value;
-
           if (type === "tel") {
             value = formatPhone(value);
           }
-
           field.onChange(value);
         };
 
@@ -41,10 +38,8 @@ export const FormField = <T,>({
               ...field,
               value: displayValue,
               onChange: handleChange,
-              className: cn(
-                children.props.className,
-                className,
-              ),
+              type,
+              className: cn(children.props.className, className),
             })}
             {fieldState.error && (
               <span className="text-red-500 text-caption">

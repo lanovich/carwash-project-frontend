@@ -1,7 +1,7 @@
 import { cn } from "@/shared/lib";
 import { Phone, User, Mail, Car, Palette, BadgeInfo, Hash } from "lucide-react";
 import { FormField, Input } from "@/shared/ui";
-import { OBJECT_TYPES } from "@/entities/car/model";
+import { objectTypesMap } from "@/entities/car/model";
 import { useFormContext } from "react-hook-form";
 import { ContactFormSchema } from "../model";
 import { useSelector } from "react-redux";
@@ -59,7 +59,7 @@ export const ContactForm = () => {
                 readOnly
                 value={
                   objectType
-                    ? OBJECT_TYPES[objectType].caption.toUpperCase()
+                    ? objectTypesMap[objectType].caption.toUpperCase()
                     : ""
                 }
                 className="w-full"
