@@ -1,4 +1,5 @@
 export const ROUTES = {
   booking: '/',
-  home: "/home"
+  home: "/home",
+  admin: "/admin"
 }
