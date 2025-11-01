@@ -20,11 +20,6 @@ export const ContactSection = () => {
       value: phone,
       href: `tel:${phone.replace(/\D/g, "")}`,
     },
-    // {
-    //   icon: <FaTelegramPlane size={18} color="var(--color-primary)" />,
-    //   value: socials.telegram,
-    //   href: `https://t.me/${socials.telegram}`,
-    // },
     {
       icon: <FaVk size={18} color="var(--color-primary)" />,
       value: socials.vk,

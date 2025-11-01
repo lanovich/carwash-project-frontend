@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ObjectType } from "@/entities/booking/model";
-import { OBJECT_TYPES } from "@/entities/car/model";
+import { objectTypesMap } from "@/entities/car/model";
 import { CarTypeCard } from "@/entities/car/ui";
 import { ALL_CATEGORIES } from "@/entities/service/model";
 import { HorizontalServiceCard } from "@/entities/service/ui";
@@ -19,7 +19,7 @@ export const OurServices = () => {
   const handleSelectType = (type: string) =>
     setSelectedType(type as ObjectType);
 
-  const filteredTypes = Object.entries(OBJECT_TYPES).filter(
+  const filteredTypes = Object.entries(objectTypesMap).filter(
     ([type]) => type !== "special"
   );
 
