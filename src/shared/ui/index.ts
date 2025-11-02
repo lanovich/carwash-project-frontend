@@ -15,3 +15,4 @@ export * from "./LinkButton";
 export * from "./Loading";
 export * from "./Textarea";
 export * from "./ImagePreview";
+export * from "./Select";
