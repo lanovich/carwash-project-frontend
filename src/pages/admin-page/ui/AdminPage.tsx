@@ -1,10 +1,15 @@
-import { Button, Input, Loading, FormField } from "@/shared/ui";
+import { Button, Input, FormField, Loading } from "@/shared/ui";
 import { lazy, Suspense, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useLoginMutation } from "@/entities/admin/api";
+import { useAdminAuth } from "@/entities/admin/lib";
+import { useDispatch } from "react-redux";
+import { logout as logoutAction } from "@/features/auth";
+import { LoadingPage } from "@/pages/loading-page/ui";
 
 const AdminPageContent = lazy(() =>
-  import("@/entities/admin/ui/AdminPageContent").then((module) => ({
-    default: module.AdminPageContent,
+  import("@/entities/admin/ui/AdminPageContent").then((m) => ({
+    default: m.AdminPageContent,
   }))
 );
 
@@ -14,28 +19,37 @@ type FormData = {
 };
 
 const AdminPage = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const { loggedIn, loading, logout } = useAdminAuth();
   const [error, setError] = useState("");
-
+  const dispatch = useDispatch();
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
-    defaultValues: {
-      login: "",
-      password: "",
-    },
+    defaultValues: { login: "", password: "" },
   });
 
-  const onSubmit = (data: FormData) => {
-    if (data.login === "admin" && data.password === "1234") {
-      setLoggedIn(true);
-      setError("");
-    } else {
-      setError("Неверный логин или пароль");
+  const [loginMutation, { isLoading: isLoggingIn }] = useLoginMutation();
+
+  const onSubmit = async (data: FormData) => {
+    setError("");
+    try {
+      const response = await loginMutation(data).unwrap();
+
+      if (!response.accessToken) {
+        setError("Неверный логин или пароль");
+        dispatch(logoutAction());
+      }
+    } catch (err: any) {
+      setError(err?.data?.message || "Неверный логин или пароль");
+      dispatch(logoutAction());
     }
   };
+
+  if (loading || isLoggingIn) {
+    return <LoadingPage description="Восстанавливаем сессию..." />;
+  }
 
   if (!loggedIn) {
     return (
@@ -68,17 +82,26 @@ const AdminPage = () => {
             </p>
           )}
 
-          <Button type="submit">Войти</Button>
+          <Button type="submit" disabled={isLoggingIn}>
+            {isLoggingIn ? "Вход..." : "Войти"}
+          </Button>
         </form>
       </div>
     );
   }
 
   return (
-  
-    <Suspense fallback={<Loading description="Получаем данные по услугам" />}>
-      <AdminPageContent />
-    </Suspense>
+    <div>
+      <div className="flex justify-end p-4">
+        <Button variant="primary" onClick={logout}>
+          Выйти
+        </Button>
+      </div>
+
+      <Suspense fallback={<Loading description="Получаем данные по услугам" />}>
+        <AdminPageContent />
+      </Suspense>
+    </div>
   );
 };
 

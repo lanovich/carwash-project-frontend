@@ -4,10 +4,12 @@ import { bookingApi } from "@/entities/booking/api";
 import { timeSlotsApi } from "@/entities/time/api";
 import { serviceApi } from "@/entities/service/api";
 import { adminApi } from "@/entities/admin/api";
+import authReducer from "@/features/auth/authSlice";
 
 export const store = configureStore({
   reducer: {
     booking: bookingReducer,
+    auth: authReducer,
     [adminApi.reducerPath]: adminApi.reducer,
     [bookingApi.reducerPath]: bookingApi.reducer,
     [timeSlotsApi.reducerPath]: timeSlotsApi.reducer,
@@ -18,7 +20,7 @@ export const store = configureStore({
       .concat(bookingApi.middleware)
       .concat(timeSlotsApi.middleware)
       .concat(serviceApi.middleware)
-      .concat(adminApi.middleware)
+      .concat(adminApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
