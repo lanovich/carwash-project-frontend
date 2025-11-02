@@ -8,7 +8,7 @@ export const timeSlotsApi = createApi({
   endpoints: (builder) => ({
     getTimeSlots: builder.query<TimeSlotsApiResponse, string>({
       query: (date) => ({
-        url: `/api/time-slots`,
+        url: `/time-slots`,
         method: "GET",
         params: { date },
       }),
