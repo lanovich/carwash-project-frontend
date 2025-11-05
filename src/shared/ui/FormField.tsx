@@ -38,9 +38,14 @@ export const FormField = <TFieldValues extends FieldValues>({
               ...field,
               value: displayValue,
               onChange: handleChange,
+              onBlur: (e: React.FocusEvent<HTMLInputElement>) => {
+                field.onBlur();
+                children.props.onBlur?.(e);
+              },
               type,
               className: cn(children.props.className, className),
             })}
+
             {fieldState.error && (
               <span className="text-red-500 text-caption">
                 {fieldState.error.message}
