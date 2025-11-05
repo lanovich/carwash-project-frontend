@@ -8,7 +8,7 @@ export const bookingApi = createApi({
   endpoints: (builder) => ({
     createBooking: builder.mutation<BookingResponse, BookingRequest>({
       query: (body) => ({
-        url: "/api/booking",
+        url: "/booking",
         method: "POST",
         body,
       }),
