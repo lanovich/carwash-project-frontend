@@ -1,46 +1,54 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { Service } from "@/entities/service/model";
-import { ServiceRequest } from "@/entities/admin/model";
-import { SERVICES_TAG } from "@/shared/api";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import { setAccessToken, logout } from "@/features/auth/authSlice";
+import { baseQueryWithReauth } from "@/shared/api";
+
+interface LoginRequest {
+  login: string;
+  password: string;
+}
+
+interface LoginResponse {
+  accessToken: string;
+}
+
+interface RefreshResponse {
+  accessToken: string;
+}
 
 export const adminApi = createApi({
   reducerPath: "adminApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "/api/admin" }),
-  tagTypes: [SERVICES_TAG],
+  baseQuery: baseQueryWithReauth,
+  tagTypes: ["Services"],
   endpoints: (builder) => ({
-    createService: builder.mutation<Service, ServiceRequest>({
-      query: (data) => ({
-        url: "/services",
+    login: builder.mutation<LoginResponse, LoginRequest>({
+      query: (credentials) => ({
+        url: "/admin/login",
         method: "POST",
-        body: data,
+        body: credentials,
       }),
-      invalidatesTags: [SERVICES_TAG],
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(setAccessToken(data.accessToken));
+        } catch {}
+      },
     }),
-
-    updateService: builder.mutation<
-      Service,
-      { id: string; data: Partial<ServiceRequest> }
-    >({
-      query: ({ id, data }) => ({
-        url: `/services/${id}`,
-        method: "PATCH",
-        body: data,
-      }),
-      invalidatesTags: (result, error, { id }) => [{ type: SERVICES_TAG, id }],
+    refresh: builder.mutation<RefreshResponse, void>({
+      query: () => ({ url: "/admin/refresh", method: "POST" }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(setAccessToken(data.accessToken));
+        } catch {
+          dispatch(logout());
+        }
+      },
     }),
-
-    deleteService: builder.mutation<{ success: boolean; id: string }, string>({
-      query: (id) => ({
-        url: `/services/${id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: [SERVICES_TAG],
+    logout: builder.mutation<void, void>({
+      query: () => ({ url: "/admin/logout", method: "POST" }),
     }),
   }),
 });
 
-export const {
-  useCreateServiceMutation,
-  useUpdateServiceMutation,
-  useDeleteServiceMutation,
-} = adminApi;
+export const { useLoginMutation, useLogoutMutation, useRefreshMutation } =
+  adminApi;
