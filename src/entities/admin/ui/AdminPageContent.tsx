@@ -4,7 +4,13 @@ import { AdminServiceAccordion } from "./AdminServiceAccordion";
 import { InfoBlock, Loading } from "@/shared/ui";
 
 export const AdminPageContent = () => {
-  const { data: services = [], isLoading } = useGetAllServicesQuery();
+  const { services, isLoading } = useGetAllServicesQuery(undefined, {
+    refetchOnMountOrArgChange: false,
+    selectFromResult: ({ data, isLoading }) => ({
+      services: data ?? [],
+      isLoading,
+    }),
+  });
 
   if (isLoading) return <Loading description="Получаем данные по услугам" />;
 
@@ -15,7 +21,20 @@ export const AdminPageContent = () => {
       </h1>
 
       {ALL_CATEGORIES.map(({ name, value }) => {
-        const filteredServices = services.filter((s) => s.category === value);
+        const filteredServices = services
+          .filter((s) => s.category === value)
+          .sort((a, b) => {
+            const sumA = Object.values(a.prices || {}).reduce(
+              (acc, val) => acc + Number(val || 0),
+              0
+            );
+            const sumB = Object.values(b.prices || {}).reduce(
+              (acc, val) => acc + Number(val || 0),
+              0
+            );
+            return sumB - sumA; 
+          });
+
         if (!filteredServices.length) return null;
 
         return (
