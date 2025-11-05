@@ -3,7 +3,7 @@ import { useState } from "react";
 
 interface ModalContentProps {
   title?: string;
-  message: string;
+  message: React.ReactNode;
   isOpen: boolean;
   onClose: (confirmed: boolean, dontAskAgain?: boolean) => void;
   dontAskAgainKey?: string;

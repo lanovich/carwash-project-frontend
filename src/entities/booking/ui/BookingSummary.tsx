@@ -20,6 +20,7 @@ import {
   ContactFormSchema,
   DEFAULT_CONTACT_FORM_VALUES,
 } from "@/entities/user/model";
+import { formatDate } from "@/shared/lib/formatDate";
 
 export const BookingSummary = () => {
   const dispatch = useDispatch();
@@ -67,7 +68,7 @@ export const BookingSummary = () => {
       </InfoBlock>
 
       <InfoBlock heading="Дата и время">
-        <BookingRow name="Дата" value={date || ""} />
+        <BookingRow name="Дата" value={date ? formatDate(date).toDMY() : ""} />
         <BookingRow name="Время" value={time || ""} />
       </InfoBlock>
 

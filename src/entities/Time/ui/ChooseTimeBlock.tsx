@@ -11,6 +11,7 @@ import { Carousel } from "@/shared/ui/Carousel";
 import { formatCountSlots, useItemsPerSlide } from "../lib";
 import { useGetTimeSlotsQuery } from "@/entities/time/api";
 import { Button, Loading } from "@/shared/ui";
+import { formatDate } from "@/shared/lib/formatDate";
 
 const weekDays = [
   "Воскресенье",
@@ -80,7 +81,7 @@ export const ChooseTimeBlock = () => {
           <TimeCard
             key={id}
             align="start"
-            mainText={date}
+            mainText={formatDate(date).toDM()}
             caption={weekDay}
             active={selectedDate === date}
             onClick={() => dispatch(setDate(date))}

@@ -16,3 +16,4 @@ export * from "./Loading";
 export * from "./Textarea";
 export * from "./ImagePreview";
 export * from "./Select";
+export * from "./FileUploader";

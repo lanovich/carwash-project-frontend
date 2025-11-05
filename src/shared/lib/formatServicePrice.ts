@@ -1,5 +1,5 @@
 import { ObjectType } from "@/entities/booking/model";
-import { Service } from "@/entities/service/model";
+import { Service, ServiceResponse, measureMap } from "@/entities/service/model";
 
 export const formatServicePrice = (
   service: Service,
@@ -19,16 +19,21 @@ export const formatServicePrice = (
 
   const formattedPrice = formatNumber(price);
 
-  if (service.from && service.measure) {
-    return `от ${formattedPrice} ₽ | ${service.measure}`;
+  const readableMeasure =
+    service.measure && measureMap[service.measure as ServiceResponse["measure"]]
+      ? measureMap[service.measure as ServiceResponse["measure"]]
+      : service.measure;
+
+  if (service.from && readableMeasure) {
+    return `от ${formattedPrice} ₽ | ${readableMeasure}`;
   }
 
   if (service.from) {
     return `от ${formattedPrice} ₽`;
   }
 
-  if (service.measure) {
-    return `${formattedPrice} ₽ | ${service.measure}`;
+  if (readableMeasure) {
+    return `${formattedPrice} ₽ | ${readableMeasure}`;
   }
 
   return `${formattedPrice} ₽`;
