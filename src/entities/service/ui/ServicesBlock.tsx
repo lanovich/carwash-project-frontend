@@ -2,7 +2,7 @@ import { Button, Tabs } from "@/shared/ui";
 import { useState, useEffect, type ReactElement } from "react";
 import { ServiceCard } from "./ServiceCard";
 import { HorizontalServiceCard } from "./HorizontalServiceCard";
-import { cn } from "@/shared/lib";
+import { cn, filterServices } from "@/shared/lib";
 import { LayoutGrid, StretchHorizontal } from "lucide-react";
 import { useSelector } from "react-redux";
 import { CATEGORY_GROUPS } from "../model";
@@ -75,14 +75,12 @@ export const ServicesBlock = () => {
     );
   }
 
-  const filteredServices =
-    servicesData
-      ?.filter((s) => s.category === selectedCategory)
-      .sort(
-        (a, b) =>
-          (b.prices[selectedObjectType] ?? 0) -
-          (a.prices[selectedObjectType] ?? 0)
-      ) || [];
+  const filteredServices = filterServices(
+    servicesData,
+    selectedCategory,
+    selectedObjectType
+  ).priceSort("desc");
+
   return (
     <div className={cn("flex flex-col gap-3 w-full", visible && "fade-in")}>
       <div className="flex flex-col sm:flex-row gap-1 sm:justify-between">

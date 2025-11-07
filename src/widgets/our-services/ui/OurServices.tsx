@@ -6,6 +6,7 @@ import { ALL_CATEGORIES } from "@/entities/service/model";
 import { HorizontalServiceCard } from "@/entities/service/ui";
 import { Container, Loading, Button } from "@/shared/ui";
 import { useGetAllServicesQuery } from "@/entities/service/api";
+import { filterServices } from "@/shared/lib";
 
 export const OurServices = () => {
   const [selectedType, setSelectedType] = useState<ObjectType>("sedan");
@@ -19,14 +20,12 @@ export const OurServices = () => {
   const handleSelectType = (type: string) =>
     setSelectedType(type as ObjectType);
 
-  const filteredTypes = Object.entries(objectTypesMap).filter(
-    ([type]) => type !== "special"
-  );
+  const iterableTypes = Object.entries(objectTypesMap);
 
   return (
     <div className="mt-8 bg-bg-dark-100 border-b border-primary border-dashed">
       <div className="flex gap-2 items-stretch py-4 justify-center shadow-lg px-6 flex-wrap">
-        {filteredTypes.map(([type, { caption, icon }]) => (
+        {iterableTypes.map(([type, { caption, icon }]) => (
           <CarTypeCard
             key={type}
             className="max-w-[200px]"
@@ -57,8 +56,11 @@ export const OurServices = () => {
             </div>
           ) : (
             ALL_CATEGORIES.map(({ name, value }) => {
-              const categoryServices =
-                services?.filter((service) => service.category === value) || [];
+              const categoryServices = filterServices(
+                services,
+                value,
+                selectedType
+              ).priceSort("desc");
 
               return (
                 <div key={value} className="flex flex-col flex-1 gap-1.5">
@@ -73,11 +75,7 @@ export const OurServices = () => {
                         service={service}
                         canOrder={false}
                         size="sm"
-                        selectedObjectType={
-                          service.category === "special"
-                            ? "special"
-                            : selectedType
-                        }
+                        selectedObjectType={selectedType}
                       />
                     ))}
                   </div>

@@ -40,7 +40,7 @@ const generateDates = (count: number) => {
     result.push({
       id: `${current.getTime()}-${i}`,
       weekDay: weekDays[current.getDay()],
-      date: current.toISOString().split("T")[0].replaceAll("-", "."),
+      date: current.toISOString().split("T")[0],
     });
   }
 
@@ -73,6 +73,10 @@ export const ChooseTimeBlock = () => {
   );
 
   const isTimeSlotsExist = timeSlots.length > 0;
+
+  console.log(dates)
+
+  console.log("fefe")
 
   return (
     <div>

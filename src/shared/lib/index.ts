@@ -8,3 +8,4 @@ export * from "./useThrottle";
 export * from "./formatServicePrice";
 export * from "./routes";
 export * from "./formatPhone";
+export * from "./filterServices";

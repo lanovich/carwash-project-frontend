@@ -2,7 +2,7 @@ import { CarType } from "@/entities/car/model";
 import { Service } from "@/entities/service/model";
 import { User } from "@/entities/user/model";
 
-export type ObjectType = CarType | "special";
+export type ObjectType = CarType;
 
 export interface BookingState {
   carwashId: string | null;

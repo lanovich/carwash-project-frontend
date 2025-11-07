@@ -2,7 +2,7 @@ import { ObjectType } from "@/entities/booking/model";
 
 export type MeasureLabel = "кв.м" | "деталь" | "шт";
 export type DatabaseMeasure = "SQM" | "DETAIL" | "SHT";
-export type Category = "salon" | "body" | "dryclean" | "special";
+export type Category = "salon" | "body" | "dryclean";
 
 export interface Service {
   id: string;

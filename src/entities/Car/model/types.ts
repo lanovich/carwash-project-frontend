@@ -1,1 +1,1 @@
-export type CarType = "sedan" | "crossover" | "minivan";
+export type CarType = "sedan" | "crossover" | "jeep" | "minivan";

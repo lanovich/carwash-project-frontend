@@ -36,6 +36,7 @@ export const HorizontalServiceCard = ({
 
   const handleToggle = () => {
     if (blocked) return;
+    if (!canOrder) return;
     if (selectedObjectType) {
       dispatch(toggleService(service));
     } else {
@@ -104,7 +105,11 @@ export const HorizontalServiceCard = ({
                 {tag}
               </Tag>
             ))}
-            {service.duration && <Tag variant="secondary">{service.duration[selectedObjectType]} мин</Tag>}
+            {service.duration && (
+              <Tag variant="secondary">
+                {service.duration[selectedObjectType]} мин
+              </Tag>
+            )}
             {service.popular && <Tag variant="primary">популярное</Tag>}
           </div>
         </div>

@@ -49,54 +49,52 @@ export const ContactForm = () => {
         </div>
       </div>
 
-      {objectType !== "special" && (
-        <div className="flex flex-col gap-2 flex-1">
-          <h3>Ваш автомобиль</h3>
-          <div className="flex flex-col gap-2">
-            <FormField name="carType" control={control}>
-              <Input
-                placeholder="Тип автомобиля"
-                readOnly
-                value={
-                  objectType
-                    ? objectTypesMap[objectType].caption.toUpperCase()
-                    : ""
-                }
-                className="w-full"
-                withLeftArea
-                areaContent={<Car size={20} />}
-              />
-            </FormField>
+      <div className="flex flex-col gap-2 flex-1">
+        <h3>Ваш автомобиль</h3>
+        <div className="flex flex-col gap-2">
+          <FormField name="carType" control={control}>
+            <Input
+              placeholder="Тип автомобиля"
+              readOnly
+              value={
+                objectType
+                  ? objectTypesMap[objectType].caption.toUpperCase()
+                  : ""
+              }
+              className="w-full"
+              withLeftArea
+              areaContent={<Car size={20} />}
+            />
+          </FormField>
 
-            <FormField name="carColor" control={control}>
-              <Input
-                placeholder="Цвет автомобиля"
-                className="w-full"
-                withLeftArea
-                areaContent={<Palette size={20} />}
-              />
-            </FormField>
+          <FormField name="carColor" control={control}>
+            <Input
+              placeholder="Цвет автомобиля"
+              className="w-full"
+              withLeftArea
+              areaContent={<Palette size={20} />}
+            />
+          </FormField>
 
-            <FormField name="carModel" control={control}>
-              <Input
-                placeholder="Модель / марка"
-                className="w-full"
-                withLeftArea
-                areaContent={<BadgeInfo size={20} />}
-              />
-            </FormField>
+          <FormField name="carModel" control={control}>
+            <Input
+              placeholder="Модель / марка"
+              className="w-full"
+              withLeftArea
+              areaContent={<BadgeInfo size={20} />}
+            />
+          </FormField>
 
-            <FormField name="licensePlate" control={control}>
-              <Input
-                placeholder="Гос. номер (опционально)"
-                className="w-full"
-                withLeftArea
-                areaContent={<Hash size={20} />}
-              />
-            </FormField>
-          </div>
+          <FormField name="licensePlate" control={control}>
+            <Input
+              placeholder="Гос. номер (опционально)"
+              className="w-full"
+              withLeftArea
+              areaContent={<Hash size={20} />}
+            />
+          </FormField>
         </div>
-      )}
+      </div>
     </form>
   );
 };

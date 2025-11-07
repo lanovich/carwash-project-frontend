@@ -15,12 +15,16 @@ export const CATEGORY_GROUPS: Record<
     { name: "Кузов", value: "body" },
     { name: "Химчистка", value: "dryclean" },
   ],
+  jeep: [
+    { name: "Салон", value: "salon" },
+    { name: "Кузов", value: "body" },
+    { name: "Химчистка", value: "dryclean" },
+  ],
   minivan: [
     { name: "Салон", value: "salon" },
     { name: "Кузов", value: "body" },
     { name: "Химчистка", value: "dryclean" },
   ],
-  special: [{ name: "Специальные", value: "special" }],
 };
 
 export const measureMap: Record<
@@ -36,5 +40,4 @@ export const ALL_CATEGORIES = [
   { name: "Салон", value: "salon" },
   { name: "Кузов", value: "body" },
   { name: "Химчистка", value: "dryclean" },
-  { name: "Специальные", value: "special" },
-];
+] as const;
