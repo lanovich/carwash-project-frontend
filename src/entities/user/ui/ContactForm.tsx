@@ -1,5 +1,5 @@
 import { cn } from "@/shared/lib";
-import { Phone, User, Mail, Car, Palette, BadgeInfo, Hash } from "lucide-react";
+import { Phone, User, Car, Palette, BadgeInfo, Hash } from "lucide-react";
 import { FormField, Input } from "@/shared/ui";
 import { objectTypesMap } from "@/entities/car/model";
 import { useFormContext } from "react-hook-form";
@@ -37,15 +37,6 @@ export const ContactForm = () => {
               areaContent={<User size={20} />}
             />
           </FormField>
-
-          <FormField name="email" control={control} type="email">
-            <Input
-              placeholder="Почта (опционально)"
-              className="w-full"
-              withLeftArea
-              areaContent={<Mail size={20} />}
-            />
-          </FormField>
         </div>
       </div>
 
@@ -76,10 +67,13 @@ export const ContactForm = () => {
             />
           </FormField>
 
+          <div className="border border-t mx-1 border-bg-dark-100/10 rounded-full" />
+
           <FormField name="carModel" control={control}>
             <Input
-              placeholder="Модель / марка"
+              placeholder="Модель / марка (опционально)"
               className="w-full"
+              variant={"secondary"}
               withLeftArea
               areaContent={<BadgeInfo size={20} />}
             />
@@ -88,11 +82,16 @@ export const ContactForm = () => {
           <FormField name="licensePlate" control={control}>
             <Input
               placeholder="Гос. номер (опционально)"
+              variant={"secondary"}
               className="w-full"
               withLeftArea
               areaContent={<Hash size={20} />}
             />
           </FormField>
+
+          <div className="text-xs text-primary">
+            *Для оформления заполните поля, выделенные красным цветом
+          </div>
         </div>
       </div>
     </form>

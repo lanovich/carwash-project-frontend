@@ -12,7 +12,7 @@ export const contactFormSchema = z.object({
     .optional()
     .or(z.literal("")),
   carType: z.string().optional(),
-  carColor: z.string().optional(),
+  carColor: z.string().min(1, "Ввведите цвет вашего авто"),
   carModel: z.string().optional(),
   licensePlate: z.string().optional(),
 });
