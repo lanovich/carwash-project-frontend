@@ -20,7 +20,6 @@ type ViewVariant = (typeof viewVariants)[number]["value"];
 
 export const ServicesBlock = () => {
   const selectedObjectType = useSelector(selectObjectType);
-
   const [selectedCategory, setSelectedCategory] =
     useState<Service["category"]>("salon");
   const [selectedView, setSelectedView] = useState<ViewVariant>("card");
@@ -78,8 +77,9 @@ export const ServicesBlock = () => {
   const filteredServices = filterServices(
     servicesData,
     selectedCategory,
-    selectedObjectType
-  ).priceSort("desc");
+    selectedObjectType,
+    { priceSort: "desc" }
+  );
 
   return (
     <div className={cn("flex flex-col gap-3 w-full", visible && "fade-in")}>

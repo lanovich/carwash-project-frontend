@@ -6,6 +6,7 @@ import { InfoBlock, Input, Loading } from "@/shared/ui";
 import { Search } from "lucide-react";
 import { useDebounce } from "@/shared/lib/useDebounce";
 import { AdminServiceCreateModal } from "@/features/create-service-modal";
+import { filterServices } from "@/shared/lib";
 
 export const AdminPageContent = () => {
   const { services, isLoading } = useAdminGetAllServicesQuery(undefined, {
@@ -28,26 +29,19 @@ export const AdminPageContent = () => {
   );
 
   const filteredServicesByCategory = useMemo(() => {
+    if (!services) return [];
+
     return ALL_CATEGORIES.map(({ name, value }) => {
-      const filtered = services
-        .filter((s) => s.category === value)
-        .filter((s) =>
-          debouncedQuery
-            ? s.title.toLowerCase().includes(debouncedQuery) ||
-              s.shortDescription?.toLowerCase().includes(debouncedQuery)
-            : true
-        )
-        .sort((a, b) => {
-          const sumA = Object.values(a.prices || {}).reduce(
-            (acc, val) => acc + Number(val || 0),
-            0
-          );
-          const sumB = Object.values(b.prices || {}).reduce(
-            (acc, val) => acc + Number(val || 0),
-            0
-          );
-          return sumB - sumA;
-        });
+      let filtered = filterServices(services, value);
+
+      if (debouncedQuery) {
+        const query = debouncedQuery.toLowerCase();
+        filtered = filtered.filter(
+          (s) =>
+            s.title.toLowerCase().includes(query) ||
+            s.shortDescription?.toLowerCase().includes(query)
+        );
+      }
 
       return { name, value, services: filtered };
     });

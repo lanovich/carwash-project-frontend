@@ -31,7 +31,12 @@ export const AdminServiceAccordion = ({ service }: Props) => {
 
           <div className="flex flex-col justify-between gap-1 text-left">
             <div className="text-[14px] font-normal leading-[15px] text-black">
-              <h3>{service.title}</h3>
+              <div className="flex items-center gap-2">
+                {service.order && (
+                  <p className="text-xs text-text-subtle">#{service?.order}</p>
+                )}
+                <h3>{service.title}</h3>
+              </div>
             </div>
 
             <div className=" flex flex-wrap gap-1 w-fit">

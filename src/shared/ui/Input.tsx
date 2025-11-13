@@ -4,7 +4,7 @@ import { cn } from "@/shared/lib";
 
 const wrapperVariants = cva("flex items-center ", {
   variants: {
-    size: {
+    inputSize: {
       sm: "h-8",
       md: "h-[40px]",
       lg: "h-14",
@@ -15,14 +15,14 @@ const wrapperVariants = cva("flex items-center ", {
     },
   },
   defaultVariants: {
-    size: "md",
+    inputSize: "md",
     fullWidth: true,
   },
 });
 
 const areaVariants = cva("flex items-center justify-center shrink-0", {
   variants: {
-    size: {
+    inputSize: {
       sm: "w-8 h-8 text-small",
       md: "w-10 h-[40px]",
       lg: "w-12 h-14",
@@ -34,7 +34,7 @@ const areaVariants = cva("flex items-center justify-center shrink-0", {
     },
   },
   defaultVariants: {
-    size: "md",
+    inputSize: "md",
     variant: "primary",
   },
 });
@@ -48,7 +48,7 @@ const inputVariants = cva(
   `,
   {
     variants: {
-      size: {
+      inputSize: {
         sm: "h-8 px-3 text-caption",
         md: "h-[40px] px-3 text-small",
         lg: "h-14 px-4 text-regular",
@@ -76,7 +76,7 @@ const inputVariants = cva(
       },
     },
     defaultVariants: {
-      size: "md",
+      inputSize: "md",
       variant: "primary",
       readOnly: false,
       withLeftArea: false,
@@ -101,7 +101,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
       className,
-      size,
+      inputSize,
       variant,
       fullWidth,
       withLeftArea = false,
@@ -131,7 +131,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         <div className="flex w-full gap-0">
           {withLeftArea && areaContent && (
             <div
-              className={cn(areaVariants({ size, variant }), "rounded-l-md")}
+              className={cn(areaVariants({ inputSize, variant }), "rounded-l-md")}
             >
               {areaContent}
             </div>
@@ -142,7 +142,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             readOnly={readOnly}
             className={cn(
               inputVariants({
-                size,
+                inputSize,
                 variant: errorText ? "error" : variant,
                 readOnly,
                 withLeftArea,
@@ -154,7 +154,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           />
           {withRightArea && areaContent && (
             <div
-              className={cn(areaVariants({ size, variant }), "rounded-r-md")}
+              className={cn(areaVariants({ inputSize, variant }), "rounded-r-md")}
             >
               {areaContent}
             </div>

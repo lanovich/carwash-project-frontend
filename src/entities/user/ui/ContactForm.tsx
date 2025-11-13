@@ -88,10 +88,6 @@ export const ContactForm = () => {
               areaContent={<Hash size={20} />}
             />
           </FormField>
-
-          <div className="text-xs text-primary">
-            *Для оформления заполните поля, выделенные красным цветом
-          </div>
         </div>
       </div>
     </form>

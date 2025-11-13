@@ -9,6 +9,7 @@ export interface ServiceRequest {
   resultDescriptions: string[];
   tags: string[];
   mainImage?: string;
+  order?: number;
   additionalImages?: string[];
   from?: boolean;
   measure?: DatabaseMeasure;

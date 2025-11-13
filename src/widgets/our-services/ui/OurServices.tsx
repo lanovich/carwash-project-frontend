@@ -59,8 +59,9 @@ export const OurServices = () => {
               const categoryServices = filterServices(
                 services,
                 value,
-                selectedType
-              ).priceSort("desc");
+                selectedType,
+                { priceSort: "desc" }
+              );
 
               return (
                 <div key={value} className="flex flex-col flex-1 gap-1.5">

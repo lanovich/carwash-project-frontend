@@ -12,6 +12,7 @@ export interface Service {
   category: Category;
   popular?: boolean;
   resultDescriptions?: string[];
+  order?: number;
   tags?: string[];
 
   prices: Partial<Record<ObjectType, number>>;

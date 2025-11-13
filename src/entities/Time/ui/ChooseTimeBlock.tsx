@@ -74,10 +74,6 @@ export const ChooseTimeBlock = () => {
 
   const isTimeSlotsExist = timeSlots.length > 0;
 
-  console.log(dates)
-
-  console.log("fefe")
-
   return (
     <div>
       <Carousel className="text-nowrap pb-2" itemsPerSlide={itemsPerSlide}>

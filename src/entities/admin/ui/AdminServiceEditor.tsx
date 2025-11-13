@@ -33,6 +33,7 @@ type FormValues = {
   from: boolean;
   shortDescription: string;
   longDescription: string;
+  order?: number;
   measure: Service["measure"];
   resultDescriptions: string[];
 };
@@ -54,6 +55,7 @@ export const AdminServiceEditor = ({ service }: Props) => {
       measure: service.measure,
       shortDescription: service.shortDescription,
       longDescription: service.longDescription,
+      order: service.order,
       resultDescriptions: service.resultDescriptions
         ? [...service.resultDescriptions].slice(0, 3)
         : ["", "", ""],
@@ -72,14 +74,20 @@ export const AdminServiceEditor = ({ service }: Props) => {
 
   const handleBlur = async <T extends keyof FormValues>(fieldName: T) => {
     const data = getValues();
-    const newValue = data[fieldName];
     const oldValue = service[fieldName as keyof typeof service];
-    if (newValue === oldValue) return;
+
+    let valueToSend: any = data[fieldName];
+
+    if (fieldName === "order") {
+      valueToSend = valueToSend !== "" ? Number(valueToSend) : null;
+    }
+
+    if (valueToSend === oldValue) return;
 
     try {
       await updateService({
         id: service.id,
-        data: { [fieldName]: newValue },
+        data: { [fieldName]: valueToSend },
       }).unwrap();
     } catch (error) {
       console.error(`Failed to update ${fieldName}:`, error);
@@ -114,11 +122,10 @@ export const AdminServiceEditor = ({ service }: Props) => {
 
   const handleDeleteAdditionalImage = async (url: string) => {
     try {
-      const updated = await deleteAdditionalImage({
+      await deleteAdditionalImage({
         serviceId: service.id,
         imageUrl: encodeURIComponent(url),
       }).unwrap();
-      console.log("Updated additional images:", updated.additionalImages);
     } catch (err) {
       console.error("Failed to delete additional image:", err);
     }
@@ -171,6 +178,22 @@ export const AdminServiceEditor = ({ service }: Props) => {
           <Plus size={20} color="var(--color-primary)" />
           <p className="text-caption text-primary">доп. фото</p>
         </FileUploader>
+      </div>
+
+      <div className="flex w-18">
+        <FormField name="order" control={control}>
+          <Input
+            label="№ в списке"
+            type="number"
+            variant={"secondary"}
+            min={0}
+            inputMode="tel"
+            className="shrink"
+            inputSize={"sm"}
+            defaultValue={service?.order ?? ""}
+            onBlur={() => handleBlur("order")}
+          />
+        </FormField>
       </div>
 
       {/* Service Form */}

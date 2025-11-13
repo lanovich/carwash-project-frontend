@@ -51,6 +51,8 @@ export const ServiceObjectTypeCard: React.FC<ServiceObjectTypeCardProps> = ({
         value={localPrice}
         placeholder="Цена"
         withRightArea
+        inputMode="tel"
+        min={0}
         areaContent={<RussianRuble strokeWidth={1.75} size={16} />}
         onChange={(e) => setLocalPrice(e.target.value)}
         onBlur={handlePriceBlur}
@@ -60,6 +62,8 @@ export const ServiceObjectTypeCard: React.FC<ServiceObjectTypeCardProps> = ({
         value={localDuration}
         placeholder="Минуты"
         withRightArea
+        min={0}
+        inputMode="tel"
         areaContent="Мин"
         onChange={(e) => setLocalDuration(e.target.value)}
         onBlur={handleDurationBlur}
