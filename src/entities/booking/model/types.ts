@@ -26,6 +26,15 @@ export interface BookingRequest {
   user: User;
 }
 
+export interface BookingItem {
+  id: string;
+  bookingId: string;
+  serviceId: string;
+  price: number;
+  duration: number;
+  service?: Service;
+}
+
 export interface BookingResponse {
   id: string;
   date: string;
@@ -33,6 +42,21 @@ export interface BookingResponse {
   objectType: ObjectType;
   status: "pending" | "confirmed" | "canceled" | "completed";
   userId: string;
+  user?: User;
+  services?: Service[];
+  items?: BookingItem[];
   createdAt: string;
   updatedAt: string;
+}
+
+export interface BookingCounts {
+  all: number;
+  pending: number;
+  confirmed: number;
+  canceled: number;
+  completed: number;
+}
+
+export interface BookingListResponse {
+  bookings: BookingResponse[];
 }
