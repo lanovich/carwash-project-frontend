@@ -6,6 +6,7 @@ import { useAdminAuth } from "@/entities/admin/lib";
 import { useDispatch } from "react-redux";
 import { logout as logoutAction } from "@/features/auth";
 import { LoadingPage } from "@/pages/loading-page/ui";
+import { toast } from "sonner";
 
 const AdminPageContent = lazy(() =>
   import("@/entities/admin/ui/AdminPageContent").then((m) => ({
@@ -39,10 +40,14 @@ const AdminPage = () => {
 
       if (!response.accessToken) {
         setError("Неверный логин или пароль");
+        toast.error("Неверный логин или пароль");
         dispatch(logoutAction());
+      } else {
+        toast.success("Успешный вход в систему");
       }
     } catch (err: any) {
       setError(err?.data?.message || "Неверный логин или пароль");
+      toast.error(err?.data?.message || "Неверный логин или пароль");
       dispatch(logoutAction());
     }
   };

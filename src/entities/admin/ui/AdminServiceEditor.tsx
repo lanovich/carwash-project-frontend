@@ -21,6 +21,7 @@ import {
 import { ServiceObjectTypeBlock } from ".";
 import { useState } from "react";
 import { ConfirmModal } from "@/features/modals/ui";
+import { toast } from "sonner";
 
 interface Props {
   service: Service;
@@ -90,7 +91,7 @@ export const AdminServiceEditor = ({ service }: Props) => {
         data: { [fieldName]: valueToSend },
       }).unwrap();
     } catch (error) {
-      console.error(`Failed to update ${fieldName}:`, error);
+      toast.error(`Не удалось обновить ${fieldName}`);
     }
   };
 
@@ -106,6 +107,7 @@ export const AdminServiceEditor = ({ service }: Props) => {
         data: { resultDescriptions: newValues },
       }).unwrap();
     } catch (error) {
+      toast.error("Не удалось обновить описание результата");
       console.error("Failed to update resultDescriptions:", error);
     }
   };
@@ -115,8 +117,9 @@ export const AdminServiceEditor = ({ service }: Props) => {
     if (!confirmed) return;
     try {
       await deleteService(service.id).unwrap();
+      toast.success("Услуга удалена");
     } catch (error) {
-      console.error("Failed to delete service:", error);
+      toast.error("Не удалось удалить услугу");
     }
   };
 
@@ -126,8 +129,9 @@ export const AdminServiceEditor = ({ service }: Props) => {
         serviceId: service.id,
         imageUrl: encodeURIComponent(url),
       }).unwrap();
+      toast.success("Изображение удалено");
     } catch (err) {
-      console.error("Failed to delete additional image:", err);
+      toast.error("Не удалось удалить изображение");
     }
   };
 
@@ -144,7 +148,12 @@ export const AdminServiceEditor = ({ service }: Props) => {
           className="p-0 border-none"
           accept="image/*"
           onUpload={async (file) => {
-            await uploadMainImage({ serviceId: service.id, file }).unwrap();
+            try {
+              await uploadMainImage({ serviceId: service.id, file }).unwrap();
+              toast.success("Обложка обновлена");
+            } catch {
+              toast.error("Не удалось загрузить обложку");
+            }
           }}
         >
           <Button variant="primary" size="sm">
@@ -169,10 +178,15 @@ export const AdminServiceEditor = ({ service }: Props) => {
           className="w-24 h-16 flex flex-col items-center justify-center border border-dashed rounded p-2"
           accept="image/*"
           onUpload={async (file) => {
-            await uploadAdditionalImage({
-              serviceId: service.id,
-              file,
-            }).unwrap();
+            try {
+              await uploadAdditionalImage({
+                serviceId: service.id,
+                file,
+              }).unwrap();
+              toast.success("Изображение добавлено");
+            } catch {
+              toast.error("Не удалось загрузить изображение");
+            }
           }}
         >
           <Plus size={20} color="var(--color-primary)" />

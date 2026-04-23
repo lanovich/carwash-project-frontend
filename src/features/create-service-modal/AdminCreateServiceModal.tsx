@@ -16,6 +16,7 @@ import {
   Modal,
 } from "@/shared/ui";
 import { useCreateServiceMutation } from "@/entities/service/api";
+import { toast } from "sonner";
 
 interface Props {
   defaultCategory: Category;
@@ -56,8 +57,9 @@ export const AdminServiceCreateModal = ({ defaultCategory }: Props) => {
       await createService(payload).unwrap();
       reset({ ...data, title: "" });
       setIsOpen(false);
+      toast.success("Услуга создана");
     } catch (err) {
-      console.error("Ошибка при создании услуги:", err);
+      toast.error("Не удалось создать услугу");
     }
   };
 

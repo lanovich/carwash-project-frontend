@@ -7,6 +7,7 @@ import {
 } from "@/entities/service/api";
 import { objectTypesMap, OBJECT_TYPES } from "@/entities/car/model";
 import { ObjectType } from "@/entities/booking/model";
+import { toast } from "sonner";
 
 interface ServiceObjectTypeBlockProps {
   serviceId: string;
@@ -35,8 +36,9 @@ export const ServiceObjectTypeBlock: React.FC<ServiceObjectTypeBlockProps> = ({
       await upsertServiceObjectType({ serviceId, objectType: ot }).unwrap();
       setLocalPrices((prev) => ({ ...prev, [ot]: 0 }));
       setLocalDurations((prev) => ({ ...prev, [ot]: 0 }));
+      toast.success("Тип ТС добавлен");
     } catch (err) {
-      console.error("Failed to add type:", err);
+      toast.error("Не удалось добавить тип ТС");
     }
   };
 
@@ -53,8 +55,9 @@ export const ServiceObjectTypeBlock: React.FC<ServiceObjectTypeBlockProps> = ({
         delete copy[ot];
         return copy;
       });
+      toast.success("Тип ТС удалён");
     } catch (err) {
-      console.error("Failed to remove type:", err);
+      toast.error("Не удалось удалить тип ТС");
     }
   };
 
@@ -67,7 +70,7 @@ export const ServiceObjectTypeBlock: React.FC<ServiceObjectTypeBlockProps> = ({
         price: value,
       }).unwrap();
     } catch (err) {
-      console.error("Failed to update price:", err);
+      toast.error("Не удалось обновить цену");
     }
   };
 
@@ -80,7 +83,7 @@ export const ServiceObjectTypeBlock: React.FC<ServiceObjectTypeBlockProps> = ({
         duration: value,
       }).unwrap();
     } catch (err) {
-      console.error("Failed to update duration:", err);
+      toast.error("Не удалось обновить длительность");
     }
   };
 

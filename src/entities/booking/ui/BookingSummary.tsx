@@ -21,6 +21,7 @@ import {
   DEFAULT_CONTACT_FORM_VALUES,
 } from "@/entities/user/model";
 import { formatDate } from "@/shared/lib/formatDate";
+import { toast } from "sonner";
 
 export const BookingSummary = () => {
   const dispatch = useDispatch();
@@ -56,8 +57,9 @@ export const BookingSummary = () => {
       setModalOpen(true);
       dispatch(resetBooking());
       reset(DEFAULT_CONTACT_FORM_VALUES);
+      toast.success("Бронирование успешно создано!");
     } catch (err: any) {
-      alert(err?.data?.message || "Ошибка при создании бронирования");
+      toast.error(err?.data?.message || "Ошибка при создании бронирования");
     }
   });
 
