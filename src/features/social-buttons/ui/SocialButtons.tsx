@@ -5,7 +5,7 @@ import { FaWhatsapp, FaVk } from "react-icons/fa";
 export const SocialButtons = () => {
   return (
     <div className="flex gap-1">
-      <Button iconOnly variant={"ghost"} className="border-none p-0">
+      <Button asChild variant={"ghost"} className="border-none p-0">
         <a
           href={CARWASH_INFO.socials.whatsapp}
           target="_blank"
@@ -16,7 +16,7 @@ export const SocialButtons = () => {
         </a>
       </Button>
 
-      <Button iconOnly variant={"ghost"} className="border-none p-0">
+      <Button asChild variant={"ghost"} className="border-none p-0">
         <a
           href={CARWASH_INFO.socials.vk}
           target="_blank"

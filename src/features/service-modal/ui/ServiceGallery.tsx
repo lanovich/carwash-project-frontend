@@ -15,7 +15,7 @@ export const ServiceGallery = ({
   additionalImages,
 }: Props) => {
   const allImages = [mainImage, ...(additionalImages ?? [])].filter(
-    (img): img is string => Boolean(img)
+    (img): img is string => Boolean(img),
   );
 
   const imagesToShow = allImages.length ? allImages : ["/placeholder.jpg"];
@@ -36,7 +36,7 @@ export const ServiceGallery = ({
         setSelectedIndex(index);
       }
     },
-    [emblaApi]
+    [emblaApi],
   );
 
   const scrollPrev = useCallback(() => {
@@ -87,7 +87,6 @@ export const ServiceGallery = ({
 
         {canScrollPrev && (
           <Button
-            iconOnly
             variant="primaryGhost"
             icon={
               <ChevronLeft color="var(--color-primary)" strokeWidth={1.75} />
@@ -98,7 +97,6 @@ export const ServiceGallery = ({
         )}
         {canScrollNext && (
           <Button
-            iconOnly
             variant="primaryGhost"
             icon={
               <ChevronRight color="var(--color-primary)" strokeWidth={1.75} />

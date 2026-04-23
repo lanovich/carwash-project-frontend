@@ -47,7 +47,7 @@ export const ServiceCard = ({
       onClick={!blocked && !isModalOpen ? handleToggle : undefined}
       className={cn(
         "relative flex flex-col w-full min-w-[130px] h-[240px] p-2 gap-2 border-1 transition-opacity cursor-pointer hover:shadow-md",
-        blocked && "cursor-not-allowed"
+        blocked && "cursor-not-allowed",
       )}
     >
       {blocked && <div className="absolute inset-0 bg-black/30 z-10" />}
@@ -56,7 +56,6 @@ export const ServiceCard = ({
         <Button
           variant="primary"
           icon={<CircleQuestionMark size={16} />}
-          iconOnly
           className=" text-white bg-primary/60"
           onClick={(e) => {
             e.stopPropagation();

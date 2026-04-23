@@ -1,4 +1,4 @@
-import { Button, Tabs } from "@/shared/ui";
+import { Button, TabOption, Tabs } from "@/shared/ui";
 import { useState, useEffect, type ReactElement } from "react";
 import { ServiceCard } from "./ServiceCard";
 import { HorizontalServiceCard } from "./HorizontalServiceCard";
@@ -11,9 +11,9 @@ import type { Service } from "@/entities/service/model";
 import { useGetAllServicesQuery } from "@/entities/service/api";
 import { Loading } from "@/shared/ui/Loading";
 
-const viewVariants = [
+const viewVariants: TabOption[] = [
   { icon: <StretchHorizontal size={16} />, value: "row" },
-  { icon: <LayoutGrid size={16} />, value: "card" },
+  { icon: <LayoutGrid size={16} />, value: "card"},
 ] as const;
 
 type ViewVariant = (typeof viewVariants)[number]["value"];
@@ -85,13 +85,11 @@ export const ServicesBlock = () => {
     <div className={cn("flex flex-col gap-3 w-full", visible && "fade-in")}>
       <div className="flex flex-col sm:flex-row gap-1 sm:justify-between">
         <Tabs
-          className="justify-between xs:justify-start"
           tabs={categories}
           selectedTab={selectedCategory}
           onChange={(val: Service["category"]) => setSelectedCategory(val)}
         />
         <Tabs
-          className="justify-start "
           tabs={viewVariants.map(({ icon, value }) => ({
             icon: icon as ReactElement,
             value,

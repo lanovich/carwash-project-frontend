@@ -18,7 +18,6 @@ export const Contacts = () => {
       <LinkButton
         to={`tel:${phoneNumber}`}
         variant="ghost"
-        iconOnly
         icon={<Phone size={20} color="var(--color-primary)" />}
         className="xl:hidden"
       />

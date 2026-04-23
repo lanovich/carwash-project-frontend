@@ -19,7 +19,7 @@ export const HeaderButtons = () => {
         <LinkButton
           to={`tel:${phoneNumber}`}
           variant="ghost"
-          iconOnly
+          size={"squareSm"}
           icon={<Phone size={20} color="var(--color-primary)" />}
         />
       </div>

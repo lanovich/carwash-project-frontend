@@ -64,7 +64,6 @@ export function Carousel({
     <div className={cn("flex gap-1 items-center relative w-full", className)}>
       {canScrollPrev && (
         <Button
-          iconOnly
           variant={"primaryGhost"}
           icon={<ChevronLeft color="var(--color-primary)" strokeWidth={1.75} />}
           onClick={scrollPrev}
@@ -87,7 +86,6 @@ export function Carousel({
 
       {canScrollNext && (
         <Button
-          iconOnly
           variant={"primaryGhost"}
           icon={
             <ChevronRight color="var(--color-primary)" strokeWidth={1.75} />
