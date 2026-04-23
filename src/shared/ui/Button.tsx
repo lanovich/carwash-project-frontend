@@ -2,9 +2,10 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/shared/lib";
 import React from "react";
+import { Badge, type BadgeProps } from "./Badge";
 
 export const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md transition-all disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer",
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md transition-all disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer",
 
   {
     variants: {
@@ -35,30 +36,31 @@ export const buttonVariants = cva(
         `,
       },
       size: {
-        default: "px-5 py-3 text-regular",
-        xs: "px-3 py-2 text-sm",
-        sm: "px-5 py-2 text-small",
+        xs: "px-3 py-2 text-caption",
+        sm: "px-5 py-2 text-sm",
         lg: "px-5 py-2 text-lg",
-      },
-      iconOnly: {
-        true: "p-2 aspect-square",
-        false: "",
+        squareXs: "size-8 p-2",
+        squareSm: "size-10 p-2",
+        squareMd: "size-12 p-2",
+        squareLg: "size-14 p-3",
       },
     },
     defaultVariants: {
       variant: "primary",
       size: "sm",
-      iconOnly: false,
     },
-  }
+  },
 );
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+  extends
+    Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "icon">,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   icon?: React.ReactNode;
   iconPosition?: "left" | "right";
+  badge?: BadgeProps["value"];
+  badgeSize?: BadgeProps["size"];
 }
 
 export const Button = ({
@@ -69,34 +71,36 @@ export const Button = ({
   iconPosition = "left",
   asChild = false,
   children,
-  iconOnly,
+  type = "button",
+  badge,
+  badgeSize,
   ...props
 }: ButtonProps) => {
   const Comp = asChild ? Slot : "button";
 
-  const isIconOnly = !children && icon;
-
-  const content = (
-    <span className="inline-flex items-center justify-center gap-2">
-      {icon && iconPosition === "left" && icon}
-      {children}
-      {icon && iconPosition === "right" && icon}
-    </span>
-  );
-
   return (
     <Comp
+      type={asChild ? undefined : type}
       className={cn(
+        "relative inline-flex",
         buttonVariants({
           variant,
-          size: isIconOnly ? "sm" : size,
-          iconOnly,
-          className,
-        })
+          size,
+        }),
+        className,
       )}
       {...props}
     >
-      {content}
+      <span className={cn("inline-flex items-center justify-center gap-2")}>
+        {icon && iconPosition === "left" && icon}
+        {children}
+        {icon && iconPosition === "right" && icon}
+        <Badge
+          value={badge ?? 0}
+          size={badgeSize}
+          className="-top-1 -right-1"
+        />
+      </span>
     </Comp>
   );
 };
