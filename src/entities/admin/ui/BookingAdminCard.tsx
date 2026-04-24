@@ -10,6 +10,7 @@ import {
   Palette,
   Hash,
   Mail,
+  Phone,
 } from "lucide-react";
 import { Button } from "@/shared/ui";
 import { BookingResponse } from "@/entities/booking/model";
@@ -46,7 +47,7 @@ export const BookingAdminCard = ({
       icon: <Check size={14} />,
     },
     canceled: {
-      label: "Отменён",
+      label: "Отклонён",
       className: "bg-red-100 text-red-800",
       icon: <X size={14} />,
     },
@@ -68,9 +69,7 @@ export const BookingAdminCard = ({
 
   const hasContactInfo = booking.user?.phone || booking.user?.email;
   const hasCarInfo =
-    booking.car?.carModel ||
-    booking.car?.carColor ||
-    booking.car?.licensePlate;
+    booking.car?.carModel || booking.car?.carColor || booking.car?.licensePlate;
 
   const handleCopyPhone = (phone: string) => {
     navigator.clipboard.writeText(phone);
@@ -151,6 +150,7 @@ export const BookingAdminCard = ({
                 <div className="flex flex-col gap-1">
                   {booking.user?.phone && (
                     <div className="flex items-center gap-2">
+                      <Phone size={14} className="text-text-secondary" />
                       <a
                         href={`tel:${booking.user.phone}`}
                         className="text-sm text-primary hover:underline"
@@ -221,7 +221,7 @@ export const BookingAdminCard = ({
                   {items.map((item) => (
                     <div
                       key={item.id}
-                      className="flex max-w-[500px] items-center justify-between bg-bg-light/70 px-3 py-2 rounded border border-gray-200 text-sm"
+                      className="flex max-w-[500px] items-center justify-between bg-white px-3 py-2 rounded border border-gray-300 text-sm"
                     >
                       <span className="flex-1 truncate">
                         {item.service?.title}
@@ -234,7 +234,7 @@ export const BookingAdminCard = ({
                       </span>
                     </div>
                   ))}
-                  <div className="flex max-w-[500px] items-center justify-between bg-bg-light/70 px-3 py-2 rounded border font-medium text-sm">
+                  <div className="flex max-w-[500px] items-center justify-between bg-white px-3 py-2 rounded border border-primary font-medium text-sm">
                     <span className="flex-1">ИТОГО:</span>
                     <span className="text-sm mr-2 shrink-0">
                       {totalPrice} ₽
@@ -301,6 +301,16 @@ export const BookingAdminCard = ({
                   disabled={isUpdating}
                 >
                   Услуги оказаны
+                </Button>
+                <Button
+                  size="sm"
+                  icon={<X size={16} />}
+                  iconPosition="left"
+                  variant="ghost"
+                  onClick={() => onCancel(booking.id)}
+                  disabled={isUpdating}
+                >
+                  Отклонить
                 </Button>
               </div>
             )}

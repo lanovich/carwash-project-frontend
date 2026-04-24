@@ -19,7 +19,7 @@ export const BookingsTab = () => {
     { name: `Все (${counts?.all})`, value: "all" },
     { name: "Новые", value: "pending", badge: counts?.pending },
     { name: "Подтверждённые", value: "confirmed", badge: counts?.confirmed },
-    { name: `Отменённые`, value: "canceled" },
+    { name: `Отклонённые`, value: "canceled" },
     { name: `Завершённые (${counts?.completed})`, value: "completed" },
   ];
 
