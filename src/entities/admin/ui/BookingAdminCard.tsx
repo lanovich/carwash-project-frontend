@@ -13,9 +13,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/shared/ui";
 import { BookingResponse } from "@/entities/booking/model";
-import { formatDate } from "@/shared/lib/formatDate";
+import { formatDate, formatPhone, formatId } from "@/shared/lib";
 import { objectTypesMap } from "@/entities/car/model";
-import { formatPhone } from "@/shared/lib/formatPhone";
 import { toast } from "sonner";
 
 interface Props {
@@ -249,7 +248,7 @@ export const BookingAdminCard = ({
             )}
 
             <div className="text-xs text-text-subtle">
-              <p>ID: {booking.id}</p>
+              <p>ID: {formatId(booking.id)}</p>
               <p>
                 Обновлено:{" "}
                 {new Date(booking.updatedAt).toLocaleDateString("ru-RU", {

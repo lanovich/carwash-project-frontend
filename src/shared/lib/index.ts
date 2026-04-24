@@ -9,3 +9,5 @@ export * from "./formatServicePrice";
 export * from "./routes";
 export * from "./formatPhone";
 export * from "./filterServices";
+export * from "./formatId";
+export * from "./formatDate";
