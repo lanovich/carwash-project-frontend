@@ -2,22 +2,25 @@ import { useState } from "react";
 import { ServicesTab } from "./ServicesTab";
 import { BookingsTab } from "./BookingsTab";
 import { AdminsListTab } from ".";
+import { NotificationsTab } from "./NotificationsTab";
 import { Tabs, TabOption } from "@/shared/ui";
-import { Wrench, Calendar, Users } from "lucide-react";
+import { Wrench, Calendar, Users, Bell } from "lucide-react";
 import { useGetBookingCountsQuery } from "@/entities/booking/api";
 
-export type TabValue = "services" | "bookings" | "admins";
+export type TabValue = "services" | "bookings" | "admins" | "notifications";
 
 const TABS: TabOption<TabValue>[] = [
   { name: "Услуги", value: "services", icon: <Wrench size={16} /> },
   { name: "Брони", value: "bookings", icon: <Calendar size={16} /> },
   { name: "Админы", value: "admins", icon: <Users size={16} /> },
+  { name: "Уведомления", value: "notifications", icon: <Bell size={16} /> },
 ];
 
 const TAB_COMPONENTS = {
   services: ServicesTab,
   bookings: BookingsTab,
   admins: AdminsListTab,
+  notifications: NotificationsTab,
 };
 
 export const AdminTabs = () => {

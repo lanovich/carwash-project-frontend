@@ -9,3 +9,4 @@ export { BookingsTab } from "./BookingsTab";
 export { ServicesTab } from "./ServicesTab";
 export { AdminTabs } from "./AdminTabs";
 export { AdminsListTab } from "./AdminsListTab";
+export { NotificationsTab } from "./NotificationsTab";

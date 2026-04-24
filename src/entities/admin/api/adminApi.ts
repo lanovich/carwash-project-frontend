@@ -47,6 +47,18 @@ export interface UpdateMeRequest {
   notifyOnBooking?: boolean;
 }
 
+export interface NotificationSettings {
+  emailFrom: string | null;
+  telegramId: string | null;
+  isActive: boolean;
+}
+
+export interface UpdateNotificationSettingsRequest {
+  emailFrom?: string | null;
+  telegramId?: string | null;
+  isActive?: boolean;
+}
+
 export const adminApi = createApi({
   reducerPath: "adminApi",
   baseQuery: baseQueryWithReauth,
@@ -116,6 +128,16 @@ export const adminApi = createApi({
       }),
       invalidatesTags: ["Admins"],
     }),
+    getNotificationSettings: builder.query<NotificationSettings, void>({
+      query: () => ({ url: "/admin/settings", method: "GET" }),
+    }),
+    updateNotificationSettings: builder.mutation<NotificationSettings, UpdateNotificationSettingsRequest>({
+      query: (body) => ({
+        url: "/admin/settings",
+        method: "PATCH",
+        body,
+      }),
+    }),
   }),
 });
 
@@ -129,4 +151,6 @@ export const {
   useCreateAdminMutation,
   useUpdateAdminMutation,
   useDeleteAdminMutation,
+  useGetNotificationSettingsQuery,
+  useUpdateNotificationSettingsMutation,
 } = adminApi;
