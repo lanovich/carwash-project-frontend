@@ -1,5 +1,5 @@
 import { cn } from "@/shared/lib";
-import { Phone, User, Car, Palette, BadgeInfo, Hash } from "lucide-react";
+import { Phone, User, Car, Palette, BadgeInfo, Hash, Mail } from "lucide-react";
 import { FormField, Input } from "@/shared/ui";
 import { objectTypesMap } from "@/entities/car/model";
 import { useFormContext } from "react-hook-form";
@@ -35,6 +35,18 @@ export const ContactForm = () => {
               className="w-full"
               withLeftArea
               areaContent={<User size={20} />}
+            />
+          </FormField>
+
+          <div className="border border-t mx-1 border-bg-dark-100/10 rounded-full" />
+
+          <FormField name="email" control={control}>
+            <Input
+              placeholder="Email (опционально)"
+              className="w-full"
+              variant={"secondary"}
+              withLeftArea
+              areaContent={<Mail size={20} />}
             />
           </FormField>
         </div>

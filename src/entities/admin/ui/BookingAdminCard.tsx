@@ -69,9 +69,9 @@ export const BookingAdminCard = ({
 
   const hasContactInfo = booking.user?.phone || booking.user?.email;
   const hasCarInfo =
-    booking.user?.carModel ||
-    booking.user?.carColor ||
-    booking.user?.licensePlate;
+    booking.car?.carModel ||
+    booking.car?.carColor ||
+    booking.car?.licensePlate;
 
   const handleCopyPhone = (phone: string) => {
     navigator.clipboard.writeText(phone);
@@ -122,13 +122,13 @@ export const BookingAdminCard = ({
                 {objectTypesMap[booking.objectType].caption.split(" / ")[0]}
               </span>
               <span className="text-xs text-text-secondary">
-                {booking.user?.carColor}
+                {booking.car?.carColor}
               </span>
 
-              {booking.user?.licensePlate && (
+              {booking.car?.licensePlate && (
                 <span className="flex items-center gap-1 text-[12px] text-text-secondary">
                   <Car size={12} />
-                  {booking.user.licensePlate}
+                  {booking.car.licensePlate}
                 </span>
               )}
             </div>
@@ -191,23 +191,23 @@ export const BookingAdminCard = ({
               <div>
                 <p className="text-xs text-text-subtle mb-2">Автомобиль</p>
                 <div className="flex flex-col gap-1">
-                  {booking.user?.carModel && (
+                  {booking.car?.carModel && (
                     <div className="flex items-center gap-2">
                       <Car size={14} className="text-text-secondary" />
-                      <span className="text-sm">{booking.user.carModel}</span>
+                      <span className="text-sm">{booking.car.carModel}</span>
                     </div>
                   )}
-                  {booking.user?.carColor && (
+                  {booking.car?.carColor && (
                     <div className="flex items-center gap-2">
                       <Palette size={14} className="text-text-secondary" />
-                      <span className="text-sm">{booking.user.carColor}</span>
+                      <span className="text-sm">{booking.car.carColor}</span>
                     </div>
                   )}
-                  {booking.user?.licensePlate && (
+                  {booking.car?.licensePlate && (
                     <div className="flex items-center gap-2">
                       <Hash size={14} className="text-text-secondary" />
                       <span className="text-sm font-medium">
-                        {booking.user.licensePlate}
+                        {booking.car.licensePlate}
                       </span>
                     </div>
                   )}

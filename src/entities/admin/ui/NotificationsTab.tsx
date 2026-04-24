@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import {
   useGetNotificationSettingsQuery,
   useUpdateNotificationSettingsMutation,
@@ -19,6 +19,7 @@ export const NotificationsTab = () => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors, isDirty },
     reset,
   } = useForm<FormData>({
@@ -53,9 +54,16 @@ export const NotificationsTab = () => {
 
       <InfoBlock heading="Настройки уведомлений">
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
-          <Checkbox
-            label="Включить уведомления"
-            {...register("isActive")}
+          <Controller
+            name="isActive"
+            control={control}
+            render={({ field }) => (
+              <Checkbox
+                label="Включить уведомления"
+                checked={field.value}
+                onChange={field.onChange}
+              />
+            )}
           />
 
           <Input

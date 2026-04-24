@@ -40,11 +40,24 @@ export const BookingSummary = () => {
 
   const canConfirm = !!date && !!time && services.length > 0 && !!objectType;
 
-  const handleConfirm = handleSubmit(async ({ carType, ...user }) => {
+  const handleConfirm = handleSubmit(async ({ carType, carModel, carColor, licensePlate, ...userData }) => {
     if (!canConfirm) return;
+
+    const user = {
+      name: userData.name,
+      phone: userData.phone,
+      email: userData.email,
+    };
+
+    const car = {
+      carModel: carModel || undefined,
+      carColor,
+      licensePlate: licensePlate || undefined,
+    };
 
     const payload: BookingRequest = {
       user,
+      car,
       objectType,
       serviceIds: services.map((s) => s.id),
       date,

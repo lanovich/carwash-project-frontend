@@ -13,6 +13,8 @@ const initialState: BookingState = {
     name: "",
     phone: "",
     email: "",
+  },
+  car: {
     carModel: "",
     carColor: "",
     licensePlate: "",

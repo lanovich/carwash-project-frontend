@@ -1,6 +1,6 @@
 import { CarType } from "@/entities/car/model";
 import { Service } from "@/entities/service/model";
-import { User } from "@/entities/user/model";
+import { User, Car } from "@/entities/user/model";
 
 export type ObjectType = CarType;
 
@@ -14,6 +14,7 @@ export interface BookingState {
   blockedServices: Record<string, true>;
 
   user: User;
+  car: Car;
 }
 
 export interface BookingRequest {
@@ -24,6 +25,7 @@ export interface BookingRequest {
   serviceIds: string[];
 
   user: User;
+  car: Car;
 }
 
 export interface BookingItem {
@@ -42,7 +44,8 @@ export interface BookingResponse {
   objectType: ObjectType;
   status: "pending" | "confirmed" | "canceled" | "completed";
   userId: string;
-  user?: User;
+  user: User;
+  car: Car;
   services?: Service[];
   items?: BookingItem[];
   createdAt: string;

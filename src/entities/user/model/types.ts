@@ -2,8 +2,11 @@ export interface User {
   name: string;
   phone: string;
   email?: string;
+}
+
+export interface Car {
   carModel?: string;
-  carColor?: string;
+  carColor: string;
   licensePlate?: string;
 }
 
