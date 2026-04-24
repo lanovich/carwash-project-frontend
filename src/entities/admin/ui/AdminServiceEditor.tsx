@@ -90,7 +90,7 @@ export const AdminServiceEditor = ({ service }: Props) => {
         id: service.id,
         data: { [fieldName]: valueToSend },
       }).unwrap();
-    } catch (error) {
+    } catch {
       toast.error(`Не удалось обновить ${fieldName}`);
     }
   };
@@ -106,9 +106,8 @@ export const AdminServiceEditor = ({ service }: Props) => {
         id: service.id,
         data: { resultDescriptions: newValues },
       }).unwrap();
-    } catch (error) {
+    } catch {
       toast.error("Не удалось обновить описание результата");
-      console.error("Failed to update resultDescriptions:", error);
     }
   };
 
@@ -118,7 +117,7 @@ export const AdminServiceEditor = ({ service }: Props) => {
     try {
       await deleteService(service.id).unwrap();
       toast.success("Услуга удалена");
-    } catch (error) {
+    } catch {
       toast.error("Не удалось удалить услугу");
     }
   };
@@ -130,7 +129,7 @@ export const AdminServiceEditor = ({ service }: Props) => {
         imageUrl: encodeURIComponent(url),
       }).unwrap();
       toast.success("Изображение удалено");
-    } catch (err) {
+    } catch {
       toast.error("Не удалось удалить изображение");
     }
   };

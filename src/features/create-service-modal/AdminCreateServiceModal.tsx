@@ -58,7 +58,7 @@ export const AdminServiceCreateModal = ({ defaultCategory }: Props) => {
       reset({ ...data, title: "" });
       setIsOpen(false);
       toast.success("Услуга создана");
-    } catch (err) {
+    } catch {
       toast.error("Не удалось создать услугу");
     }
   };

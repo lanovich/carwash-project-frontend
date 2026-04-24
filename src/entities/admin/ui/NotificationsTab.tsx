@@ -39,8 +39,9 @@ export const NotificationsTab = () => {
       }).unwrap();
       toast.success("Настройки уведомлений сохранены");
       reset(data);
-    } catch (error: any) {
-      toast.error(error.data?.message || "Ошибка при сохранении");
+    } catch (e) {
+      const error = e as { data?: { message?: string } };
+      toast.error(error?.data?.message || "Ошибка при сохранении");
     }
   };
 

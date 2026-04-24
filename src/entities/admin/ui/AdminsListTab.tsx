@@ -23,8 +23,9 @@ export const AdminsListTab = () => {
       await deleteAdmin(id).unwrap();
       toast.success("Администратор деактивирован");
       refetch();
-    } catch (error: any) {
-      toast.error(error.data?.message || "Ошибка при деактивации");
+    } catch (e) {
+      const error = e as { data?: { message?: string } };
+      toast.error(error?.data?.message || "Ошибка при деактивации");
     }
   };
 

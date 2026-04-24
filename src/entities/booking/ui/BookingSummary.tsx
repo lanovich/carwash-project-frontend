@@ -40,7 +40,7 @@ export const BookingSummary = () => {
 
   const canConfirm = !!date && !!time && services.length > 0 && !!objectType;
 
-  const handleConfirm = handleSubmit(async ({ carType, carModel, carColor, licensePlate, ...userData }) => {
+  const handleConfirm = handleSubmit(async ({ carModel, carColor, licensePlate, ...userData }) => {
     if (!canConfirm) return;
 
     const user = {
@@ -71,7 +71,8 @@ export const BookingSummary = () => {
       dispatch(resetBooking());
       reset(DEFAULT_CONTACT_FORM_VALUES);
       toast.success("Бронирование успешно создано!");
-    } catch (err: any) {
+    } catch (e) {
+      const err = e as { data?: { message?: string } };
       toast.error(err?.data?.message || "Ошибка при создании бронирования");
     }
   });

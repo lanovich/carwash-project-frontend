@@ -41,7 +41,8 @@ export const useAdminAuth = () => {
   const logout = useCallback(async () => {
     try {
       await serverLogout().unwrap();
-    } catch {
+    } catch (e) {
+      console.error(e);
     } finally {
       dispatch(logoutAction());
       setLoggedIn(false);

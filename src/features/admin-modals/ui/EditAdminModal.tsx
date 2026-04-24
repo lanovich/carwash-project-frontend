@@ -61,8 +61,9 @@ export const EditAdminModal = ({ admin, onClose, onSuccess }: Props) => {
       }).unwrap();
       toast.success("Администратор обновлён");
       onSuccess();
-    } catch (error: any) {
-      toast.error(error.data?.message || "Ошибка при обновлении");
+    } catch (e) {
+      const error = e as { data?: { message?: string } };
+      toast.error(error?.data?.message || "Ошибка при обновлении");
     }
   };
 

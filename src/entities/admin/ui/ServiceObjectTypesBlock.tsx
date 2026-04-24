@@ -37,7 +37,7 @@ export const ServiceObjectTypeBlock: React.FC<ServiceObjectTypeBlockProps> = ({
       setLocalPrices((prev) => ({ ...prev, [ot]: 0 }));
       setLocalDurations((prev) => ({ ...prev, [ot]: 0 }));
       toast.success("Тип ТС добавлен");
-    } catch (err) {
+    } catch {
       toast.error("Не удалось добавить тип ТС");
     }
   };
@@ -56,7 +56,7 @@ export const ServiceObjectTypeBlock: React.FC<ServiceObjectTypeBlockProps> = ({
         return copy;
       });
       toast.success("Тип ТС удалён");
-    } catch (err) {
+    } catch {
       toast.error("Не удалось удалить тип ТС");
     }
   };
@@ -69,7 +69,7 @@ export const ServiceObjectTypeBlock: React.FC<ServiceObjectTypeBlockProps> = ({
         objectType: ot,
         price: value,
       }).unwrap();
-    } catch (err) {
+    } catch {
       toast.error("Не удалось обновить цену");
     }
   };
@@ -82,7 +82,7 @@ export const ServiceObjectTypeBlock: React.FC<ServiceObjectTypeBlockProps> = ({
         objectType: ot,
         duration: value,
       }).unwrap();
-    } catch (err) {
+    } catch {
       toast.error("Не удалось обновить длительность");
     }
   };

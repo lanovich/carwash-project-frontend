@@ -9,7 +9,7 @@ export const formatPhone = (value: string): string => {
 
   if (!match) return "+7";
 
-  const [_, part1, part2, part3, part4] = match;
+  const [, part1, part2, part3, part4] = match;
 
   let result = "+7";
   if (part1) result += ` (${part1}`;

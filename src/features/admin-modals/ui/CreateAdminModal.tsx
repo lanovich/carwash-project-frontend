@@ -45,8 +45,9 @@ export const CreateAdminModal = ({ isOpen, onClose, onSuccess }: Props) => {
       toast.success("Администратор создан");
       reset();
       onSuccess();
-    } catch (error: any) {
-      toast.error(error.data?.message || "Ошибка при создании");
+    } catch (e) {
+      const error = e as { data?: { message?: string } };
+      toast.error(error?.data?.message || "Ошибка при создании");
     }
   };
 

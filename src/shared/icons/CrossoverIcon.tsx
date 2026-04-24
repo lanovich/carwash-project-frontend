@@ -3,13 +3,11 @@ import { SVGProps } from "react";
 interface IconProps extends SVGProps<SVGSVGElement> {
   color?: string;
   size?: number | string;
-  strokeWidth?: number;
 }
 
 export const CrossoverIcon = ({
   color = "currentColor",
   size = 40,
-  strokeWidth = 2,
   ...props
 }: IconProps) => (
   <svg

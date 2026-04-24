@@ -74,7 +74,9 @@ export const adminApi = createApi({
         try {
           const { data } = await queryFulfilled;
           dispatch(setAccessToken(data.accessToken));
-        } catch {}
+        } catch (e) {
+          console.error(e);
+        }
       },
     }),
     refresh: builder.mutation<RefreshResponse, void>({
