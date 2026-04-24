@@ -15,8 +15,8 @@ export const AboutCarwash = () => {
           </p>
         </div>
 
-        <div className="flex flex-col xl:flex-row w-full gap-4 h-full">
-          <article className="xl:w-2/3 w-full">
+<div className="flex flex-col xl:flex-row w-full gap-4 h-full">
+          <article className="xl:w-2/3 w-full h-[300px] sm:h-[400px]">
             <YandexMap className="w-full h-full" />
           </article>
 

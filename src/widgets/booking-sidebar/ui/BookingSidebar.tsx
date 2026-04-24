@@ -34,7 +34,7 @@ export const BookingSidebar = () => {
   return (
     <FormProvider {...methods}>
       <section
-        className={cn("flex flex-col gap-6 w-full xl:w-2/5 sticky top-4")}
+        className={cn("flex flex-col gap-6 w-full xl:w-2/5 sticky top-20")}
       >
         <Article title="Информация о вас">
           <ContactForm />
