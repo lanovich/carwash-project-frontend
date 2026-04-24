@@ -15,10 +15,42 @@ interface RefreshResponse {
   accessToken: string;
 }
 
+export interface Admin {
+  id: string;
+  login: string;
+  email: string | null;
+  role: string;
+  isActive: boolean;
+  notifyOnBooking: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateAdminRequest {
+  login: string;
+  password: string;
+  email?: string;
+  notifyOnBooking?: boolean;
+}
+
+export interface UpdateAdminRequest {
+  login?: string;
+  email?: string;
+  isActive?: boolean;
+  notifyOnBooking?: boolean;
+}
+
+export interface UpdateMeRequest {
+  login?: string;
+  email?: string;
+  password?: string;
+  notifyOnBooking?: boolean;
+}
+
 export const adminApi = createApi({
   reducerPath: "adminApi",
   baseQuery: baseQueryWithReauth,
-  tagTypes: ["Services"],
+  tagTypes: ["Services", "Admins"],
   endpoints: (builder) => ({
     login: builder.mutation<LoginResponse, LoginRequest>({
       query: (credentials) => ({
@@ -47,8 +79,54 @@ export const adminApi = createApi({
     logout: builder.mutation<void, void>({
       query: () => ({ url: "/admin/logout", method: "POST" }),
     }),
+    getMe: builder.query<Admin, void>({
+      query: () => ({ url: "/admin/me", method: "GET" }),
+    }),
+    updateMe: builder.mutation<Admin, UpdateMeRequest>({
+      query: (body) => ({
+        url: "/admin/me",
+        method: "PATCH",
+        body,
+      }),
+    }),
+    getAllAdmins: builder.query<Admin[], void>({
+      query: () => ({ url: "/admin/admins", method: "GET" }),
+      providesTags: ["Admins"],
+    }),
+    createAdmin: builder.mutation<Admin, CreateAdminRequest>({
+      query: (body) => ({
+        url: "/admin/admins",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["Admins"],
+    }),
+    updateAdmin: builder.mutation<Admin, { id: string; data: UpdateAdminRequest }>({
+      query: ({ id, data }) => ({
+        url: `/admin/admins/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["Admins"],
+    }),
+    deleteAdmin: builder.mutation<Admin, string>({
+      query: (id) => ({
+        url: `/admin/admins/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Admins"],
+    }),
   }),
 });
 
-export const { useLoginMutation, useLogoutMutation, useRefreshMutation } =
-  adminApi;
+export const {
+  useLoginMutation,
+  useLogoutMutation,
+  useRefreshMutation,
+  useGetMeQuery,
+  useUpdateMeMutation,
+  useGetAllAdminsQuery,
+  useCreateAdminMutation,
+  useUpdateAdminMutation,
+  useDeleteAdminMutation,
+} = adminApi;

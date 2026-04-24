@@ -1,7 +1,11 @@
-export * from "./"
+export * from "./AdminPageContent";
 export * from "./AdminServiceAccordion";
 export * from './AdminServiceEditor';
 export * from "./ServiceObjectTypeCard";
 export * from "./ServiceObjectTypesBlock";
 export * from "./BookingAdminCard";
 export * from "./BookingAdminList";
+export { BookingsTab } from "./BookingsTab";
+export { ServicesTab } from "./ServicesTab";
+export { AdminTabs } from "./AdminTabs";
+export { AdminsListTab } from "./AdminsListTab";
